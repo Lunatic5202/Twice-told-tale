@@ -372,9 +372,10 @@ def to_python_cond(cond: str) -> str:
 # --------------------------------------------------------------------------
 
 class Renderer:
-    def __init__(self, report: bool):
+    def __init__(self, report: bool, scene_transition=None):
         self.out = []
         self.report = report
+        self.scene_transition = scene_transition
         self.menu_counter = 0
         self.unmapped_bg = set()
         self.unmapped_cg = set()
@@ -399,6 +400,8 @@ class Renderer:
                 img = auto_key(text, "x_bg")
                 self.auto_images[("bg", img)] = text
             self.emit(indent, "scene bg %s  # TODO(parser): %s" % (img, self._comment(text)))
+            if self.scene_transition:
+                self.emit(indent, "with %s" % self.scene_transition)
         elif kind == "CG":
             img = cg_image(text)
             if img == "todo":
@@ -406,6 +409,8 @@ class Renderer:
                 img = auto_key(text, "x_cg")
                 self.auto_images[("cg", img)] = text
             self.emit(indent, "scene cg %s  # TODO(parser): %s" % (img, self._comment(text)))
+            if self.scene_transition:
+                self.emit(indent, "with %s" % self.scene_transition)
         elif kind == "MUSIC":
             music = music_key(text)
             if music:
@@ -449,7 +454,7 @@ class Renderer:
 # Driver
 # --------------------------------------------------------------------------
 
-def render(text: str, exclude, report=False):
+def render(text: str, exclude, report=False, scene_transition=None):
     # Trim front matter: start at "Prologue: Marginalia".
     idx = text.find("Prologue: Marginalia")
     if idx != -1:
@@ -461,7 +466,7 @@ def render(text: str, exclude, report=False):
             text = text[:cut]
             break
     units = tokenize(text)
-    r = Renderer(report)
+    r = Renderer(report, scene_transition)
 
     current_label = None
     scene_location = ""
@@ -749,6 +754,8 @@ def main():
     ap.add_argument("--no-exclude", action="store_true",
                     help="do not exclude already-written slice labels")
     ap.add_argument("--report", action="store_true", help="print cue inventory")
+    ap.add_argument("--scene-transition", default=None,
+                    help="emit `with <name>` after each scene change (e.g. ink_dissolve)")
     args = ap.parse_args()
 
     text = open(args.script, encoding="utf-8").read()
@@ -763,7 +770,8 @@ def main():
                 if (int(m.group(2)), int(m.group(3))) < cut:
                     exclude.add(lab)
 
-    r = render(text, exclude, report=args.report)
+    r = render(text, exclude, report=args.report,
+               scene_transition=args.scene_transition)
 
     if args.report:
         print("== Unmapped BG ==")

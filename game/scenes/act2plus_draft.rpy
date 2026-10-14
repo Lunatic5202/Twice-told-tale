@@ -45,11 +45,13 @@ label act2_2_1:
     $ set_page(21, 9)
     $ show_title("DAY 9 · SCENE 2.1\nThe Margin Door")
     scene bg x_bg_a_corridor_of_mist_and  # TODO(parser): A corridor of mist and wet stone. The gold ink at the edges of the world glows faintly. Rain that makes no sound.
+    with scene_fade
     play music audio.page_walk fadein 2.0  # “Page-Walk”: a harp, glass chimes, very far away.
     nahida "(voice only, from the other side) You can see, but not touch. Nothing you do will change what happened. But what you feel leaves a mark on the page."
     nahida "When the ink cracks, someone has been hurt. Be careful what you stand in."
     # Ahead, a wooden veranda emerges from the mist. A hidden mansion, half swallowed by moss and ferns. A single lantern burns inside.
     scene bg x_bg_shakkei_pavilion_kannazuka_long_ago  # TODO(parser): Shakkei Pavilion. Kannazuka, long ago.
+    with scene_fade
     echo "I know this place."
     mc "You do?"
     echo "I know the ceiling. I counted the cracks in it. There are three hundred and eleven."
@@ -62,11 +64,14 @@ label act2_2_2:
     # SCENE 2.2 · The Sleeping Room
     $ show_title("SCENE 2.2\nThe Sleeping Room")
     scene bg x_bg_a_tatami_room_paper_screens  # TODO(parser): A tatami room, paper screens, a single futon. On it lies a puppet with short dark-blue hair and a red line at the corner of each eye. The joints at his elbows a
+    with scene_fade
     scene cg ending_wanderer  # TODO(parser): The sleeping puppet. A tear on his cheek.
+    with scene_fade
     play music audio.slumber fadein 2.0  # “Slumber”: solo shamisen, then silence.
     echo "(very quiet) Hm. They made me smaller than I remember."
     # Footsteps. The screens slide open. Two women enter. One in purple and silver, her expression a grief held very still. The other in white and red, ears forward, a small curve to her mouth.
     scene cg x_cg_raiden_ei_and_yae_miko  # TODO(parser): Raiden Ei and Yae Miko, standing over the sleeper.
+    with scene_fade
     n "MIKO: Here it is. The prototype."
     ei "He is weeping."
     n "MIKO: Puppets don’t weep."
@@ -117,6 +122,7 @@ label act2_2_3:
     $ set_page(20, 10)
     $ show_title("DAY 10 · SCENE 2.3\nThe Threshold")
     scene bg x_bg_the_veranda_the_wanderer_has  # TODO(parser): The veranda. The Wanderer has not moved. He is looking at his own hands.
+    with scene_fade
     play music audio.what_he_kept fadein 2.0  # “What He Kept”: low strings.
     wanderer "You didn’t need to see that."
     mc "Neither did you."
@@ -131,6 +137,7 @@ label act2_2_4:
     $ set_page(19, 11)
     $ show_title("DAY 11 · SCENE 2.4\nThe Archive Annex · Night")
     scene bg annex_night  # TODO(parser): Lamp light, the Folio closed on the table. The Echo sits on the floor with his back to a bookcase, the gold feather turning in his fingers.
+    with scene_fade
     play music audio.three_hundred_and_eleven fadein 2.0  # “Three Hundred and Eleven”: a music box, played badly on purpose.
     echo "I woke up."
     echo "Nobody did it for me. I woke up by myself, in the dark, and there was no one. So I counted the ceiling. I counted it again. Three hundred and eleven."
@@ -161,6 +168,7 @@ label act2_2_4:
         n "Act 2, Page-Walk Two: Tatarasuna Betrayal of family. The Wanderer steps two paces inside."
         n "DAY 12 · INTERLUDE · The Akademiya Corridor (18 pages left)"
         scene bg annex_night  # TODO(parser): A long corridor of green stone. Students rush past with armfuls of scrolls.
+        with scene_fade
         play music audio.rumors fadein 2.0  # “Rumors”: a clarinet, thin and wary.
         # Two students whisper at a window.
         student "...a Fatui doctor. Asking about old Irminsul records. Nobody’s seen his face."
@@ -172,12 +180,14 @@ label act2_2_5:
     $ set_page(17, 13)
     $ show_title("DAY 13 · SCENE 2.5\nThe Margin Door, Second Page")
     scene bg x_bg_a_path_of_black_cinders  # TODO(parser): A path of black cinders under a copper sky. A smell of iron, smoke, and cooling water.
+    with scene_fade
     play music audio.tatarasuna fadein 2.0  # “Tatarasuna”: low taiko pulse, a hammer keeping time.
     nahida "(voice only) This is the second room."
     # The Wanderer, behind them, takes one step across the doorway. Then a second. Then stops.
     wanderer "I’ll go as far as I can."
     echo "(without turning) That’s one more than last time."
     scene bg x_bg_the_mikage_furnace_huge_and  # TODO(parser): The Mikage Furnace, huge and red against the dusk. Workers moving in and out. The sound of a hundred small hammers.
+    with scene_fade
 
 label act2_2_6:
     # SCENE 2.6 · The Forge
@@ -200,8 +210,10 @@ label act2_2_7:
     # SCENE 2.7 · The Night of the Blade
     $ show_title("SCENE 2.7\nThe Night of the Blade")
     scene bg x_bg_the_same_yard_at_night  # TODO(parser): The same yard at night, hung with lanterns. A long, beautiful blade lies on the anvil, still glowing along its edge. The whole crew is there, drunk on tea and r
+    with scene_fade
     play music audio.sword_dance fadein 2.0  # “Sword Dance”: shamisen and drum, joyous and a little reckless.
     scene cg niwa_note  # TODO(parser): The Daitatara Nagamasa on its stand. Beside it, a young puppet and Katsuragi, mid- dance, swords flashing. Niwa clapping the rhythm. Nozomu sketching the blade 
+    with scene_fade
     niwa "(shouting over the music) Kabukimono! Show them how a wanderer dances!"
     # Beside MC, the Echo’s foot is tapping the beat. He has not noticed.
 
@@ -230,6 +242,7 @@ label act2_2_8:
     # SCENE 2.8 · A Visitor with a Kind Face
     $ show_title("SCENE 2.8\nA Visitor with a Kind Face")
     scene bg x_bg_morning_at_the_furnace_a  # TODO(parser): Morning at the furnace. A tall man in a long coat and round glasses, a Fontaine hat tipped over one eye, is explaining a diagram to a crowd of workers.
+    with scene_fade
     play music audio.escher fadein 2.0  # “Escher”: a clean, polite piano motif with something wrong underneath.
     escher "A little crystal marrow in the charge. You’ll find the steel runs hotter, cleaner, faster. Think how many more blades you could make."
     niwa "(arms crossed) It’s a lot of promises for one lump of rock."
@@ -246,11 +259,13 @@ label act2_2_9:
     $ set_page(16, 14)
     $ show_title("DAY 14 · SCENE 2.9\nThe Plague of Tatarasuna")
     scene bg rooftop_night  # TODO(parser): Rows of cots under an open roof. Workers lying on them, gray in the face. Women with wet cloths. A fog of ash.
+    with scene_fade
     play music audio.smoke fadein 2.0  # “Smoke”: a single bowed string, distorted.
     n "The crystal marrow is the remains of a serpent. It was never going to burn clean."
     # The puppet runs along the cots, bare feet gone black with soot. He is carrying a bundle of wet cloth.
     echo "I went to the shrine. They told me to."
     scene bg x_bg_the_grand_narukami_shrine_at  # TODO(parser): The Grand Narukami Shrine at night. A fox-eared woman in white and red, alone on the steps. The puppet kneels before her with ash in his hair.
+    with scene_fade
     n "MIKO: The Shogun is not receiving anyone. She has sealed herself away."
     puppet "(very small) They are dying. Please."
     n "MIKO: (a long pause) I’ll send help. Immediately."
@@ -263,11 +278,13 @@ label act2_2_10:
     # SCENE 2.10 · The Page as He Remembers It
     $ show_title("SCENE 2.10\nThe Page as He Remembers It")
     scene bg x_bg_the_same_yard_tinted_dark  # TODO(parser): The same yard, tinted dark red, edges warped like old glass. Everyone is shouting without sound.
+    with scene_fade
     play music audio.what_i_remember fadein 2.0  # “What I Remember”: the Escher motif, played slowly and wrongly.
     escher "(smooth, sad) I’m very sorry. Niwa has fled. He took his family in the night and left you all to this."
     # A wooden box is pressed into the puppet’s hands.
     escher "The furnace needs purging. Take this to the heart of it. You’re the only one who can survive it."
     scene cg x_cg_the_puppet_walks_into_the  # TODO(parser): The puppet walks into the heart of the furnace carrying the box, light pouring around him.
+    with scene_fade
     # TODO(parser sfx): A roar that goes on too long. Then silence.
     # He comes out. He is alive. The box is open. Inside lies a small, withered, human heart.
     escher "(softly) From a man Niwa killed. For you. He knew what you wanted."
@@ -281,6 +298,7 @@ label act2_2_11:
     # The red fades. The ink on the page turns white, then silver. The warping stops. Everything is suddenly, painfully clear.
     play music audio.what_was_written fadein 2.0  # “What Was Written”: solo cello, bare.
     scene bg x_bg_the_furnace_room_the_night  # TODO(parser): The furnace room, the night before. Niwa alone with a device of crystal and brass. He is tired. He is not afraid.
+    with scene_fade
     niwa "(to himself) If I go into the heart of it, I can hold it steady. Long enough. Just long enough."
     # He sets his hand against the device. A second shadow falls across the floor. Escher, in the doorway, glasses catching the light.
     escher "That is a very generous plan, Niwa. Unfortunately I need your heart more than your courage."
@@ -288,6 +306,7 @@ label act2_2_11:
     # TODO(parser sfx): The furnace. Then nothing.
     # Later. Niwa’s workbench, the hammer still on it. A scrap of paper under the hammer.
     scene cg niwa_note  # TODO(parser): Niwa’s note. “Kid—if you’re reading this, I didn’t go. Hold the hammer like a bird. I’ll be right back.”
+    with scene_fade
     echo "..."
     # He doesn’t move. He doesn’t speak. The ink at his feet begins to crack.
     echo "He did not leave."
@@ -337,6 +356,7 @@ label act2_2_12:
     $ set_page(13, 17)
     $ show_title("DAY 17 · SCENE 2.12\nThe Archive Annex · Dawn")
     scene bg annex_dawn  # TODO(parser): The annex, gray light. The Echo sits on the floor holding the gold feather. The Wanderer sits with his back against the same bookcase, arm’s length away, saying
+    with scene_fade
     play music audio.quiet fadein 2.0  # “Quiet”: almost silence, a faint wind.
     echo "There’s a third door."
     wanderer "There is."
@@ -371,6 +391,7 @@ label act2_2_13:
     $ set_page(12, 18)
     $ show_title("DAY 18 · SCENE 2.13\nThe Margin Door, Third Page")
     scene bg x_bg_the_corridor_of_mist_again  # TODO(parser): The corridor of mist again, but quieter. Fine snow drifts through it, sound-free.
+    with scene_fade
     play music audio.the_boy fadein 2.0  # “The Boy”: a lullaby on a thin flute, almost too slow to follow.
     nahida "(voice only) The third room is the smallest. I’m sorry for that."
     # This time the Wanderer does not stop at the door. He walks through and falls into step beside the Echo, not touching him, close enough to.
@@ -383,6 +404,7 @@ label act2_2_14:
     # SCENE 2.14 · A House at the Edge of Tatarasuna
     $ show_title("SCENE 2.14\nA House at the Edge of Tatarasuna")
     scene bg rooftop_night  # TODO(parser): A tiny wooden house on the rim of the village, lit by a single window. Snow on the roof. A kettle on a small stove.
+    with scene_fade
     # A boy of about eight sits propped against pillows, wrapped in a blanket twice his size. A barefoot puppet is trying, and failing, to cook rice.
     boy "You’re doing it wrong again."
     puppet "I am following the instructions."
@@ -396,6 +418,7 @@ label act2_2_14:
     # Inside, the boy has stopped coughing. He pulls a crumpled paper from under his pillow and holds it up.
     boy "I drew it. For when the sickness is gone."
     scene cg x_cg_a_child_s_drawing_of  # TODO(parser): A child’s drawing of a house by the sea. Two small figures in the doorway. A hat, a teapot, a very large sun.
+    with scene_fade
     boy "You’ll live there. With me. As family."
     puppet "I’m a puppet."
     boy "I know."
@@ -405,18 +428,22 @@ label act2_2_14:
     boy "Promise. We’ll live together. Always."
     # The puppet stares at the finger. After a long moment, he hooks his own around it.
     scene cg hooked_pinkies  # TODO(parser): Two little fingers hooked together. The warm window light behind them.
+    with scene_fade
     puppet "...Promise."
 
 label act2_2_15:
     # SCENE 2.15 · The Long Winter
     $ show_title("SCENE 2.15\nThe Long Winter")
     scene bg x_bg_a_montage_in_gray_and  # TODO(parser): A montage in gray and amber: the puppet on mountain paths in the snow, digging for roots, bargaining with a herbalist, running back with a satchel in his arms.
+    with scene_fade
     play music audio.six_days fadein 2.0  # “Six Days”: the lullaby, now with a heartbeat under it, getting faster.
     echo "I ran for six days. I found every herb the village had a name for."
     echo "I came back on the sixth night."
     scene bg x_bg_the_small_house_snow_knee  # TODO(parser): The small house, snow knee-deep around it. The window is dark.
+    with scene_fade
     # The puppet stands in the doorway, holding the satchel. He doesn’t come in.
     scene cg empty_bed  # TODO(parser): The empty bed. The drawing, laid neatly on the pillow. The blanket folded.
+    with scene_fade
     # The ink around the puppet cracks. Then the ink around the Echo cracks. They are the same crack.
     echo "He promised."
     echo "He was eight. He wasn’t allowed to promise a thing like that. No one is. No one should be allowed to promise a thing like that to someone who won’t die."
@@ -449,6 +476,7 @@ label act2_2_16:
     # SCENE 2.16 · The Promise
     $ show_title("SCENE 2.16\nThe Promise")
     scene bg x_bg_the_house_at_dawn_the  # TODO(parser): The house at dawn. The three of them stand in the snow outside. The tale’s ink is thin and pale, ready to close.
+    with scene_fade
     play music audio.a_smaller_promise fadein 2.0  # “A Smaller Promise”: solo flute, one clear line.
     echo "Promises are what people say to feel better about leaving."
     echo "Every one I’ve heard has been a lie, or a mistake, or a funeral."
@@ -489,6 +517,7 @@ label act2_2_17:
     $ set_page(9, 21)
     $ show_title("DAY 21 · SCENE 2.17\nThe Archive Annex · Night")
     scene bg annex_night  # TODO(parser): The annex. Rain on the windows again. A kettle steaming. The three of them around the low table, a pot of tea between them.
+    with scene_fade
     play music audio.warm_table fadein 2.0  # “Warm Table”: the cello from the dining scene, brighter now.
     # The Echo takes the cup. No sugar. He drinks it all the way down.
     wanderer "You didn’t spit it out."
@@ -511,6 +540,7 @@ label act3_3_1:
     $ set_page(8, 22)
     $ show_title("DAY 22 · SCENE 3.1\nSumeru City, the Akademiya Steps · Morning")
     scene bg x_bg_the_akademiya_at_dawn_green  # TODO(parser): The Akademiya at dawn. Green glass, white stone, scholars crossing the plaza with armfuls of paper. Too orderly. Too bright.
+    with scene_fade
     play music audio.clean_instruments fadein 2.0  # “Clean Instruments”: sterile piano, a metronome underneath.
     # The Wanderer is walking half a step ahead of you. The Echo is a shade at your shoulder, visible only as a tint in the air where he stands.
     wanderer "Stay between us. Don’t speak to anyone in a white coat."
@@ -520,6 +550,7 @@ label act3_3_1:
     echo "He wants to be found. He doesn’t do anything he doesn’t want observed."
     # A courier in a gray coat crosses the plaza and presses a small flat case into your hands before you can step away. He is gone into the crowd by the time you look up.
     scene cg black_case  # TODO(parser): A plain black case with a brass hasp. On the lid, a single line of neat handwriting: “For the Archivist. Do open it.”
+    with scene_fade
     wanderer "Don’t."
     echo "(softly) Open it."
 
@@ -549,6 +580,7 @@ label act3_3_1:
         wanderer "That’s ours."
         echo "(a sound that is almost a laugh) Don’t. Don’t make it ours now."
         scene cg gnosis_violet  # TODO(parser): The Gnosis: a lens of pale violet glass, lit from within, in a bed of velvet. A thin crack runs along the lower edge.
+        with scene_fade
         # A note lies folded beneath it.
         note "Archivist. You stole my half-written book and left me the ledger. Come to the Hall of Science tonight. Come alone, or the Gnosis stays in my drawer. I only want to talk. —D."
 
@@ -556,6 +588,7 @@ label act3_3_2:
     # SCENE 3.2 · The Annex · Afternoon
     $ show_title("SCENE 3.2\nThe Annex · Afternoon")
     scene bg annex_day  # TODO(parser): The archive annex, shutters half-closed. Nahida sits cross-legged on the low table. Tighnari stands at the door with arms folded, ears flat. Cyno leans against 
+    with scene_fade
     tighnari "It’s a trap. The cleanest, most transparent trap in Sumeru. Do not go."
     cyno "If you do go, I stand outside the door. That’s not a request."
     nahida "The Gnosis is the bait, but it is not what he wants. He wants what the Folio has become."
@@ -593,6 +626,7 @@ label act3_3_3:
     $ set_page(7, 24)
     $ show_title("DAY 24 · SCENE 3.3\nThe Hall of Science · Night")
     scene bg x_bg_a_long_white_laboratory_glass  # TODO(parser): A long white laboratory, glass tubes humming, a tall figure in a white coat with his back turned. He is writing on a wall of glass with a pen that squeaks.
+    with scene_fade
     play music audio.the_doctor_s_hour fadein 2.0  # “The Doctor’s Hour”: a clean harpsichord line, played perfectly and with no warmth.
     dottore "(without turning) You came. Delightful. I had a wager with myself that you wouldn’t."
     dottore "(turning) The Folio-mender. And the Wanderer, of course. And... ah. There. There. Look at that shimmer behind your shoulder."
@@ -650,8 +684,10 @@ label act3_3_4:
     $ show_title("SCENE 3.4\nThe Locked Room")
     play sound audio.sfx_glass  # Glass, rotating. A hiss. A door sealing.
     scene bg x_bg_the_laboratory_lights_drop_every  # TODO(parser): The laboratory lights drop. Every tube goes dark but one. The walls become shutters. You’re inside a glass cube.
+    with scene_fade
     dottore "(over a speaker, cheerful) I did say I only wanted to talk. I never promised you’d leave while we did."
     scene cg glass_cell  # TODO(parser): You, in a glass cell, the Folio clutched under one arm. Outside, the Wanderer slams a palm on the wall. Cyno’s silhouette strains against a locked door. The Ech
+    with scene_fade
     wanderer "(muffled) Let her out!"
     dottore "The Folio, please. The remaining pages are the only thing I need. Slide it through the slot. After that, the Gnosis and the draught are yours."
     echo "(barely audible, behind the glass) Don’t. Please don’t. He’ll tear the last three pages out and burn the rest."
@@ -692,11 +728,13 @@ label act3_3_5:
     # SCENE 3.5 · The Echo Breaks the Glass
     $ show_title("SCENE 3.5\nThe Echo Breaks the Glass")
     scene bg x_bg_the_laboratory_flickering_the_wanderer  # TODO(parser): The laboratory, flickering. The Wanderer and the Echo are both pressed to the glass from outside, one solid, one a violet shimmer: two palms, mirrored.
+    with scene_fade
     echo "I can’t do this alone. I haven’t the strength."
     wanderer "(through the glass) Then use mine."
     echo "You’ve never offered before."
     wanderer "I’ve never needed to."
     scene cg two_palms  # TODO(parser): Two hands, one real and one a shadow, laid flat on the same pane. A bright electric seam appears between them and spreads.
+    with scene_fade
     play sound audio.sfx_glass  # Glass shattering. A thunderclap, not from the sky. A roar of violet light, followed by silence.
     # The glass cube falls in a cascade of bright dust.
     # And in the dust, for the first time, the two of them are standing side by side in the same room: the Wanderer’s body, and the Echo, visible and solid, to every eye in the laboratory. It lasts four seconds. It looks like both of them are about to fall over.
@@ -714,6 +752,7 @@ label act3_3_6:
     $ set_page(6, 25)
     $ show_title("DAY 25 · SCENE 3.6\nThe Annex · Dawn")
     scene bg annex_dawn  # TODO(parser): The annex. Rain has stopped. Gray light. Everyone has gone home except the three of you.
+    with scene_fade
     play music audio.what_we_can_t_take_back fadein 2.0  # “What We Can’t Take Back”: a single low cello.
     # The Echo is solid, and cannot stop looking at his own hands.
     echo "He used us. We did exactly what he wanted."
@@ -758,6 +797,7 @@ label act3_3_7:
     $ set_page(4, 27)
     $ show_title("DAY 27 · SCENE 3.7\nThe Rooftop of the Annex · Evening")
     scene bg rooftop_night  # TODO(parser): The rooftop. Rain-washed stars. The city quiet below. You, alone, with the Folio open on your knees.
+    with scene_fade
     play music audio.three_pages fadein 2.0  # “Three Pages”: piano, spare, patient.
     # The Folio has three pages left that aren’t torn or inked, and the Doctor’s torn corner is stitched onto the margin with a thread of his own cold handwriting. The thread is shaped like a clean signature.
     # Nahida appears at the stair door, very small against the dark.
@@ -777,6 +817,7 @@ label act4_4_1:
     $ set_page(3, 28)
     $ show_title("DAY 28 · SCENE 4.1\nThe Archive Annex · Evening")
     scene bg annex_evening  # TODO(parser): The annex, lamplit. The Folio lies open on the table, its three last pages white. The Wanderer sits across from you, hat in his hands. He has not put it on in a
+    with scene_fade
     play music audio.what_i_never_said fadein 2.0  # “What I Never Said”: solo piano, slow, one hand.
     n "If PEN ≥ 3 (Bad Route Warning): [[The margins of the Folio smolder, a thin orange line eating inward. The ink obeys a clean, cold hand that isn’t yours. The Wanderer sees it before you do.]"
     wanderer "(low) Quill, the page is burning."
@@ -796,6 +837,7 @@ label act4_4_1:
     echo "Again."
     wanderer "I’m sorry. I’m sorry I left you in there."
     scene cg x_cg_the_echo_head_bowed_shoulders  # TODO(parser): The Echo, head bowed, shoulders shaking. The Wanderer has half-risen, hand stretched toward him, not quite touching.
+    with scene_fade
 
     # CHOICE: The silence that follows.
     menu:
@@ -828,6 +870,7 @@ label act4_4_2:
     $ set_page(2, 29)
     $ show_title("DAY 29 · SCENE 4.2\nThe Roof of the Archive · Night")
     scene bg rooftop_night  # TODO(parser): The roof, the night before the last dawn. A clear sky, the Milky Way of Sumeru in full. The Echo is sitting on the parapet, legs dangling. He has been there for
+    with scene_fade
     play music audio.the_last_evening fadein 2.0  # “The Last Evening”: the lullaby from Act 2, now in a major key. It is almost unbearable.
     echo "My turn."
     echo "I have a lie to unravel, and I want you to be the one who hears it. Not him. You."
@@ -879,10 +922,12 @@ label act4_4_3:
     $ set_page(1, 30)
     $ show_title("DAY 30 · SCENE 4.3\nThe Archive Door · Dawn")
     scene bg annex_dawn  # TODO(parser): The archive door at the first gray light. Mist. A thin gold line at the horizon. The air smells of wet stone and cold tea.
+    with scene_fade
     play music audio.the_old_dawn fadein 2.0  # “The Old Dawn”: strings rising from nothing, a drumbeat, soft, in the distance.
     # You stand at the door. The Folio is under your arm. Behind you, the Wanderer and the Echo stand shoulder to shoulder, in the same weak light.
     # The street is empty. Then it isn’t.
     scene cg doctor_lane  # TODO(parser): The Doctor, in his white coat, at the end of the lane. Behind him, a line of gray-masked figures. In his hand, a pale violet glass lens with a hairline crack: t
+    with scene_fade
     dottore "Good morning. You kept your promise. How quaint."
     dottore "I’ll make this brief. The Folio, the last page, and the Echo’s seal. In return, the Wanderer lives. The Echo is... filed."
     wanderer "(stepping forward) Try it."
@@ -898,6 +943,7 @@ label act4_4_4:
     # SCENE 4.4 · The Last Page · The Choice
     $ show_title("SCENE 4.4\nThe Last Page · The Choice")
     scene bg x_bg_everything_white_page_and_street  # TODO(parser): Everything white. Page and street are the same color. Two figures stand on either side of you, and beyond them, the Doctor’s silhouette, small and distant.
+    with scene_fade
     # TODO(parser music): A single sustained chord. Nothing else.
     # Several lines wait on the page, unsigned. They are the ways the tale can end.
     # THE LAST CHOICE. Gate checks are hidden and applied automatically, unless noted.
@@ -938,6 +984,7 @@ label act4_4_4:
 label ending_shared_beat:
     # SHARED BEAT · The Doctor Loses
     scene bg x_bg_white_then_the_street_the  # TODO(parser): White, then the street, the same gray dawn. The Doctor stands where he stood, but the Gnosis in his hand is dark.
+    with scene_fade
     play music audio.reprise_clean_instruments fadein 2.0  # “Reprise: Clean Instruments”: the sterile piano, cracking.
     dottore "(for the first time, not smiling) That isn’t possible. The seal was mine."
     nahida "(quietly) You wrote a book without the one thing a book needs, Doctor. A reader."
@@ -950,6 +997,7 @@ label ending_shared_beat:
 label ending_wanderer:
     # ENDING A · THE WANDERER ENDING · “Her Name”
     scene bg annex_day  # TODO(parser): The archive, a week later. Sunlight. The shutters thrown open.
+    with scene_fade
     play music audio.a_name_is_a_small_thing fadein 2.0  # “A Name Is a Small Thing”: warm woodwinds, a light step.
     # You write the Wanderer’s name on the last line, in full. The ink holds.
     # The air goes quiet. Beside the Wanderer, the shimmer of the Echo thins to a breath, then to a light, then to a mark on the page, and the Echo steps back, not erased but settled. He smiles. It isn’t unkind.
@@ -958,6 +1006,7 @@ label ending_wanderer:
     echo "I’ll be there. I’m in the sleeve of your coat. In the way you hold your tea. In the thing you think at three in the morning that you won’t say out loud."
     echo "That’s more of a home than I ever had."
     scene cg ending_wanderer  # TODO(parser): The Echo’s hand lifted to the Wanderer’s cheek, and fading as it does. The Wanderer’s own hand closing over it.
+    with scene_fade
     # Weeks later, the Wanderer sits alone at the annex table. He has made two cups of tea. He drinks one. He leaves the other, steaming, on the other side.
     wanderer "(to the empty chair) ...It’s not sugary."
     # The cup is empty when he looks back. Neither of them is surprised.
@@ -970,6 +1019,7 @@ label ending_wanderer:
 label ending_scaramouche:
     # ENDING B · THE SCARAMOUCHE ENDING · “The Lamp-Keeper”
     scene bg annex_day  # TODO(parser): The archive, a week later. The lamps lit in the middle of the day.
+    with scene_fade
     play music audio.what_he_built_from_nothing fadein 2.0  # “What He Built From Nothing”: a solo cello, gradually joined by a guitar.
     # You write the Echo’s name. His real one. The one he gave you in the dark, in the first week, and told you to forget.
     # The Wanderer’s shoulders drop. For a heartbeat he looks frightened, as someone does before a door they chose to walk through. Then he exhales.
@@ -977,6 +1027,7 @@ label ending_scaramouche:
     echo "(startled) I was?"
     wanderer "I just let you carry the volume. I’m tired. I’d like to rest. It’s... all right to rest, now."
     scene cg ending_scaramouche  # TODO(parser): The Wanderer, his hat held in both hands, looking suddenly very young. The Echo stands beside him. A single thread of light runs between their chests, and then 
+    with scene_fade
     # The Wanderer passes the hat to him. It is the only goodbye he knows how to give.
     echo "(thickly) I won’t wear this."
     wanderer "You will. You’ll hate how it fits."
@@ -992,6 +1043,7 @@ label ending_scaramouche:
 label ending_true:
     # ENDING C · THE TRUE ENDING · “The Passenger”
     scene bg x_bg_white_the_white_of_a  # TODO(parser): White. The white of a page not yet written.
+    with scene_fade
     # TODO(parser music): A single cello note, held. Then the lullaby from the little house, in full orchestra, for the first and only time.
     # You set the pen down on the page.
     mc "I’m not going to write it."
@@ -1004,6 +1056,7 @@ label ending_true:
     echo "We’ve been shouting for thirty days. That’s a different thing."
     # A pause. Then both of them, at the same time, begin to laugh, helplessly, the way two people do at the end of a very long funeral.
     scene cg x_cg_the_wanderer_and_the_echo  # TODO(parser): The Wanderer and the Echo, seated on the white floor of the page, facing each other. Between them, the pen. Neither has touched it. Both are smiling.
+    with scene_fade
     # They pick it up together. Two hands on one pen. They write.
     play sound audio.sfx_pen  # A pen, scratching. Slow. Sure.
     wanderer "(reading, aloud) There was once a boy who was split in two."
@@ -1012,6 +1065,7 @@ label ending_true:
     echo "And in the ink, they found they were the same."
     # The page fills itself. The words rise from white into gold. When it is done, the Folio snaps shut with a sound like a door closing in a house that is, at last, warm.
     scene bg annex_day  # TODO(parser): The annex, a month later. Spring light. Three cups on the low table. The window open, the rain gone.
+    with scene_fade
     play music audio.warm_table_reprise fadein 2.0  # “Warm Table (Reprise)”: the cello from the dining scene, now with the full ensemble.
     # The Wanderer and the Echo sit on either side of you. They have, somehow, begun to share the body: the Echo steps out for an hour each evening, for tea, and steps back in for the night. The arrangement is not elegant. It is theirs.
     echo "You made a promise. You said you’d be at the door when the last page burned."
@@ -1023,6 +1077,7 @@ label ending_true:
     # He puts down his cup. He doesn’t look at you. His voice is very small and very clear.
     echo "Thank you for mending me."
     scene cg ending_true  # TODO(parser): The three of you, in the window light. The Wanderer, laughing. The Echo, mortified. You, in between them, holding your cup in both hands, the Folio on the table
+    with scene_fade
     # A last line of text fades in across the picture.
     n "The story is never finished. It is only handed on."
     # END · True Ending · Golden
@@ -1033,6 +1088,7 @@ label ending_gnosis_box:
     # ENDING F · THE GNOSIS BOX
     # Gate: BOX = TRUE. Tone: psychological horror; no new explanation of the Gnosis is asserted.
     scene bg annex_dawn  # TODO(parser): The Archive Annex after dawn. The windows are gray. The kettle has boiled dry. On the table sits the black case, closed exactly as it was before.
+    with scene_fade
     play music audio.the_thing_unsaid fadein 2.0  # “The Thing Unsaid”: one low note with a faint, irregular overtone.
     wanderer "You’ve been looking at it for ten minutes."
     mc "I’m trying to remember what I saw."
@@ -1064,6 +1120,7 @@ label ending_burned_pages:
     # ENDING G · BURNED PAGES
     # Gate: PROMISE_MADE = TRUE and PEN ≥ 3. On selection, set PROMISE_BROKEN = TRUE. Tone: tragedy; the promise is broken by the moment the player chooses to abandon, not by a random failure of navigation.
     scene bg annex_day  # TODO(parser): The white last page. The archive door is printed in the margin, small as a postage stamp. The Doctor is gone, but the black ink he left behind keeps spreading.
+    with scene_fade
     play music audio.a_smaller_promise fadein 2.0  # “A Smaller Promise”: the flute line returns, interrupted by the sound of paper catching fire.
     # You turn toward the Margin Door. It is the way out. The way back to the archive. The way you promised you would come.
     wanderer "Quill? What are you doing?"
@@ -1097,6 +1154,7 @@ label ending_blank_page:
     # ENDING H · BLANK PAGE
     # Gate: PEN ≥ 3. Tone: existential horror; the ending refuses to confirm death, erasure, or salvation.
     scene bg annex_day  # TODO(parser): White. No street. No archive. No horizon. The Doctor’s silhouette has vanished, but his voice lingers as if it were printed beneath the page.
+    with scene_fade
     # TODO(parser music): None. The absence of sound is deliberate.
     dottore "How interesting. You have learned to fear the Pen. Tell me, Archivist: if the corrector is wrong, who corrects the corrector?"
     # You look down. The nib is black. Your fingers are clean.
@@ -1127,6 +1185,7 @@ label ending_blank_page:
 label ending_neutral:
     # NEUTRAL ENDING · “Margins”
     scene bg x_bg_white_page_street_dawn_bleeding  # TODO(parser): White page, street dawn bleeding through.
+    with scene_fade
     # TODO(parser music): A lone flute, uncertain.
     # The Echo steps forward and takes the pen from your hand, gently. It’s the first time he has ever touched something of yours without being asked.
     echo "You weren’t ready. That isn’t a failing. Most people never are."
@@ -1140,6 +1199,7 @@ label ending_neutral:
 label ending_archivist:
     # BAD ENDING 1 · “The Archivist’s Fee”
     scene bg x_bg_the_white_page_darkening_at  # TODO(parser): The white page, darkening at the edges like burning film.
+    with scene_fade
     play music audio.clean_instruments fadein 2.0  # “Clean Instruments”: the metronome, relentless.
     # The Doctor takes the pen without a word. He doesn’t gloat. That is the worst thing about it.
     dottore "Thank you. I’ll be fair. A very small fee. One page."
@@ -1147,6 +1207,7 @@ label ending_archivist:
     wanderer "(a whisper, as the ink crawls) Quill... what did you do?"
     echo "(almost kind) You’re not stupid. You were frightened. That’s different."
     scene cg x_cg_the_folio_bound_in_black  # TODO(parser): The Folio, bound in black. Three names inside, in a clean hand. The cover reads: “Case 0031: The Archivist.”
+    with scene_fade
     # The street is empty. The lamp outside the archive is out.
     # END · Bad Ending 1 · The Archivist’s Fee
 
@@ -1155,12 +1216,14 @@ label ending_archivist:
 label ending_burn_it_down:
     # BAD ENDING 2 · “Burn It Down”
     scene bg x_bg_fire_climbing_the_white_every  # TODO(parser): Fire, climbing the white. Every page a torch.
+    with scene_fade
     # TODO(parser music): Percussion only. No melody.
     # You pull the Folio apart. The paper screams.
     wanderer "(from inside the fire) What have you done?"
     echo "(laughing, high and cracked) You broke it. You broke the only place we were both real."
     # The Echo steps back into the flame. The Wanderer reaches for him. The page between their hands goes gray, and then goes out.
     scene cg margin_door_shut  # TODO(parser): Two burnt halves of a book in the rain. A single sodden page, on which a word has run: “stayed.”
+    with scene_fade
     # END · Bad Ending 2 · Burn It Down
 
     return
@@ -1168,12 +1231,14 @@ label ending_burn_it_down:
 label ending_quiet_page:
     # BAD ENDING 3 · “The Quiet Page” — LEGACY SCENE, NOT CURRENTLY
     scene bg annex_dawn  # TODO(parser): The archive door, dawn. Nobody at it.
+    with scene_fade
     # TODO(parser music): Silence, then the lullaby, one note at a time.
     # The Echo waits at the door. The street fills with light. You are not there.
     # The Wanderer is the one who finally comes to find you, hat in his hand and eyes red.
     wanderer "He said you’d come. He kept saying it. Right up to the end."
     wanderer "He wasn’t angry. That’s what I can’t forgive."
     scene cg blank_dot  # TODO(parser): An empty door. A hat on a step. A single pale violet feather on the stone.
+    with scene_fade
     # END · Bad Ending 3 · The Quiet Page
 
     return
@@ -1181,6 +1246,7 @@ label ending_quiet_page:
 label ending_epilogue:
     # EPILOGUE · “The Back of the Book”
     scene bg x_bg_black_a_single_page_lit  # TODO(parser): Black. A single page, lit like a stage.
+    with scene_fade
     # TODO(parser music): A music box, playing the lullaby.
     # The Folio, open on a shelf in a library you’ve never seen. A hand, which might be anyone’s, turns the page. There is one more line below the last one, in a hand that isn’t the Wanderer’s or the Echo’s or yours.
     newline_char "And if you find this book, mend it gently. It’s been through a lot."

@@ -208,8 +208,10 @@ screen choice(items):
     style_prefix "choice"
 
     vbox:
-        for i in items:
-            textbutton i.caption action i.action
+        for idx, i in enumerate(items):
+            textbutton i.caption:
+                action i.action
+                at choice_in(idx * 0.06), focus_lift
 
 
 style choice_vbox is vbox
@@ -291,6 +293,7 @@ screen navigation():
 
     vbox:
         style_prefix "navigation"
+        at rise_in(0.1, 20, 0.7)
 
         xpos gui.navigation_xpos
         yalign 0.5
@@ -299,37 +302,37 @@ screen navigation():
 
         if main_menu:
 
-            textbutton _("Start") action Start()
+            textbutton _("Start") action Start() at nav_lift
 
         else:
 
-            textbutton _("History") action ShowMenu("history")
+            textbutton _("History") action ShowMenu("history") at nav_lift
 
-            textbutton _("Save") action ShowMenu("save")
+            textbutton _("Save") action ShowMenu("save") at nav_lift
 
-        textbutton _("Load") action ShowMenu("load")
+        textbutton _("Load") action ShowMenu("load") at nav_lift
 
-        textbutton _("Preferences") action ShowMenu("preferences")
+        textbutton _("Preferences") action ShowMenu("preferences") at nav_lift
 
         if _in_replay:
 
-            textbutton _("End Replay") action EndReplay(confirm=True)
+            textbutton _("End Replay") action EndReplay(confirm=True) at nav_lift
 
         elif not main_menu:
 
-            textbutton _("Main Menu") action MainMenu()
+            textbutton _("Main Menu") action MainMenu() at nav_lift
 
-        textbutton _("About") action ShowMenu("about")
+        textbutton _("About") action ShowMenu("about") at nav_lift
 
         if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
 
             ## Help isn't necessary or relevant to mobile devices.
-            textbutton _("Help") action ShowMenu("help")
+            textbutton _("Help") action ShowMenu("help") at nav_lift
 
         if renpy.variant("pc"):
 
             ## The quit button is banned on iOS and unnecessary on Android and Web.
-            textbutton _("Quit") action Quit(confirm=not main_menu)
+            textbutton _("Quit") action Quit(confirm=not main_menu) at nav_lift
 
 
 style navigation_button is gui_button
@@ -356,6 +359,9 @@ screen main_menu():
 
     add gui.main_menu_background
 
+    ## A slow-drifting ink bloom behind the interface.
+    add "gui/overlay/ink_blot.png" at ink_bloom
+
     ## This empty frame darkens the main menu.
     frame:
         style "main_menu_frame"
@@ -368,9 +374,11 @@ screen main_menu():
 
         vbox:
             style "main_menu_vbox"
+            at rise_in(0.05, 24, 0.8)
 
             text "[config.name!t]":
                 style "main_menu_title"
+                at breathe(1.0, 0.985, 3.2)
 
             text "[config.version]":
                 style "main_menu_version"

@@ -216,3 +216,22 @@ light); choir; long exhale + a door closing far off.
 - **Stat-toast icons** — optional small icons for the Wanderer / Echo / Mend
   meters (`game/screens_extra.rpy`, screen `stat_toast`).
 - **Page counter** — the 30→1 ash counter motif; optional custom frame.
+
+### Generated effect art (`tools/make_gui_assets.py`)
+
+Purely decorative assets that make the interface feel intentional. All are
+procedurally generated and safe to replace with hand-drawn versions; re-running
+`python3 tools/make_gui_assets.py` regenerates them.
+
+| File | Size | Used by |
+| --- | --- | --- |
+| `game/gui/cursor/pen_{0-3}.png`, `pen_hover_{0-3}.png` | 32×32 | animated nib mouse cursor (`gui_effects.rpy`) |
+| `game/gui/overlay/ctc_drop.png` | 40×40 | blinking click-to-continue marker (screen `ctc`) |
+| `game/gui/mask/ink_dissolve.png` | 512×512 | `ink_dissolve` / `page_wipe` transitions |
+| `game/gui/overlay/vignette.png` | 1280×720 | in-game atmosphere overlay |
+| `game/gui/overlay/grain.png` | 256×256 (tiled) | drifting film grain |
+| `game/gui/overlay/ink_blot.png` | 1024×1024 | main-menu / splash ink bloom |
+
+Behaviour for all of the above lives in `game/gui_effects.rpy` (transitions,
+cursor, CTC, splash/loading screen, atmosphere overlay, menu-motion transforms).
+

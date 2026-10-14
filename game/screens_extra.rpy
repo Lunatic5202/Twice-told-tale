@@ -41,11 +41,19 @@ transform at_far_right:
 ## caused is surfaced.
 
 transform stat_toast_move:
+    subpixel True
     alpha 0.0
-    yoffset -14
-    linear 0.22 alpha 1.0 yoffset 0
+    yoffset -22
+    xoffset 18
+    parallel:
+        linear 0.22 alpha 1.0
+    parallel:
+        easeout 0.30 yoffset 0 xoffset 0
     pause 1.7
-    linear 0.38 alpha 0.0 yoffset -14
+    parallel:
+        linear 0.38 alpha 0.0
+    parallel:
+        easein 0.38 yoffset -18
 
 screen stat_toast(text="", color="#ffffff"):
     zorder 200
@@ -55,13 +63,23 @@ screen stat_toast(text="", color="#ffffff"):
             at stat_toast_move
             xalign 0.5
             yalign 0.06
-            padding (30, 14)
+            padding (0, 0)
             background Solid("#0b0b12dd")
-            text text:
-                color color
-                size 27
-                xalign 0.5
-                yalign 0.5
+
+            hbox:
+                spacing 0
+
+                ## A colour-coded spine hints at which stat moved.
+                add Solid(color, xysize=(6, 42))
+
+                text text:
+                    color color
+                    size 27
+                    yalign 0.5
+                    xoffset 18
+                    yoffset -1
+
+                null width 18
 
         timer 2.4 action Hide("stat_toast")
 
@@ -73,9 +91,22 @@ screen stat_toast(text="", color="#ffffff"):
 ## the show_title() helper in logic.rpy.
 
 transform scene_title_anim:
+    subpixel True
     alpha 0.0
-    linear 0.5 alpha 1.0
-    pause 0.6
+    zoom 1.06
+    parallel:
+        linear 0.45 alpha 1.0
+    parallel:
+        easeout 0.60 zoom 1.0
+    pause 1.0
+    linear 0.55 alpha 0.0
+
+transform scene_title_rule:
+    subpixel True
+    xzoom 0.001
+    pause 0.25
+    easeout 0.55 xzoom 1.0
+    pause 0.7
     linear 0.5 alpha 0.0
 
 screen scene_title(text=""):
@@ -86,13 +117,21 @@ screen scene_title(text=""):
         xalign 0.5
         yalign 0.5
         at scene_title_anim
-        text text:
+
+        vbox:
             xalign 0.5
             yalign 0.5
-            textalign 0.5
-            color "#ffffff"
-            size 46
-            outlines [(3, "#000000cc", 0, 0)]
+            spacing 16
+
+            text text:
+                xalign 0.5
+                textalign 0.5
+                color "#ffffff"
+                size 46
+                outlines [(3, "#000000cc", 0, 0)]
+
+            add Solid("#d6b25e", xysize=(280, 2)) at scene_title_rule:
+                xalign 0.5
 
 
 ## ----------------------------------------------------------------------------
@@ -100,11 +139,20 @@ screen scene_title(text=""):
 ## ----------------------------------------------------------------------------
 ## "Thirty days, thirty pages." A small diegetic counter in the corner.
 
+transform page_counter_breathe:
+    subpixel True
+    alpha 0.86
+    block:
+        easein 2.4 alpha 1.0
+        easeout 2.4 alpha 0.86
+        repeat
+
 screen page_counter():
     zorder 10
 
     if pages_left is not None:
         frame:
+            at page_counter_breathe
             background Solid("#0b0b1266")
             xalign 0.99
             yalign 0.015

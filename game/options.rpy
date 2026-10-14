@@ -80,23 +80,23 @@ define config.has_voice = True
 
 ## Entering or exiting the game menu.
 
-define config.enter_transition = dissolve
-define config.exit_transition = dissolve
+define config.enter_transition = ink_fade
+define config.exit_transition = ink_fade
 
 
 ## Between screens of the game menu.
 
-define config.intra_transition = dissolve
+define config.intra_transition = quick_fade
 
 
 ## A transition that is used after a game has been loaded.
 
-define config.after_load_transition = None
+define config.after_load_transition = ink_dissolve
 
 
 ## Used when entering the main menu after the game has ended.
 
-define config.end_game_transition = None
+define config.end_game_transition = white_fade
 
 
 ## A variable to set the transition used when the game starts
@@ -127,8 +127,11 @@ define config.window_hide_transition = Dissolve(.2)
 
 ## Controls the default text speed. The default, 0, is infinite, while any
 ## other number is the number of characters per second to type out.
+##
+## A gentle reveal is used by default; players can change or disable it in
+## Preferences (the "Text Speed" slider), and the skip/auto modes bypass it.
 
-default preferences.text_cps = 0
+default preferences.text_cps = 42
 
 
 ## The default auto-forward delay. Larger numbers lead to longer waits,
