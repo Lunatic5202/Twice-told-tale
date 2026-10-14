@@ -168,6 +168,9 @@ init python:
     def _assert_ending_seen(eid):
         assert eid in persistent.endings_seen, "ending %r not recorded: %r" % (eid, persistent.endings_seen)
 
+    def _assert_shown(name):
+        assert renpy.get_screen(name) is not None, "screen %r is not showing" % name
+
     def _set_stats(w_, b_, m_, pen_, promise_):
         store.w = w_
         store.b = b_
@@ -282,3 +285,33 @@ testcase gates:
     exit
 
 
+
+################################################################################
+## Collection screens
+################################################################################
+##
+## Run with:  renpy.sh . test catalogues
+##
+## Opens each collection screen from the main menu and confirms it appears.
+
+testcase catalogues:
+    $ _test.transition_timeout = 0.05
+    $ _test.timeout = 15.0
+
+    click "Pages Collected"
+    run Function(_assert_shown, "endings_gallery")
+    run Return()
+
+    click "Gallery"
+    run Function(_assert_shown, "cg_gallery")
+    run Return()
+
+    click "Music Room"
+    run Function(_assert_shown, "music_room")
+    run Return()
+
+    click "Credits"
+    run Function(_assert_shown, "credits")
+    run Return()
+
+    exit

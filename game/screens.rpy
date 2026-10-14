@@ -310,6 +310,8 @@ screen navigation():
 
             textbutton _("Music Room") action ShowMenu("music_room") at nav_lift
 
+            textbutton _("Credits") action ShowMenu("credits") at nav_lift
+
         else:
 
             textbutton _("History") action ShowMenu("history") at nav_lift

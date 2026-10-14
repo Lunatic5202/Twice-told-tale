@@ -196,10 +196,21 @@ init python:
     build.classify('**/#**', None)
     build.classify('**/thumbs.db', None)
 
-    ## To archive files, classify them as 'archive'.
+    ## Nothing in these directories ships with the game.
+    build.classify('tools/**', None)
+    build.classify('**.md', None)
+    build.classify('**.sh', None)
+    build.classify('**/montage.png', None)
 
-    # build.classify('game/**.png', 'archive')
-    # build.classify('game/**.jpg', 'archive')
+    ## Archive the bulky assets so the distribution is a handful of files.
+    build.classify('game/images/**', 'archive')
+    build.classify('game/audio/**', 'archive')
+    build.classify('game/fonts/**', 'archive')
+
+    ## Name the built distributions.
+    build.name = "Twice-Told-Tale"
+    build.directory_name = "Twice-Told-Tale-{version}"
+    build.executable_name = "TwiceToldTale"
 
     ## Files matching documentation patterns are duplicated in a mac app
     ## build, so they appear in both the app and the zip file.
