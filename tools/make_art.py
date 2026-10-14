@@ -50,16 +50,7 @@ VIOLET = hx("#7d5fb2")
 TEAL = hx("#3f8a83")
 CRIMSON = hx("#b23a3a")
 EMBER = hx("#d9773a")
-
-CHAR_COLORS = {
-    "wanderer": (("#2f6d68"), "#0e1f22", "#c9a44a", True),
-    "echo": (("#5a3170"), "#17111f", "#b23a3a", True),
-    "nahida": (("#7fa24a"), "#25361a", "#e7d6a8", False),
-    "dottore": (("#8aa2bd"), "#1a2530", "#3f5d7a", False),
-    "paimon": (("#e0c66a"), "#3a3010", "#f2ead0", False),
-    "tighnari": (("#4a5e2e"), "#1c2411", "#c9b070", False),
-    "cyno": (("#2a2a34"), "#0d0d14", "#c9a44a", True),
-}
+SILHOUETTE = "#181423"
 
 
 # ----------------------------------------------------------------------------
@@ -271,54 +262,322 @@ def ink_frame(arr, margin=26, color=(20, 18, 26), a=120, bl=0.0):
 
 
 # ----------------------------------------------------------------------------
-# Figures (for sprites and in-scene silhouettes)
+# Figures (character sprites and in-scene silhouettes)
 # ----------------------------------------------------------------------------
 
-def figure(draw, cx, base_y, height, cloak, accent, hat=True, hat_wide=False):
-    """A minimal standing silhouette; coordinates already supersampled."""
-    head_r = height * 0.075
-    head_y = base_y - height + head_r
-    shoulder_y = head_y + head_r * 2.1
-    hip_y = shoulder_y + height * 0.30
-    body = [
-        (cx, head_y - head_r * 0.2),
-        (cx - height * 0.20, shoulder_y),
-        (cx - height * 0.26, base_y),
-        (cx + height * 0.26, base_y),
-        (cx + height * 0.20, shoulder_y),
-    ]
-    draw.polygon(body, fill=cloak)
-    draw.ellipse([cx - head_r, head_y - head_r, cx + head_r, head_y + head_r], fill=cloak)
-    if hat:
-        br = head_r * (3.0 if hat_wide else 2.1)
-        draw.polygon([
-            (cx - br, head_y - head_r * 0.4),
-            (cx + br, head_y - head_r * 0.4),
-            (cx + head_r * 0.8, head_y - head_r * 2.0),
-            (cx - head_r * 0.8, head_y - head_r * 2.0),
-        ], fill=accent)
-    # a thin accent seam down the cloak
-    draw.line([(cx, shoulder_y), (cx, base_y)], fill=accent, width=3)
+SPRITE_SPECS = {
+    "wanderer": dict(skin="#f0d8c0", hair="#213052", hair_style="short",
+                     coat="#2b4a4a", coat_dark="#1d3636", accent="#c9a44a",
+                     trim="#e8e2d0", hat="kasa", height=950),
+    "echo": dict(skin="#f0d8c0", hair="#2a2050", hair_style="bob",
+                 coat="#6a2440", coat_dark="#471830", accent="#9a6bc0",
+                 trim="#e8e2d0", hat="veiled", height=945),
+    "nahida": dict(skin="#f6e3cf", hair="#dbe8d2", hair_style="long",
+                   coat="#eef3e6", coat_dark="#d6e2c8", accent="#7fa24a",
+                   trim="#7fa24a", hat=None, height=775, head_ratio=0.24,
+                   leaf=True),
+    "dottore": dict(skin="#e8d3c3", hair="#8fbcd8", hair_style="spiky",
+                    coat="#dfe4ea", coat_dark="#c2cad4", accent="#3a5570",
+                    trim="#3a5570", hat=None, height=955, mask=True),
+    "paimon": dict(skin="#f9ecdd", hair="#f2f3f8", hair_style="long",
+                   coat="#f4ecd2", coat_dark="#e0d2ac", accent="#c9a44a",
+                   trim="#c9a44a", hat=None, height=665, head_ratio=0.28),
+    "tighnari": dict(skin="#ecd2b4", hair="#6f7f3e", hair_style="short",
+                     coat="#4a5e2e", coat_dark="#33421f", accent="#c9b070",
+                     trim="#c9b070", hat=None, ears="fox", height=940),
+    "cyno": dict(skin="#dcbd97", hair="#1c1c26", hair_style="short",
+                 coat="#2a2a34", coat_dark="#1a1a22", accent="#c9a44a",
+                 trim="#c9a44a", hat=None, ears="jackal", height=950),
+}
+
+EXPR = {
+    "neutral":   ("flat", "open", "flat"),
+    "guarded":   ("flat", "narrow", "flat"),
+    "smug":      ("oneup", "narrow", "smirk"),
+    "flustered": ("inner", "wide", "small", True),
+    "hurt":      ("inner", "droop", "frown"),
+    "soft":      ("up", "closed", "smile"),
+    "tired":     ("flat", "droop", "flat"),
+    "sneer":     ("angry", "narrow", "smirk"),
+    "cold":      ("flat", "narrow", "flat"),
+    "amused":    ("up", "narrow", "smirk"),
+    "startled":  ("up", "wide", "open"),
+    "grieving":  ("inner", "closed", "frown", False, True),
+    "shy":       ("inner", "side", "small", True),
+    "smile":     ("up", "closed", "grin"),
+    "gentle":    ("up", "closed", "smile"),
+    "serious":   ("down", "narrow", "flat"),
+    "mischievous": ("oneup", "narrow", "smirk"),
+    "sad":       ("inner", "droop", "frown", False, True),
+    "pleasant":  ("up", "open", "smile"),
+    "delighted": ("up", "closed", "grin"),
+    "fascinated": ("up", "wide", "open"),
+    "cheerful":  ("up", "closed", "grin"),
+    "worried":   ("inner", "open", "flat"),
+    "excited":   ("up", "wide", "open"),
+    "sly":       ("oneup", "narrow", "smirk"),
+    "grinning":  ("up", "narrow", "grin"),
+}
+
+INK = "#241f33"
+
+
+def render_figure(tag, expr="neutral", flat=None):
+    """Draw a stylized character. `flat` overrides every colour with one
+    (used for dark in-scene silhouettes)."""
+    spec = SPRITE_SPECS.get(tag, SPRITE_SPECS["wanderer"])
+    b, eye, mouth = (EXPR.get(expr) or EXPR["neutral"])[:3]
+    blush = len(EXPR.get(expr, ())) > 3 and EXPR.get(expr)[3]
+    tear = len(EXPR.get(expr, ())) > 4 and EXPR.get(expr)[4]
+
+    def C(key):
+        return hx(flat) if flat else hx(spec[key])
+
+    skin, hair = (hx(flat), hx(flat)) if flat else (hx(spec["skin"]), hx(spec["hair"]))
+    coat, dark, accent, trim = (C("coat"), C("coat_dark"), C("accent"), C("trim"))
+
+    W_, H_ = 700, 1120
+    img = Image.new("RGBA", (W_ * SS, H_ * SS), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+
+    def P(x, y):
+        return (x * SS, y * SS)
+
+    def poly(pts, fill):
+        d.polygon([P(*p) for p in pts], fill=fill)
+
+    def ell(x0, y0, x1, y1, fill):
+        d.ellipse([P(x0, y0), P(x1, y1)], fill=fill)
+
+    def line(pts, fill, w=2):
+        d.line([P(*p) for p in pts], fill=fill, width=w)
+
+    def rect(x0, y0, x1, y1, fill):
+        d.rectangle([P(x0, y0), P(x1, y1)], fill=fill)
+
+    cx = 350
+    feet = 1080
+    H = spec["height"]
+    hr = spec.get("head_ratio", 0.19)
+    head_h = H * hr
+    head_w = head_h * 0.84
+    head_top = feet - H
+    head_bot = head_top + head_h
+    neck_w = head_w * 0.26
+    sh_y = head_bot + head_h * 0.10
+    shoulder_w = head_w * 1.8
+    hip_y = feet - H * 0.40
+    hem_w = head_w * 2.7
+    arm_w = head_w * 0.34
+
+    # ground shadow
+    ell(cx - hem_w * 0.7, feet - 16, cx + hem_w * 0.7, feet + 16, (20, 16, 30, 70))
+
+    # skirt / robe
+    poly([(cx - hem_w / 2, feet), (cx + hem_w / 2, feet),
+          (cx + shoulder_w / 2, hip_y), (cx - shoulder_w / 2, hip_y)], coat)
+    # torso
+    poly([(cx - shoulder_w / 2, sh_y), (cx + shoulder_w / 2, sh_y),
+          (cx + shoulder_w * 0.55, hip_y), (cx - shoulder_w * 0.55, hip_y)], coat)
+    # arms
+    for s in (-1, 1):
+        poly([(cx + s * shoulder_w / 2, sh_y + 4),
+              (cx + s * (shoulder_w / 2 + arm_w), sh_y + head_h * 0.30),
+              (cx + s * (shoulder_w * 0.62 + arm_w * 0.4), hip_y + head_h * 0.32),
+              (cx + s * shoulder_w * 0.46, hip_y + head_h * 0.34)], dark)
+    # placket + belt
+    rect(cx - 2, sh_y + 6, cx + 2, feet - 8, trim)
+    rect(cx - shoulder_w * 0.52, hip_y - head_h * 0.12,
+         cx + shoulder_w * 0.52, hip_y + head_h * 0.06, accent)
+
+    # neck + head
+    rect(cx - neck_w / 2, head_bot - head_h * 0.06, cx + neck_w / 2, sh_y + 4, skin)
+    # back hair
+    back_bot = head_bot + (head_h * 1.35 if spec["hair_style"] == "long" else head_h * 0.35)
+    ell(cx - head_w * 0.60, head_top - head_h * 0.14, cx + head_w * 0.60, back_bot, hair)
+    ell(cx - head_w / 2, head_top, cx + head_w / 2, head_bot, skin)
+
+    if not flat:
+        # front bangs
+        poly([(cx - head_w * 0.56, head_top + head_h * 0.34),
+              (cx + head_w * 0.56, head_top + head_h * 0.34),
+              (cx + head_w * 0.54, head_top - head_h * 0.10),
+              (cx - head_w * 0.54, head_top - head_h * 0.10)], hair)
+        if spec["hair_style"] == "spiky":
+            for i in range(-2, 3):
+                bx = cx + i * head_w * 0.24
+                poly([(bx - head_w * 0.10, head_top - head_h * 0.04),
+                      (bx, head_top - head_h * 0.40),
+                      (bx + head_w * 0.10, head_top - head_h * 0.04)], hair)
+        for i, (bx, tw) in enumerate(((-0.36, 0.16), (0, 0.18), (0.36, 0.16))):
+            tx = cx + bx * head_w
+            poly([(tx - head_w * tw, head_top + head_h * 0.02),
+                  (tx + head_w * tw, head_top + head_h * 0.02),
+                  (tx, head_top + head_h * 0.40)], hair)
+    # ears
+    if spec.get("ears"):
+        for s in (-1, 1):
+            bx = cx + s * head_w * 0.46
+            poly([(bx - head_w * 0.16, head_top + head_h * 0.06),
+                  (bx + head_w * 0.16, head_top + head_h * 0.06),
+                  (bx + s * head_w * 0.06, head_top - head_h * 0.48)], hair)
+            if not flat and spec["ears"] == "fox":
+                poly([(bx - head_w * 0.09, head_top - head_h * 0.12),
+                      (bx + head_w * 0.09, head_top - head_h * 0.12),
+                      (bx, head_top - head_h * 0.34)], accent)
+
+    # hat
+    if spec.get("hat") in ("kasa", "veiled"):
+        hcol = dark
+        ell(cx - head_w * 1.75, head_top + head_h * 0.02,
+            cx + head_w * 1.75, head_top + head_h * 0.34, hcol)
+        poly([(cx - head_w * 0.66, head_top + head_h * 0.16),
+              (cx + head_w * 0.66, head_top + head_h * 0.16),
+              (cx + head_w * 0.40, head_top - head_h * 0.52),
+              (cx - head_w * 0.40, head_top - head_h * 0.52)], hcol)
+        rect(cx - head_w * 0.62, head_top - head_h * 0.02,
+             cx + head_w * 0.62, head_top + head_h * 0.06, accent)
+        if spec["hat"] == "veiled" and not flat:
+            veil = Image.new("RGBA", img.size, (0, 0, 0, 0))
+            vd = ImageDraw.Draw(veil)
+            vd.polygon([P(cx - head_w * 1.75, head_top + head_h * 0.24),
+                        P(cx - head_w * 1.55, head_top + head_h * 1.05),
+                        P(cx + head_w * 1.55, head_top + head_h * 1.05),
+                        P(cx + head_w * 1.75, head_top + head_h * 0.24)],
+                       fill=(30, 20, 45, 120))
+            img = Image.alpha_composite(img, veil)
+            d = ImageDraw.Draw(img)
+            ell(cx - head_w * 0.30, head_top + head_h * 0.14,
+                cx + head_w * 0.30, head_top + head_h * 0.46, (215, 205, 190))
+    if spec.get("leaf"):
+        lf = accent
+        poly([(cx + head_w * 0.30, head_top - head_h * 0.06),
+              (cx + head_w * 0.62, head_top - head_h * 0.30),
+              (cx + head_w * 0.40, head_top - head_h * 0.02)], lf)
+        poly([(cx + head_w * 0.20, head_top - head_h * 0.14),
+              (cx + head_w * 0.44, head_top - head_h * 0.44),
+              (cx + head_w * 0.30, head_top - head_h * 0.10)], lf)
+
+    if flat:
+        return img
+
+    # ---- face ----
+    eye_y = head_top + head_h * 0.60
+    eye_dx = head_w * 0.22
+    ew, eh = head_w * 0.15, head_h * 0.10
+    brow_y = eye_y - head_h * 0.14
+    mouth_y = head_top + head_h * 0.80
+
+    if spec.get("mask"):
+        poly([(cx - head_w * 0.44, head_top + head_h * 0.66),
+              (cx + head_w * 0.44, head_top + head_h * 0.66),
+              (cx + head_w * 0.36, head_bot - head_h * 0.02),
+              (cx - head_w * 0.36, head_bot - head_h * 0.02)], (222, 226, 232))
+        for s in (-1, 1):
+            d.ellipse([P(cx + s * eye_dx - ew * 1.15, eye_y - eh * 1.3),
+                       P(cx + s * eye_dx + ew * 1.15, eye_y + eh * 1.3)],
+                      outline=INK, width=3)
+    else:
+        for s in (-1, 1):
+            ex = cx + s * eye_dx
+            if eye == "closed":
+                d.arc([P(ex - ew, eye_y - eh), P(ex + ew, eye_y + eh)],
+                      200, 340, fill=INK, width=3)
+            elif eye == "droop":
+                ell(ex - ew, eye_y - eh * 0.7, ex + ew, eye_y + eh * 1.1, INK)
+                line([(ex - ew, eye_y - eh * 0.4), (ex + ew, eye_y - eh * 0.4)], INK, 2)
+            elif eye == "narrow":
+                ell(ex - ew, eye_y - eh * 0.5, ex + ew, eye_y + eh * 0.5, INK)
+            elif eye == "wide":
+                d.ellipse([P(ex - ew * 1.1, eye_y - eh * 1.3),
+                           P(ex + ew * 1.1, eye_y + eh * 1.3)], fill=INK)
+                ell(ex - ew * 0.35, eye_y - eh * 0.5, ex + ew * 0.1, eye_y - eh * 0.05,
+                    (255, 255, 255, 220))
+            elif eye == "side":
+                ell(ex + s * ew * 0.35 - ew * 0.7, eye_y - eh * 0.9,
+                    ex + s * ew * 0.35 + ew * 0.7, eye_y + eh * 0.9, INK)
+            else:
+                ell(ex - ew, eye_y - eh, ex + ew, eye_y + eh, INK)
+
+    # brows
+    for s in (-1, 1):
+        ex = cx + s * eye_dx
+        inner = ex - s * ew * 1.1
+        outer = ex + s * ew * 1.1
+        dy = {"flat": 0, "up": -head_h * 0.07, "down": head_h * 0.05,
+              "inner": -head_h * 0.06, "angry": head_h * 0.06}.get(b, 0)
+        if b == "oneup" and s > 0:
+            dy = -head_h * 0.09
+        elif b == "oneup":
+            dy = head_h * 0.02
+        if b in ("inner", "angry"):
+            p0 = (inner, brow_y + (-dy if b == "inner" else dy))
+            p1 = (outer, brow_y - (0 if b == "inner" else dy))
+            p0 = (inner, brow_y - dy if b == "angry" else brow_y + abs(dy))
+            p1 = (outer, brow_y + (dy * 0.4))
+        else:
+            p0 = (inner, brow_y + dy)
+            p1 = (outer, brow_y + dy)
+        line([p0, p1], INK, 3)
+
+    # mouth
+    mw = head_w * 0.22
+    if mouth == "smile":
+        d.arc([P(cx - mw, mouth_y - mw * 0.7), P(cx + mw, mouth_y + mw * 0.7)],
+              20, 160, fill=INK, width=3)
+    elif mouth == "grin":
+        d.chord([P(cx - mw, mouth_y - mw * 0.4), P(cx + mw, mouth_y + mw * 1.1)],
+                10, 170, fill=(150, 60, 70))
+    elif mouth == "frown":
+        d.arc([P(cx - mw, mouth_y + mw * 0.1), P(cx + mw, mouth_y + mw * 1.4)],
+              200, 340, fill=INK, width=3)
+    elif mouth == "smirk":
+        d.arc([P(cx - mw * 0.9, mouth_y - mw * 0.4), P(cx + mw * 1.1, mouth_y + mw * 0.9)],
+              20, 120, fill=INK, width=3)
+    elif mouth == "open":
+        ell(cx - mw * 0.5, mouth_y - mw * 0.35, cx + mw * 0.5, mouth_y + mw * 0.6, (140, 60, 70))
+    elif mouth == "small":
+        line([(cx - mw * 0.35, mouth_y), (cx + mw * 0.35, mouth_y)], INK, 3)
+    else:
+        line([(cx - mw * 0.5, mouth_y), (cx + mw * 0.5, mouth_y)], INK, 3)
+
+    if blush:
+        for s in (-1, 1):
+            ell(cx + s * head_w * 0.34 - head_w * 0.12, eye_y + head_h * 0.06,
+                cx + s * head_w * 0.34 + head_w * 0.12, eye_y + head_h * 0.20,
+                (224, 120, 130, 120))
+    if tear:
+        for s in (-1, 1):
+            ex = cx + s * eye_dx
+            ell(ex - head_w * 0.03, eye_y + eh * 1.2, ex + head_w * 0.03,
+                eye_y + eh * 2.6, (150, 200, 235, 220))
+
+    return img
 
 
 def sprite_figure(tag, expr):
-    cloak, dark, accent, hat = CHAR_COLORS.get(tag, ("#555", "#222", "#aaa", False))
-    cloak = hx(cloak); accent = hx(accent)
-    W_s, H_s = 700, 1050
-    lay = Image.new("RGBA", (W_s, H_s), (0, 0, 0, 0))
-    d = ImageDraw.Draw(lay)
-    cx = W_s // 2
-    shy = {"shy": 18, "flustered": 14, "grieving": 20, "sad": 16, "hurt": 14,
-           "tired": 22, "soft": 12, "cold": -6, "smug": -8, "sneer": -6,
-           "delighted": -4, "mischievous": -4}.get(expr, 0)
-    figure(d, cx, H_s - 40 - shy, H_s * 0.82, cloak, accent, hat=hat,
-           hat_wide=(tag == "wanderer"))
-    # soft drop shadow / aura
+    W_s, H_s = 700, 1120
+    lay = render_figure(tag, expr).resize((W_s, H_s), Image.LANCZOS)
+    spec = SPRITE_SPECS.get(tag, SPRITE_SPECS["wanderer"])
+    accent = hx(spec["accent"])
     aura = Image.new("RGBA", (W_s, H_s), (0, 0, 0, 0))
     ad = ImageDraw.Draw(aura)
-    ad.ellipse([cx - 190, H_s - 90, cx + 190, H_s - 10], fill=accent + (40,))
+    ad.ellipse([W_s // 2 - 190, H_s - 90, W_s // 2 + 190, H_s - 10], fill=accent + (40,))
     aura = aura.filter(ImageFilter.GaussianBlur(28))
     return Image.alpha_composite(aura, lay)
+
+
+def paste_figure(arr, tag, cx_frac, base_frac, h_frac, flat=None, expr="neutral"):
+    """Paste a scaled character (dark silhouette by default) onto a plate."""
+    fig = render_figure(tag, expr, flat=flat)
+    target_h = int(H * h_frac)
+    target_w = max(1, int(fig.width * target_h / fig.height))
+    fig = fig.resize((target_w, target_h), Image.LANCZOS)
+    layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    x = int(W * cx_frac - target_w / 2)
+    y = int(H * base_frac - target_h)
+    layer.alpha_composite(fig, (max(0, x), max(0, y)))
+    return composite(arr, layer)
 
 
 # ----------------------------------------------------------------------------
@@ -766,6 +1025,7 @@ def cg_plate(key):
     # Base scene selection per CG
     if key == "prologue_echo":
         arr = cg_scene(bg_annex, "night")
+        arr = paste_figure(arr, "echo", 0.5, 1.02, 0.95, flat=SILHOUETTE)
         arr = _hand(arr, W * 0.5, H * 0.62, 1.3, (90, 60, 120), 200)
     elif key == "prologue_tea":
         arr = cg_scene(bg_annex, "evening")
@@ -778,9 +1038,13 @@ def cg_plate(key):
         arr = bg_white("burn")
     elif key == "nahida_between":
         arr = cg_scene(bg_dining)
+        arr = paste_figure(arr, "wanderer", 0.30, 1.0, 0.86, flat=SILHOUETTE)
+        arr = paste_figure(arr, "echo", 0.70, 1.0, 0.86, flat=SILHOUETTE)
+        arr = paste_figure(arr, "nahida", 0.50, 1.0, 0.66, flat=SILHOUETTE)
     elif key == "wanderer_soup":
         arr = cg_scene(bg_dining)
-        arr = composite(arr, shape(lambda d: d.ellipse(S((W * 0.42, H * 0.55, W * 0.58, H * 0.72)),
+        arr = paste_figure(arr, "wanderer", 0.62, 1.0, 0.9, flat=SILHOUETTE)
+        arr = composite(arr, shape(lambda d: d.ellipse(S((W * 0.28, H * 0.55, W * 0.44, H * 0.72)),
                                                        fill=(220, 200, 160, 255)), (220, 200, 160), 3))
     elif key == "margin_door":
         arr = cg_scene(bg_corridor)
@@ -789,8 +1053,11 @@ def cg_plate(key):
         arr = _feather(arr)
     elif key == "sword_dance":
         arr = cg_scene(bg_furnace, "night")
+        arr = paste_figure(arr, "wanderer", 0.36, 1.0, 0.88, flat=SILHOUETTE)
+        arr = paste_figure(arr, "echo", 0.64, 1.0, 0.88, flat=SILHOUETTE)
     elif key == "puppet_furnace":
         arr = cg_scene(bg_furnace, "warped")
+        arr = paste_figure(arr, "wanderer", 0.5, 1.0, 0.9, flat=SILHOUETTE)
         arr = add_glow(arr, W * 0.5, H * 0.55, 300, (255, 200, 120), 0.6)
     elif key == "sleeping_puppet":
         arr = cg_scene(bg_tatami)
@@ -827,11 +1094,17 @@ def cg_plate(key):
         arr = add_glow(arr, W * 0.5, H * 0.6, 120, (150, 200, 255), 0.8)
     elif key == "doctor_lane":
         arr = cg_scene(bg_akademiya_dawn)
-        arr = blur(arr, 1.2) if False else arr
+        for i, fx in enumerate((0.18, 0.32, 0.82)):
+            arr = paste_figure(arr, "dottore", fx, 1.0, 0.6, flat=SILHOUETTE)
+        arr = paste_figure(arr, "dottore", 0.5, 1.02, 0.98, flat=SILHOUETTE)
     elif key == "echo_bowed":
         arr = cg_scene(bg_annex, "evening")
+        arr = paste_figure(arr, "wanderer", 0.4, 1.0, 0.9, flat=SILHOUETTE)
+        arr = paste_figure(arr, "echo", 0.6, 1.0, 0.82, flat=SILHOUETTE)
     elif key == "wanderer_echo_on_page":
         arr = bg_white("plain")
+        arr = paste_figure(arr, "wanderer", 0.34, 0.98, 0.72, flat=SILHOUETTE)
+        arr = paste_figure(arr, "echo", 0.66, 0.98, 0.72, flat=SILHOUETTE)
     elif key == "ending_wanderer":
         arr = cg_scene(bg_annex, "day")
         arr = _hand(arr, W * 0.5, H * 0.5, 1.1, (40, 30, 60), 130)
