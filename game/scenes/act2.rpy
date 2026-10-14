@@ -496,3 +496,5 @@ label act2_2_17:
     # END OF ACT 2
     n "Act 3: The Second Box The Doctor wants the Folio. Everyone has a price, and he knows yours."
 
+    jump act3_3_1
+

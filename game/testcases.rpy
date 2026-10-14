@@ -154,3 +154,131 @@ testcase progress:
     pause 0.5
     run Function(_assert_progress)
     exit
+
+################################################################################
+## Full-route and ending coverage
+################################################################################
+##
+## Run with:  renpy.sh . test route      (plays Act 2 through the last choice)
+##            renpy.sh . test endings    (jumps through every ending label)
+##            renpy.sh . test gates      (unit-checks the ending gate functions)
+
+init python:
+
+    def _assert_ending_seen(eid):
+        assert eid in persistent.endings_seen, "ending %r not recorded: %r" % (eid, persistent.endings_seen)
+
+    def _set_stats(w_, b_, m_, pen_, promise_):
+        store.w = w_
+        store.b = b_
+        store.m = m_
+        store.pen = pen_
+        store.promise_made = promise_
+
+    def _assert_gate(expected):
+        gt, gw, gs = gate_true(), gate_wanderer(), gate_scaramouche()
+        if expected == "none":
+            assert not (gt or gw or gs), "expected no gate, got %r" % ((gt, gw, gs),)
+        elif expected == "true":
+            assert gt, "expected true gate"
+        elif expected == "wanderer":
+            assert gw and not gt, "expected wanderer gate, got %r" % ((gt, gw, gs),)
+        elif expected == "scaramouche":
+            assert gs and not gt, "expected scaramouche gate, got %r" % ((gt, gw, gs),)
+        else:
+            raise Exception("bad expectation: %r" % (expected,))
+
+testcase route:
+    $ _test.transition_timeout = 0.02
+    $ _test.timeout = 45.0
+
+    run Function(_reset_progress)
+    run Jump("act2_2_1")
+
+    advance until screen "choice"
+    click expression '“It looks like love. A clumsy one.”'
+    advance until screen "choice"
+    click expression 'Sit down beside him and say nothing.'
+    advance until screen "choice"
+    click expression '“You can dance with the memory. Nobody’s watching.”'
+    advance until screen "choice"
+    click expression 'Catch his wrist with both hands. No Pen.'
+    advance until screen "choice"
+    click expression '“We can wait. A page can wait.”'
+    advance until screen "choice"
+    click expression 'Stay beside him. Say nothing at all.'
+    advance until screen "choice"
+    click expression 'Say it plainly, nothing else.'
+    advance until screen "choice"
+    click expression 'Open it in the open, together.'
+    advance until screen "choice"
+    click expression 'Go yourself, with Cyno at the door.'
+    advance until screen "choice"
+    click expression '“No.” Push the vial back across the glass.'
+    advance until screen "choice"
+    click expression 'Hold the Folio and refuse.'
+    advance until screen "choice"
+    click expression 'Sit down between them. Say nothing.'
+    advance until screen "choice"
+    click expression 'Stay still. Let them have it.'
+    advance until screen "choice"
+    click expression '“Don’t hide behind it. Own what you did, and I’ll stand beside you while you do.”'
+    advance until screen "choice"
+    click "Hand the pen to the Doctor"
+    pause 0.4
+    run Function(_assert_ending_seen, "archivist")
+    exit
+
+
+testcase endings:
+    $ _test.transition_timeout = 0.02
+    $ _test.timeout = 60.0
+
+    run Jump("ending_wanderer")
+    advance
+    run Function(_assert_ending_seen, "wanderer")
+    run Jump("ending_scaramouche")
+    advance
+    run Function(_assert_ending_seen, "scaramouche")
+    run Jump("ending_true")
+    advance
+    run Function(_assert_ending_seen, "true")
+    run Jump("ending_gnosis_box")
+    advance
+    run Function(_assert_ending_seen, "gnosis_box")
+    run Jump("ending_burned_pages")
+    advance
+    run Function(_assert_ending_seen, "burned_pages")
+    run Jump("ending_blank_page")
+    advance
+    run Function(_assert_ending_seen, "blank_page")
+    run Jump("ending_neutral")
+    advance
+    run Function(_assert_ending_seen, "neutral")
+    run Jump("ending_archivist")
+    advance
+    run Function(_assert_ending_seen, "archivist")
+    run Jump("ending_burn_it_down")
+    advance
+    run Function(_assert_ending_seen, "burn_it_down")
+    run Jump("ending_quiet_page")
+    advance
+    run Function(_assert_ending_seen, "quiet_page")
+    exit
+
+
+testcase gates:
+    $ _test.timeout = 20.0
+    run Function(_set_stats, 0, 0, 0, 0, False)
+    run Function(_assert_gate, "none")
+    run Function(_set_stats, 6, 1, 0, 0, False)
+    run Function(_assert_gate, "wanderer")
+    run Function(_set_stats, 1, 6, 0, 0, False)
+    run Function(_assert_gate, "scaramouche")
+    run Function(_set_stats, 9, 9, 9, 0, True)
+    run Function(_assert_gate, "true")
+    run Function(_set_stats, 4, 4, 6, 0, True)
+    run Function(_assert_gate, "none")
+    exit
+
+

@@ -278,3 +278,5 @@ label act3_3_7:
     # END OF ACT 3
     n "Act 4: The Fourth Page Two confessions and one dawn. The Rule of Three says a thing changes on the fourth."
 
+    jump act4_4_1
+

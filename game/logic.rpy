@@ -49,9 +49,10 @@ init python:
             store.current_day = day
 
     def show_title(text, delay=1.9):
-        """Show a centred scene-title card and wait for it to fade."""
+        """Show a centred scene-title card and wait for it to fade. The wait is
+        skippable (a click dismisses it early)."""
         renpy.show_screen("scene_title", text=text)
-        renpy.pause(delay)
+        renpy.pause(delay, hard=False)
         renpy.hide_screen("scene_title")
 
     ## ---- Ending gates ------------------------------------------------------
