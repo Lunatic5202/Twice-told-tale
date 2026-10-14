@@ -22,6 +22,7 @@ import os
 import sys
 import math
 import random
+import hashlib
 import argparse
 
 import numpy as np
@@ -67,6 +68,11 @@ CHAR_COLORS = {
 
 def lerp(a, b, t):
     return a + (b - a) * t
+
+
+def hseed(s):
+    """Stable integer seed from any value (unlike hash(), stable across runs)."""
+    return int.from_bytes(hashlib.sha256(str(s).encode()).digest()[:4], "big")
 
 
 def vgrad(w, h, stops):
@@ -358,7 +364,7 @@ def bg_annex(variant):
     lay = particles(new_layer(), 260 if kind == "rain" else 160, 5, kind,
                     (170, 190, 210) if kind == "rain" else (230, 220, 190), 3.5)
     arr = composite(arr, down(lay))
-    return finish(arr, 0.55, 7, 0.16, seed=hash(variant) % 97)
+    return finish(arr, 0.55, 7, 0.16, seed=hseed(variant) % 97)
 
 
 def bg_courtyard():
@@ -483,7 +489,7 @@ def bg_furnace(variant):
     if variant == "night":
         for i in range(8):
             arr = add_glow(arr, W * (0.1 + i * 0.11), 500, 16, (255, 200, 110), 1.0)
-    return finish(arr, 0.55, 7, 0.14, seed=hash(variant) % 89)
+    return finish(arr, 0.55, 7, 0.14, seed=hseed(variant) % 89)
 
 
 def ink_edge_warp():
@@ -559,7 +565,7 @@ def bg_lab(variant):
     if variant == "flicker":
         arr = composite(arr, shape(lambda d: d.rectangle(S((0, 0, W, H)), fill=(120, 120, 140, 90)),
                                    (120, 120, 140), 8))
-    return finish(arr, 0.4, 5, 0.1, seed=hash(variant) % 79)
+    return finish(arr, 0.4, 5, 0.1, seed=hseed(variant) % 79)
 
 
 def bg_house(variant):
@@ -584,7 +590,7 @@ def bg_house(variant):
         arr = add_glow(arr, W * 0.5, 450, 160, (255, 210, 130), 0.7)
     arr = composite(arr, down(particles(new_layer(), 180 if variant == "snow" else 60, 31,
                                         "snow" if variant == "snow" else "dust", (240, 244, 248), 3)))
-    return finish(arr, 0.5, 6, 0.14, seed=hash(variant) % 71)
+    return finish(arr, 0.5, 6, 0.14, seed=hseed(variant) % 71)
 
 
 def bg_veranda():
@@ -671,7 +677,7 @@ def bg_white(variant):
         arr = add_glow(arr, W * 0.5, H * 0.5, 300, (240, 235, 220), 0.8)
         arr = composite(arr, shape(lambda d: d.rectangle(S((W * 0.42, H * 0.24, W * 0.58, H * 0.78)),
                                                          fill=(240, 236, 224, 255)), (240, 236, 224), 2))
-    return finish(arr, 0.3 if variant == "stage" else 0.25, 4, 0.05, seed=hash(variant) % 61)
+    return finish(arr, 0.3 if variant == "stage" else 0.25, 4, 0.05, seed=hseed(variant) % 61)
 
 
 def bg_montage():
@@ -847,7 +853,7 @@ def cg_plate(key):
                                                        fill=(30, 28, 34, 255)), (30, 28, 34), 1))
     else:
         arr = cg_scene(bg_annex, "night")
-    return cg_frame(arr, seed=hash(key) % 137)
+    return cg_frame(arr, seed=hseed(key) % 137)
 
 
 # ----------------------------------------------------------------------------
@@ -934,6 +940,7 @@ def gen_backgrounds(only):
     for key, fn in BACKGROUNDS.items():
         if only and key not in only and ("bg_" + key) not in only:
             continue
+        random.seed("bg:" + key)
         arr = fn()
         save_webp(arr, os.path.join(out, key + ".webp"))
         print("bg   ", key)
@@ -944,6 +951,7 @@ def gen_cgs(only):
     for key in sorted(CGS):
         if only and key not in only and ("cg_" + key) not in only:
             continue
+        random.seed("cg:" + key)
         save_webp(cg_plate(key), os.path.join(out, key + ".webp"))
         print("cg   ", key)
 
@@ -954,6 +962,7 @@ def gen_sprites(only):
         for exp in exps:
             if only and ("%s_%s" % (tag, exp)) not in only and tag not in only:
                 continue
+            random.seed("sp:%s:%s" % (tag, exp))
             img = sprite_figure(tag, exp)
             os.makedirs(out, exist_ok=True)
             img.save(os.path.join(out, "%s_%s.png" % (tag, exp)), optimize=True)
