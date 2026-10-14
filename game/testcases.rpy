@@ -42,3 +42,31 @@ testcase smoke:
 
     pause 0.6
     exit
+
+
+################################################################################
+## Draft (Act 2+) smoke test
+################################################################################
+##
+## Run with:  renpy.sh . test draft
+##
+## Confirms the auto-generated Act 2+ draft parses and runs: opens a draft
+## scene, then exercises Scene 4.4's last-choice menu (only the always-available
+## "hand the pen to the Doctor" option is visible at default stats) and routes
+## into an ending.
+
+testcase draft:
+    $ _test.transition_timeout = 0.05
+    $ _test.timeout = 20.0
+
+    run Jump("act2_2_1")
+    advance
+    advance
+    advance
+    advance
+
+    run Jump("act4_4_4")
+    advance until screen "choice"
+    click "Hand the pen to the Doctor"
+    pause 0.5
+    exit

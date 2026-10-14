@@ -35,3 +35,6 @@
 # Python bytecode from tooling.
 __pycache__/
 *.pyc
+
+# Intermediate output from tools/script_to_rpy.py.
+/tools/out/
