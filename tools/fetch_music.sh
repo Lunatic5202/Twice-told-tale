@@ -16,7 +16,6 @@ fetch() { # url out
 
 # --- source tracks ---------------------------------------------------------
 B="https://opengameart.org/sites/default/files"
-fetch "$B/ambientmain_0.ogg"                            "$TMP/src_tragic.ogg"
 fetch "$B/Snowfall%20%28Looped%20ver.%29_0.ogg"         "$TMP/src_snow.ogg"
 fetch "$B/ObservingTheStar.ogg"                         "$TMP/src_space.ogg"
 fetch "$B/forest.ogg"                                   "$TMP/src_forest.ogg"
@@ -36,7 +35,6 @@ fetch "$B/bleeding_out2_1.ogg"                          "$TMP/src_bleeding.ogg"
 fetch "$B/preview_13.mp3"                               "$TMP/src_endscene.ogg"
 fetch "$B/Lament_for_a_Warriors_Soul_0.mp3"             "$TMP/src_lament.ogg"
 fetch "$B/Eye%20of%20the%20Storm.mp3"                   "$TMP/src_storm.ogg"
-fetch "$B/Contemplation.mp3"                            "$TMP/src_contemp.ogg"
 fetch "$B/untitled.mp3"                                 "$TMP/src_piano.ogg"
 fetch "$B/013_Another_August.mp3"                       "$TMP/src_august.ogg"
 fetch "$B/JRPG%20Piano.mp3"                             "$TMP/src_jrpg.ogg"
@@ -52,11 +50,19 @@ fetch "$B/creepyloop-v2.ogg"                            "$TMP/src_creepy.ogg"
 fetch "$B/darktheme_0.mp3"                              "$TMP/src_dark0.ogg"
 fetch "$B/theme.ogg"                                    "$TMP/src_dark.ogg"
 fetch "$B/path_walk_remake-mp3.mp3"                     "$TMP/src_pens.ogg"
-fetch "$B/awesomeness.wav"                              "$TMP/src_menu.ogg"
-fetch "$B/b423b42.wav"                                  "$TMP/src_load.ogg"
+fetch "$B/calm_track-loop.ogg"                          "$TMP/src_calm.ogg"
+fetch "$B/forest_2.ogg"                                 "$TMP/src_cathedral.ogg"
 
 # --- cue mapping: cue=source -------------------------------------------------
 copy() { [ -s "$TMP/src_$2.ogg" ] && cp "$TMP/src_$2.ogg" "$MUS/$1.ogg" && echo "cue  $1 <- $2"; }
+
+# vary: like copy, but re-encodes the source through an ffmpeg filter chain so a
+# "reprise" cue is a recognisable variation of its theme rather than a byte copy.
+vary() { # src out filter
+  [ -s "$TMP/src_$1.ogg" ] || { echo "MISS src_$1"; return; }
+  ffmpeg -nostdin -loglevel error -y -i "$TMP/src_$1.ogg" -filter:a "$3" -c:a libvorbis -q:a 4 "$MUS/$2.ogg" \
+    && echo "vary $2 <- $1  [$3]"
+}
 
 copy marginalia                    musicbox
 copy marginalia_dawn               moonlit
@@ -65,20 +71,20 @@ copy hat_guy                       town
 copy hat_guy_reprise               field
 copy the_table                     piano
 copy warm_table                    august
-copy warm_table_reprise            august
-copy the_boy                       lullaby
+vary august                        warm_table_reprise     "atempo=0.9,aecho=0.8:0.7:300:0.25"
+copy the_boy                       calm
 copy a_smaller_promise             goodbye
 copy clean_instruments             trifle
-copy reprise_clean_instruments     contemp
+vary trifle                        reprise_clean_instruments "atempo=0.92,lowpass=f=8000,aecho=0.8:0.7:420:0.3"
 copy the_doctor_s_hour             dark0
 copy the_old_dawn                  fantasy
-copy what_i_never_said             piano
+copy what_i_never_said             space
 copy the_thing_unsaid              bleeding
 copy six_days                      pens
 copy three_pages                   jrpg
 copy the_last_evening             endscene
 copy what_we_can_t_take_back       home
-copy a_name_is_a_small_thing       trifle
+copy a_name_is_a_small_thing       cathedral
 copy what_he_built_from_nothing    human
 copy the_margin_door               temple
 copy page_walk                     crystal
@@ -90,12 +96,12 @@ copy slumber                       lullaby
 copy smoke                         lament
 copy sword_dance                   tiki
 copy tatarasuna                    factory
-copy three_hundred_and_eleven      musicbox
-copy what_he_can_t_read            jrpg
-copy what_he_kept                  home
-copy what_i_remember               dark0
-copy what_was_written              piano
-copy which_of_us                   contemp
+copy three_hundred_and_eleven      cave
+copy what_he_can_t_read            hope
+copy what_he_kept                  storm
+copy what_i_remember               rain
+copy what_was_written              next
+copy which_of_us                   forest
 
 rm -rf "$TMP"
 echo "done"

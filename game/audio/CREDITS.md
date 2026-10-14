@@ -9,24 +9,34 @@ replacement easy. Files were fetched and normalized to Ogg Vorbis by
 
 | Cue file(s) | Source track | Origin |
 |-------------|--------------|--------|
-| `marginalia`, `three_hundred_and_eleven` | musicbox1_spooky_waltz | "4 Music Box Tracks" |
+| `marginalia` | musicbox1_spooky_waltz | "4 Music Box Tracks" |
+| `three_hundred_and_eleven` | cave themeb4 | "Cave Theme B4" |
 | `marginalia_dawn` | moonlit_lullaby_for_the_lost | "Moonlit Lullaby for the Lost" |
 | `double_trouble` | 8bit Bossa | "Bossa Nova" |
 | `hat_guy` | TownTheme | "Town Theme RPG" |
 | `hat_guy_reprise` | the_field_of_dreams | "The Field of Dreams" |
-| `the_table`, `what_i_never_said`, `what_was_written` | untitled | "Emotional Piano Loop" |
-| `warm_table`, `warm_table_reprise` | 013_Another_August | "Another August" |
-| `the_boy`, `slumber` | Lullaby | "Lullaby" |
+| `the_table` | untitled | "Emotional Piano Loop" |
+| `what_was_written` | Next to You | "Next to You" |
+| `warm_table` | 013_Another_August | "Another August" |
+| `warm_table_reprise` | 013_Another_August (slowed, echo) | "Another August" — variation |
+| `the_boy` | calm_track-loop | "Calm Track" |
+| `slumber` | Lullaby | "Lullaby" |
 | `a_smaller_promise` | goodbye_lullaby | "Goodbye Lullaby (Day 4)" |
-| `clean_instruments`, `a_name_is_a_small_thing` | ASimpleTrifle | "A Simple Trifle" |
-| `reprise_clean_instruments`, `which_of_us` | Contemplation | "Contemplation" |
-| `the_doctor_s_hour`, `what_i_remember` | darktheme_0 | "Dark Theme 0" |
+| `clean_instruments` | ASimpleTrifle | "A Simple Trifle" |
+| `reprise_clean_instruments` | ASimpleTrifle (slowed, lowpass, echo) | "A Simple Trifle" — variation |
+| `the_doctor_s_hour` | darktheme_0 | "Dark Theme 0" |
+| `what_i_remember` | Dark_Rainy_Night (ambience) | "Dark Rainy Night" |
 | `the_old_dawn` | FantasyMp3 | "Fantasy" |
-| `the_thing_unsaid`, `smoke` | bleeding_out2_1 / Lament_for_a_Warriors_Soul_0 | "Bleeding Out" / "Lament for a Warrior's Soul" |
+| `what_i_never_said` | ObservingTheStar | "Observing the Star" |
+| `the_thing_unsaid` | bleeding_out2_1 | "Bleeding Out" |
+| `smoke` | Lament_for_a_Warriors_Soul_0 | "Lament for a Warrior's Soul" |
 | `six_days` | path_walk_remake | "Horror Pen's Songs (Remake)" |
-| `three_pages`, `what_he_can_t_read` | JRPG Piano | "JRPG Piano" |
+| `three_pages` | JRPG Piano | "JRPG Piano" |
+| `what_he_can_t_read` | at the end of hope | "At the End of Hope" |
 | `the_last_evening` | preview_13 | "Ending Scene" |
-| `what_we_can_t_take_back`, `what_he_kept` | i_want_to_go_home | "I Want to Go Home" |
+| `what_we_can_t_take_back` | i_want_to_go_home | "I Want to Go Home" |
+| `what_he_kept` | Eye of the Storm | "Eye of the Storm" |
+| `a_name_is_a_small_thing` | forest_2 | "Cathedral in the Forest" |
 | `what_he_built_from_nothing` | humanthemepreview | "Human Theme" |
 | `the_margin_door` | GalacticTemple | "Galactic Temple" |
 | `page_walk` | song18 | "Crystal Cave Song 18" |
@@ -36,8 +46,7 @@ replacement easy. Files were fetched and normalized to Ogg Vorbis by
 | `rumors` | creepyloop-v2 | "Creepy Ambient Loop" |
 | `sword_dance` | enchanted tiki 86 | "Enchanted Tiki 86" |
 | `tatarasuna` | Factory_0 | "Factory Ambiance" |
-| `page_walk_ambient` | ObservingTheStar | "Another Space Background Track" |
-| `menu` / `load` beds | awesomeness / b423b42 | "Menu Music" / "Loading Screen Loop" |
+| `which_of_us` | forest | "Forest" |
 
 ## Sound effects (OpenGameArt.org, CC0)
 
