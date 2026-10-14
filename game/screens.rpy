@@ -304,6 +304,12 @@ screen navigation():
 
             textbutton _("Start") action Start() at nav_lift
 
+            textbutton _("Pages Collected") action ShowMenu("endings_gallery") at nav_lift
+
+            textbutton _("Gallery") action ShowMenu("cg_gallery") at nav_lift
+
+            textbutton _("Music Room") action ShowMenu("music_room") at nav_lift
+
         else:
 
             textbutton _("History") action ShowMenu("history") at nav_lift

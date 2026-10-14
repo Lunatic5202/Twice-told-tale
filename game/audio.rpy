@@ -2,9 +2,9 @@
 ## Twice-Told Tale - Audio
 ################################################################################
 ##
-## Named music and sound cues from the script. Each currently points at a
-## silent placeholder in game/audio/ so the script plays end-to-end. Replace
-## the files (keep the names) to bring the soundtrack online.
+## Named music and sound cues from the script. Each points at a real CC0 track
+## in game/audio/ (sources in game/audio/CREDITS.md). Replace any file, keeping
+## the name, to swap a cue.
 
 ## ---- Music cues ------------------------------------------------------------
 

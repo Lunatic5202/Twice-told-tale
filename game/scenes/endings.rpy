@@ -15,6 +15,7 @@ label ending_shared_beat:
     return
 
 label ending_wanderer:
+    $ record_ending("wanderer")
     # ENDING A · THE WANDERER ENDING · “Her Name”
     scene bg annex_day
     with scene_fade
@@ -37,6 +38,7 @@ label ending_wanderer:
     return
 
 label ending_scaramouche:
+    $ record_ending("scaramouche")
     # ENDING B · THE SCARAMOUCHE ENDING · “The Lamp-Keeper”
     scene bg annex_day
     with scene_fade
@@ -61,6 +63,7 @@ label ending_scaramouche:
     return
 
 label ending_true:
+    $ record_ending("true")
     # ENDING C · THE TRUE ENDING · “The Passenger”
     scene bg white_page
     with scene_fade
@@ -105,6 +108,7 @@ label ending_true:
     return
 
 label ending_gnosis_box:
+    $ record_ending("gnosis_box")
     # ENDING F · THE GNOSIS BOX
     # Gate: BOX = TRUE. Tone: psychological horror; no new explanation of the Gnosis is asserted.
     scene bg annex_dawn
@@ -137,6 +141,7 @@ label ending_gnosis_box:
     return
 
 label ending_burned_pages:
+    $ record_ending("burned_pages")
     # ENDING G · BURNED PAGES
     # Gate: PROMISE_MADE = TRUE and PEN ≥ 3. On selection, set PROMISE_BROKEN = TRUE. Tone: tragedy; the promise is broken by the moment the player chooses to abandon, not by a random failure of navigation.
     scene bg white_page
@@ -171,6 +176,7 @@ label ending_burned_pages:
     return
 
 label ending_blank_page:
+    $ record_ending("blank_page")
     # ENDING H · BLANK PAGE
     # Gate: PEN ≥ 3. Tone: existential horror; the ending refuses to confirm death, erasure, or salvation.
     scene bg white_page
@@ -203,6 +209,7 @@ label ending_blank_page:
     return
 
 label ending_neutral:
+    $ record_ending("neutral")
     # NEUTRAL ENDING · “Margins”
     scene bg white_page_street
     with scene_fade
@@ -217,6 +224,7 @@ label ending_neutral:
     return
 
 label ending_archivist:
+    $ record_ending("archivist")
     # BAD ENDING 1 · “The Archivist’s Fee”
     scene bg white_page_dark
     with scene_fade
@@ -234,6 +242,7 @@ label ending_archivist:
     return
 
 label ending_burn_it_down:
+    $ record_ending("burn_it_down")
     # BAD ENDING 2 · “Burn It Down”
     scene bg white_page_burn
     with scene_fade
@@ -249,6 +258,7 @@ label ending_burn_it_down:
     return
 
 label ending_quiet_page:
+    $ record_ending("quiet_page")
     # BAD ENDING 3 · “The Quiet Page” — LEGACY SCENE, NOT CURRENTLY
     scene bg annex_dawn
     with scene_fade
