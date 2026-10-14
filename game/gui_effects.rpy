@@ -14,6 +14,7 @@
 ## Nothing here is required for the story to run; it can all be removed and the
 ## game will still be playable with the stock look.
 
+
 init offset = -1
 
 
@@ -228,7 +229,7 @@ screen splash_loading():
 
     vbox:
         xalign 0.5
-        yalign 0.42
+        yalign 0.34
         spacing 10
 
         text "Twice-Told Tale":
@@ -247,11 +248,11 @@ screen splash_loading():
 
     add "splash_quill" at rise_in(0.5, 0, 0.6):
         xalign 0.5
-        yalign 0.63
+        yalign 0.58
 
     fixed:
         xalign 0.5
-        yalign 0.74
+        yalign 0.68
         xysize (380, 3)
         add Solid("#26263a")
         add Solid("#d6b25e", xysize=(380, 3)) at splash_progress
@@ -259,13 +260,19 @@ screen splash_loading():
     text "turning the page…":
         at rise_in(1.1, 8, 0.7)
         xalign 0.5
-        yalign 0.80
+        yalign 0.74
         size 18
         color "#6f8a90"
 
 label splashscreen:
     scene black
     with None
+
+    show text "{size=64}{color=#ece5d3}outline=(4,"#0a0a14dd",0,0)Made by Lunatic" at rise_in(0.25, 24, 0.8) with None
+
+    $ renpy.pause(1.8, hard=False)
+    with Fade(0.4, 0.1, 0.3, color="#07070e")
+
     show screen splash_loading
     $ renpy.pause(2.8, hard=False)
     hide screen splash_loading
