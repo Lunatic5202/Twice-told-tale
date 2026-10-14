@@ -288,6 +288,12 @@ SPRITE_SPECS = {
     "cyno": dict(skin="#dcbd97", hair="#1c1c26", hair_style="short",
                  coat="#2a2a34", coat_dark="#1a1a22", accent="#c9a44a",
                  trim="#c9a44a", hat=None, ears="jackal", height=950),
+    "ei": dict(skin="#f2ddca", hair="#6a5a9a", hair_style="long",
+               coat="#4a3a6a", coat_dark="#352a52", accent="#c9a44a",
+               trim="#dcd8ea", hat=None, height=955),
+    "yae": dict(skin="#f6e3cf", hair="#eec2d6", hair_style="long",
+                coat="#f0eee8", coat_dark="#d8d0c8", accent="#b03040",
+                trim="#b03040", hat=None, ears="fox", height=940),
 }
 
 EXPR = {
@@ -567,15 +573,24 @@ def sprite_figure(tag, expr):
     return Image.alpha_composite(aura, lay)
 
 
-def paste_figure(arr, tag, cx_frac, base_frac, h_frac, flat=None, expr="neutral"):
-    """Paste a scaled character (dark silhouette by default) onto a plate."""
+def paste_figure(arr, tag, cx_frac, base_frac, h_frac, flat=None, expr="neutral", rotate=0):
+    """Paste a scaled character (dark silhouette by default) onto a plate.
+
+    Normally `base_frac` is where the feet rest. When `rotate` is non-zero the
+    figure is turned (e.g. 90 for a body lying down) and `base_frac` becomes the
+    figure's centre instead."""
     fig = render_figure(tag, expr, flat=flat)
     target_h = int(H * h_frac)
     target_w = max(1, int(fig.width * target_h / fig.height))
     fig = fig.resize((target_w, target_h), Image.LANCZOS)
+    if rotate:
+        fig = fig.rotate(rotate, expand=True, resample=Image.BICUBIC)
+        x = int(W * cx_frac - fig.width / 2)
+        y = int(H * base_frac - fig.height / 2)
+    else:
+        x = int(W * cx_frac - target_w / 2)
+        y = int(H * base_frac - target_h)
     layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    x = int(W * cx_frac - target_w / 2)
-    y = int(H * base_frac - target_h)
     layer.alpha_composite(fig, (max(0, x), max(0, y)))
     return composite(arr, layer)
 
@@ -1061,16 +1076,23 @@ def cg_plate(key):
         arr = add_glow(arr, W * 0.5, H * 0.55, 300, (255, 200, 120), 0.6)
     elif key == "sleeping_puppet":
         arr = cg_scene(bg_tatami)
+        arr = paste_figure(arr, "wanderer", 0.5, 0.74, 0.4, flat=SILHOUETTE, rotate=90)
+        arr = add_glow(arr, W * 0.5, H * 0.55, 240, (255, 210, 150), 0.35)
     elif key == "raiden_yae":
         arr = cg_scene(bg_shrine)
+        arr = paste_figure(arr, "ei", 0.40, 1.0, 0.92, flat=SILHOUETTE)
+        arr = paste_figure(arr, "yae", 0.62, 1.0, 0.9, flat=SILHOUETTE)
+        arr = add_glow(arr, W * 0.5, H * 0.32, 320, (205, 175, 240), 0.3)
     elif key == "niwa_note":
         arr = cg_scene(bg_furnace_room)
+        arr = paste_figure(arr, "wanderer", 0.42, 1.0, 0.9, flat=SILHOUETTE)
         arr = composite(arr, shape(lambda d: d.rectangle(S((W * 0.34, H * 0.34, W * 0.66, H * 0.7)),
                                                          fill=(238, 232, 214, 240)), (238, 232, 214), 2))
     elif key == "child_drawing":
         arr = cg_scene(bg_house, "dawn")
         arr = composite(arr, shape(lambda d: d.rectangle(S((W * 0.3, H * 0.26, W * 0.7, H * 0.74)),
                                                          fill=(242, 236, 220, 240)), (242, 236, 220), 3))
+        arr = paste_figure(arr, "wanderer", 0.5, 0.74, 0.34, flat=SILHOUETTE)
         arr = add_glow(arr, W * 0.62, H * 0.4, 90, (230, 170, 70), 0.6)
     elif key == "hooked_pinkies":
         arr = cg_scene(bg_house, "dawn")
@@ -1087,6 +1109,10 @@ def cg_plate(key):
         arr = _lens(arr)
     elif key == "glass_cell":
         arr = cg_scene(bg_lab, "cube")
+        arr = paste_figure(arr, "wanderer", 0.5, 1.0, 0.86, flat=SILHOUETTE)
+        arr = composite(arr, shape(lambda d: d.polygon(
+            S([(W * 0.22, H * 0.10), (W * 0.45, H * 0.10), (W * 0.30, H * 0.98), (W * 0.22, H * 0.98)]),
+            fill=(185, 215, 245, 45)), (185, 215, 245), 4))
     elif key == "two_palms":
         arr = cg_scene(bg_lab, "cube")
         arr = _hand(arr, W * 0.44, H * 0.55, 1.1, (230, 230, 240), 200)
