@@ -189,92 +189,62 @@ transform breathe(min_z=1.0, max_z=0.985, period=2.6):
 
 
 ## ----------------------------------------------------------------------------
-## Splash / loading screen
+## Splash screen
 ## ----------------------------------------------------------------------------
 
-image splash_quill:
-    "gui/cursor/pen_hover_0.png"
-    subpixel True
-    zoom 2.2
-    rotate 0
-    block:
-        easein 0.9 rotate -7
-        easeout 0.9 rotate 7
-        repeat
-
-transform splash_blot:
-    subpixel True
+## "Made by Lunatic" fades in, holds, then fades out.
+transform splash_byline:
     xalign 0.5
     yalign 0.5
-    zoom 1.35
-    rotate 0
     alpha 0.0
-    parallel:
-        linear 1.2 alpha 0.55
-    parallel:
-        linear 3.2 zoom 1.0 rotate 5
+    linear 0.7 alpha 1.0
+    pause 1.1
+    linear 0.7 alpha 0.0
 
-transform splash_progress:
-    xanchor 0.0
-    xzoom 0.001
-    pause 0.4
-    easeout 2.1 xzoom 1.0
 
-screen splash_loading():
-    zorder 200
+## The logo snaps in with a short glitch, then settles.
+transform logo_glitch:
+    subpixel True
+    fit "contain"
+    xysize (640, 440)
+    xalign 0.5
+    yalign 0.5
+    alpha 0.0
+    easein 0.10 alpha 1.0
+    block:
+        xoffset 14 yoffset -8 alpha 0.7
+        pause 0.03
+        xoffset -11 yoffset 7 alpha 1.0
+        pause 0.03
+        xoffset 7 yoffset 5 alpha 0.55
+        pause 0.02
+        xoffset -6 yoffset -9 alpha 1.0
+        pause 0.03
+        xoffset 3 yoffset 2 alpha 0.8
+        pause 0.02
+        xoffset 0 yoffset 0 alpha 1.0
+        pause 0.05
+        repeat 5
+    xoffset 0 yoffset 0 alpha 1.0
+    pause 0.6
 
-    add Solid("#07070e")
-
-    add "gui/overlay/ink_blot.png" at splash_blot
-
-    vbox:
-        xalign 0.5
-        yalign 0.34
-        spacing 10
-
-        text "Twice-Told Tale":
-            at rise_in(0.15, 22, 0.9)
-            xalign 0.5
-            size 66
-            color "#ece5d3"
-            outlines [(3, "#0a0a14dd", 0, 0)]
-
-        text "a tale told twice":
-            at rise_in(0.65, 12, 0.8)
-            xalign 0.5
-            italic True
-            size 22
-            color "#8fa8b0"
-
-    add "splash_quill" at rise_in(0.5, 0, 0.6):
-        xalign 0.5
-        yalign 0.58
-
-    fixed:
-        xalign 0.5
-        yalign 0.68
-        xysize (380, 3)
-        add Solid("#26263a")
-        add Solid("#d6b25e", xysize=(380, 3)) at splash_progress
-
-    text "turning the page…":
-        at rise_in(1.1, 8, 0.7)
-        xalign 0.5
-        yalign 0.74
-        size 18
-        color "#6f8a90"
 
 label splashscreen:
     scene black
     with None
 
-    show text "{size=64}{color=#ece5d3}outline=(4,"#0a0a14dd",0,0)Made by Lunatic" at rise_in(0.25, 24, 0.8) with None
+    ## Act one: the byline fades in and out.
+    show text "{size=54}{color=#ece5d3}outline=(4,"#0a0a14dd",0,0)Made by Lunatic" at splash_byline
+    with None
+    $ renpy.pause(2.6, hard=False)
+    hide text
+    with Dissolve(0.3)
 
-    $ renpy.pause(1.8, hard=False)
-    with Fade(0.4, 0.1, 0.3, color="#07070e")
+    ## Act two: the logo glitches into place.
+    show expression "images/ui/logo.png" at logo_glitch
+    with None
+    $ renpy.pause(2.4, hard=False)
 
-    show screen splash_loading
-    $ renpy.pause(2.8, hard=False)
-    hide screen splash_loading
+    scene black
     with ink_dissolve
     return

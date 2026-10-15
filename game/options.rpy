@@ -205,7 +205,7 @@ init python:
     ## Archive the bulky assets so the distribution is a handful of files.
     build.classify('game/images/**', 'archive')
     build.classify('game/audio/**', 'archive')
-    build.classify('game/fonts/**', 'archive')
+    build.classify('game/gui/fonts/**', 'archive')
 
     ## Name the built distributions.
     build.name = "Twice-Told-Tale"

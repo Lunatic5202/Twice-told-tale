@@ -360,12 +360,27 @@ style navigation_button_text:
 ##
 ## https://www.renpy.org/doc/html/screen_special.html#main-menu
 
+transform logo_plate:
+    fit "contain"
+    xysize (440, 300)
+
+
+transform menu_title_bg:
+    fit "cover"
+    xysize (1280, 720)
+    xalign 0.5
+    yalign 0.5
+
+
 screen main_menu():
 
     ## This ensures that any other menu screen is replaced.
     tag menu
 
     add gui.main_menu_background
+
+    ## The title key-art, keyed onto the dark backdrop.
+    add "images/ui/title.png" at menu_title_bg
 
     ## A slow-drifting ink bloom behind the interface.
     add "gui/overlay/ink_blot.png" at ink_bloom
@@ -384,9 +399,9 @@ screen main_menu():
             style "main_menu_vbox"
             at rise_in(0.05, 24, 0.8)
 
-            text "[config.name!t]":
-                style "main_menu_title"
-                at breathe(1.0, 0.985, 3.2)
+            add "images/ui/logo.png":
+                xalign 1.0
+                at logo_plate, breathe(1.0, 0.99, 3.6)
 
             text "[config.version]":
                 style "main_menu_version"
@@ -416,6 +431,7 @@ style main_menu_text:
 
 style main_menu_title:
     properties gui.text_properties("title")
+    font gui.title_font
 
 style main_menu_version:
     properties gui.text_properties("version")
@@ -543,7 +559,8 @@ style game_menu_label:
     ysize gui.scale(120)
 
 style game_menu_label_text:
-    size gui.scale(50)
+    size gui.scale(44)
+    font gui.title_font
     color gui.accent_color
     yalign 0.5
 
@@ -574,6 +591,8 @@ screen about():
 
         vbox:
 
+            add "images/ui/logo.png" at logo_plate
+
             label "[config.name!t]"
             text _("Version [config.version!t]\n")
 
@@ -590,6 +609,7 @@ style about_text is gui_text
 
 style about_label_text:
     size gui.label_text_size
+    font gui.title_font
 
 
 ## Load and Save screens #######################################################

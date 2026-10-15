@@ -81,7 +81,11 @@ screen credits():
             xalign 0.5
             size 26
             color "#7a7280"
-        text "Droid Serif by Steve Matteson (Apache License 2.0)":
+        text "Cinzel Decorative by Natanael Gama (OFL-1.1)":
+            xalign 0.5
+            size 30
+            color "#e6dfd0"
+        text "Crimson Text by Sebastian Kosch (OFL-1.1)":
             xalign 0.5
             size 30
             color "#e6dfd0"

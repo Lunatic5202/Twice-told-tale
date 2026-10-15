@@ -126,6 +126,7 @@ screen scene_title(text=""):
             text text:
                 xalign 0.5
                 textalign 0.5
+                font gui.title_font
                 color "#ffffff"
                 size 46
                 outlines [(3, "#000000cc", 0, 0)]

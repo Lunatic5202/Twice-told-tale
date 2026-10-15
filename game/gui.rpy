@@ -58,13 +58,17 @@ define gui.interface_text_color = "#ffffff"
 ## Fonts and Font Sizes ########################################################
 
 ## The font used for in-game text.
-define gui.text_font = "gui/fonts/DroidSerif-Regular.ttf"
+define gui.text_font = "gui/fonts/CrimsonText-Regular.ttf"
 
 ## The font used for character names.
-define gui.name_text_font = "gui/fonts/DroidSerif-Bold.ttf"
+define gui.name_text_font = "gui/fonts/CrimsonText-Bold.ttf"
 
 ## The font used for out-of-game text.
-define gui.interface_text_font = "gui/fonts/DroidSerif-Regular.ttf"
+define gui.interface_text_font = "gui/fonts/CrimsonText-Regular.ttf"
+
+## The decorative display font used for titles and headings.
+define gui.title_font = "gui/fonts/CinzelDecorative-Bold.ttf"
+define gui.display_font = "gui/fonts/CinzelDecorative-Regular.ttf"
 
 ## The size of normal dialogue text.
 define gui.text_size = gui.scale(22)
@@ -209,7 +213,7 @@ define gui.choice_button_width = gui.scale(790)
 define gui.choice_button_height = None
 define gui.choice_button_tile = False
 define gui.choice_button_borders = Borders(gui.scale(100), gui.scale(5), gui.scale(100), gui.scale(5))
-define gui.choice_button_text_font = "gui/fonts/DroidSerif-Regular.ttf"
+define gui.choice_button_text_font = "gui/fonts/CrimsonText-Regular.ttf"
 define gui.choice_button_text_size = gui.text_size
 define gui.choice_button_text_xalign = 0.5
 define gui.choice_button_text_idle_color = "#cccccc"
