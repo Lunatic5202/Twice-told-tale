@@ -244,18 +244,21 @@ screen quick_menu():
 
     if quick_menu:
 
-        hbox:
-            style_prefix "quick"
-            style "quick_menu"
+        frame:
+            style "quick_menu_frame"
 
-            textbutton _("Back") action Rollback()
-            textbutton _("History") action ShowMenu('history')
-            textbutton _("Skip") action Skip() alternate Skip(fast=True, confirm=True)
-            textbutton _("Auto") action Preference("auto-forward", "toggle")
-            textbutton _("Save") action ShowMenu('save')
-            textbutton _("Q.Save") action QuickSave()
-            textbutton _("Q.Load") action QuickLoad()
-            textbutton _("Prefs") action ShowMenu('preferences')
+            hbox:
+                style_prefix "quick"
+                style "quick_menu"
+
+                textbutton _("Back") action Rollback()
+                textbutton _("History") action ShowMenu('history')
+                textbutton _("Skip") action Skip() alternate Skip(fast=True, confirm=True)
+                textbutton _("Auto") action Preference("auto-forward", "toggle")
+                textbutton _("Save") action ShowMenu('save')
+                textbutton _("Q.Save") action QuickSave()
+                textbutton _("Q.Load") action QuickLoad()
+                textbutton _("Prefs") action ShowMenu('preferences')
 
 
 ## This code ensures that the quick_menu screen is displayed in-game, whenever
@@ -265,13 +268,21 @@ init python:
 
 default quick_menu = True
 
+style quick_menu_frame is empty
 style quick_menu is hbox
 style quick_button is default
 style quick_button_text is button_text
 
-style quick_menu:
+style quick_menu_frame:
     xalign 0.5
     yalign 1.0
+    yoffset gui.scale(-6)
+
+    background Solid("#0b0b12cc")
+    padding (gui.scale(26), gui.scale(5))
+
+style quick_menu:
+    spacing gui.scale(2)
 
 style quick_button:
     properties gui.button_properties("quick_button")
@@ -310,8 +321,6 @@ screen navigation():
 
             textbutton _("Music Room") action ShowMenu("music_room") at nav_lift
 
-            textbutton _("Credits") action ShowMenu("credits") at nav_lift
-
         else:
 
             textbutton _("History") action ShowMenu("history") at nav_lift
@@ -321,6 +330,8 @@ screen navigation():
         textbutton _("Load") action ShowMenu("load") at nav_lift
 
         textbutton _("Preferences") action ShowMenu("preferences") at nav_lift
+
+        textbutton _("Credits") action ShowMenu("credits") at nav_lift
 
         if _in_replay:
 
@@ -758,6 +769,12 @@ style slot_button:
 style slot_button_text:
     properties gui.text_properties("slot_button")
 
+style slot_time_text:
+    color "#9a9284"
+
+style slot_name_text:
+    color "#d8d0c0"
+
 
 ## Preferences screen ##########################################################
 ##
@@ -773,9 +790,17 @@ screen preferences():
     use game_menu(_("Preferences"), scroll="viewport"):
 
         vbox:
+            spacing gui.scale(10)
+
+            text _("Tune how the story is read and heard."):
+                size gui.scale(19)
+                color "#9a9284"
+
+            null height gui.scale(4)
 
             hbox:
                 box_wrap True
+                spacing gui.scale(60)
 
                 if renpy.variant("pc") or renpy.variant("web"):
 
@@ -792,26 +817,41 @@ screen preferences():
                     textbutton _("After Choices") action Preference("after choices", "toggle")
                     textbutton _("Transitions") action InvertSelected(Preference("transitions", "toggle"))
 
-                ## Additional vboxes of type "radio_pref" or "check_pref" can be added here, to
-                ## add additional creator-defined preferences.
+                vbox:
+                    style_prefix "check"
+                    label _("Text & Accessibility")
+                    textbutton _("High Contrast") action Preference("high contrast text", "toggle")
+                    textbutton _("Accessibility Options") action Preference("accessibility menu")
 
-            null height (4 * gui.pref_spacing)
+            null height gui.scale(6)
 
             hbox:
-                style_prefix "slider"
                 box_wrap True
+                spacing gui.scale(60)
 
                 vbox:
+                    style_prefix "slider"
 
                     label _("Text Speed")
 
-                    bar value Preference("text speed")
+                    hbox:
+                        spacing gui.scale(8)
+
+                        text _("Slow") style "pref_end_label" yalign 0.5
+                        bar value Preference("text speed")
+                        text _("Fast") style "pref_end_label" yalign 0.5
 
                     label _("Auto-Forward Time")
 
-                    bar value Preference("auto-forward time")
+                    hbox:
+                        spacing gui.scale(8)
+
+                        text _("Fast") style "pref_end_label" yalign 0.5
+                        bar value Preference("auto-forward time")
+                        text _("Slow") style "pref_end_label" yalign 0.5
 
                 vbox:
+                    style_prefix "slider"
 
                     if config.has_music:
                         label _("Music Volume")
@@ -820,7 +860,6 @@ screen preferences():
                             bar value Preference("music volume")
 
                     if config.has_sound:
-
                         label _("Sound Volume")
 
                         hbox:
@@ -828,7 +867,6 @@ screen preferences():
 
                             if config.sample_sound:
                                 textbutton _("Test") action Play("sound", config.sample_sound)
-
 
                     if config.has_voice:
                         label _("Voice Volume")
@@ -846,6 +884,20 @@ screen preferences():
                             action Preference("all mute", "toggle")
                             style "mute_all_button"
 
+                vbox:
+                    spacing gui.scale(6)
+
+                    label _("Preview")
+
+                    frame:
+                        style "pref_preview_frame"
+
+                        text _("{i}“The ink remembers what the hand forgets.”{/i}"):
+                            style "pref_preview_text"
+
+            null height gui.scale(6)
+
+            textbutton _("Reset to Defaults") action Preference("reset")
 
 style pref_label is gui_label
 style pref_label_text is gui_label_text
@@ -917,6 +969,21 @@ style slider_button_text:
 style slider_vbox:
     xsize gui.scale(450)
 
+style pref_end_label is gui_text
+style pref_end_label:
+    size gui.scale(16)
+    color "#7a7280"
+
+style pref_preview_frame is gui_frame
+style pref_preview_frame:
+    background Solid("#0b0b12cc")
+    padding (gui.scale(18), gui.scale(12))
+    xsize gui.scale(300)
+
+style pref_preview_text is gui_text
+style pref_preview_text:
+    properties gui.text_properties("dialogue")
+
 
 ## History screen ##############################################################
 ##
@@ -981,6 +1048,7 @@ style history_label_text is gui_label_text
 style history_window:
     xfill True
     ysize gui.history_height
+    background Solid("#ffffff08")
 
 style history_name:
     xpos gui.history_name_xpos
@@ -991,6 +1059,7 @@ style history_name:
 style history_name_text:
     min_width gui.history_name_width
     textalign gui.history_name_xalign
+    color gui.accent_color
 
 style history_text:
     xpos gui.history_text_xpos
@@ -999,6 +1068,7 @@ style history_text:
     xsize gui.history_text_width
     min_width gui.history_text_width
     textalign gui.history_text_xalign
+    color "#d8d0c0"
     layout ("subtitle" if gui.history_text_xalign else "tex")
 
 style history_label:
@@ -1251,11 +1321,13 @@ screen skip_indicator():
     style_prefix "skip"
 
     frame:
+        style "mode_indicator_frame"
+        ypos gui.scale(16)
 
         hbox:
             spacing gui.scale(6)
 
-            text _("Skipping")
+            text _("Skipping") style "mode_indicator_text"
 
             text "▸" at delayed_blink(0.0, 1.0) style "skip_triangle"
             text "▸" at delayed_blink(0.2, 1.0) style "skip_triangle"
@@ -1280,6 +1352,19 @@ style skip_frame is empty
 style skip_text is gui_text
 style skip_triangle is skip_text
 
+## Shared look for the small mode badges (Auto / Skipping) in the corner.
+style mode_indicator_frame is empty
+style mode_indicator_frame:
+    xpos gui.scale(24)
+    background Solid("#0b0b12cc")
+    padding (gui.scale(16), gui.scale(5))
+
+style mode_indicator_text is gui_text
+style mode_indicator_text:
+    size gui.scale(18)
+    color gui.accent_color
+    font gui.display_font
+
 style skip_frame:
     ypos gui.skip_ypos
     background Frame("gui/skip.png", gui.skip_frame_borders, tile=gui.frame_tile)
@@ -1292,6 +1377,8 @@ style skip_triangle:
     ## We have to use a font that has the BLACK RIGHT-POINTING SMALL TRIANGLE
     ## glyph in it.
     font "DejaVuSans.ttf"
+    size gui.scale(18)
+    color gui.accent_color
 
 
 ## Notify screen ###############################################################
@@ -1562,14 +1649,17 @@ screen quick_menu():
 
     if quick_menu:
 
-        hbox:
-            style "quick_menu"
-            style_prefix "quick"
+        frame:
+            style "quick_menu_frame"
 
-            textbutton _("Back") action Rollback()
-            textbutton _("Skip") action Skip() alternate Skip(fast=True, confirm=True)
-            textbutton _("Auto") action Preference("auto-forward", "toggle")
-            textbutton _("Menu") action ShowMenu()
+            hbox:
+                style "quick_menu"
+                style_prefix "quick"
+
+                textbutton _("Back") action Rollback()
+                textbutton _("Skip") action Skip() alternate Skip(fast=True, confirm=True)
+                textbutton _("Auto") action Preference("auto-forward", "toggle")
+                textbutton _("Menu") action ShowMenu()
 
 
 style window:

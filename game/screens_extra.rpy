@@ -161,3 +161,37 @@ screen page_counter():
             text "[pages_left] PAGES LEFT":
                 size 20
                 color "#d8d0c0"
+
+
+## ----------------------------------------------------------------------------
+## Auto-forward indicator
+## ----------------------------------------------------------------------------
+## A small badge that pulses while auto-forward mode is on, so the player always
+## knows why the story is advancing on its own.
+
+transform mode_badge_pulse:
+    subpixel True
+    alpha 0.72
+    block:
+        easein 1.0 alpha 1.0
+        easeout 1.0 alpha 0.72
+        repeat
+
+screen auto_indicator():
+    zorder 96
+
+    if preferences.afm_enable and not config.skipping:
+        frame:
+            at mode_badge_pulse
+            style "mode_indicator_frame"
+            ypos gui.scale(52)
+
+            hbox:
+                spacing gui.scale(6)
+
+                text _("Auto") style "mode_indicator_text"
+                text "▸" style "skip_triangle"
+
+
+init python:
+    config.overlay_screens.append("auto_indicator")
