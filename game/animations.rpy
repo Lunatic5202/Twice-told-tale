@@ -56,6 +56,11 @@ define TITLE_ZOOM = 1.06
 define TITLE_ZOOM2 = 1.13
 define TITLE_OX = 16
 
+## Character sprites are drawn on a 700x1120 canvas - taller than the 720px
+## screen - so they must be scaled down to stand fully on the bottom edge.
+## This is a fit constant, not a motion amount, so Reduce Motion leaves it alone.
+define SPRITE_ZOOM = 0.63
+
 ## A gentle endless pan-and-breathe for backgrounds. The base zoom keeps the
 ## slightly-larger-than-screen plate covering the frame at all times.
 transform ken_burns:

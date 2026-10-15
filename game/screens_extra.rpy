@@ -20,9 +20,10 @@ transform at_far_left:
     yalign 1.0
     subpixel True
     transform_anchor True
+    zoom SPRITE_ZOOM
     block:
-        easein 3.6 zoom (1.0 + BREATHE_ZOOM) yoffset -BREATHE_LIFT
-        easeout 3.6 zoom 1.0 yoffset 0
+        easein 3.6 zoom (SPRITE_ZOOM * (1.0 + BREATHE_ZOOM)) yoffset -BREATHE_LIFT
+        easeout 3.6 zoom SPRITE_ZOOM yoffset 0
         repeat
 
 transform at_left:
@@ -30,9 +31,10 @@ transform at_left:
     yalign 1.0
     subpixel True
     transform_anchor True
+    zoom SPRITE_ZOOM
     block:
-        easein 3.0 zoom (1.0 + BREATHE_ZOOM) yoffset -(BREATHE_LIFT - 1)
-        easeout 3.0 zoom 1.0 yoffset 0
+        easein 3.0 zoom (SPRITE_ZOOM * (1.0 + BREATHE_ZOOM)) yoffset -(BREATHE_LIFT - 1)
+        easeout 3.0 zoom SPRITE_ZOOM yoffset 0
         repeat
 
 transform at_center:
@@ -40,9 +42,10 @@ transform at_center:
     yalign 1.0
     subpixel True
     transform_anchor True
+    zoom SPRITE_ZOOM
     block:
-        easein 3.4 zoom (1.0 + BREATHE_ZOOM) yoffset -BREATHE_LIFT
-        easeout 3.4 zoom 1.0 yoffset 0
+        easein 3.4 zoom (SPRITE_ZOOM * (1.0 + BREATHE_ZOOM)) yoffset -BREATHE_LIFT
+        easeout 3.4 zoom SPRITE_ZOOM yoffset 0
         repeat
 
 transform at_right:
@@ -50,9 +53,10 @@ transform at_right:
     yalign 1.0
     subpixel True
     transform_anchor True
+    zoom SPRITE_ZOOM
     block:
-        easein 3.2 zoom (1.0 + BREATHE_ZOOM) yoffset -(BREATHE_LIFT - 1)
-        easeout 3.2 zoom 1.0 yoffset 0
+        easein 3.2 zoom (SPRITE_ZOOM * (1.0 + BREATHE_ZOOM)) yoffset -(BREATHE_LIFT - 1)
+        easeout 3.2 zoom SPRITE_ZOOM yoffset 0
         repeat
 
 transform at_far_right:
@@ -60,9 +64,10 @@ transform at_far_right:
     yalign 1.0
     subpixel True
     transform_anchor True
+    zoom SPRITE_ZOOM
     block:
-        easein 2.8 zoom (1.0 + BREATHE_ZOOM) yoffset -BREATHE_LIFT
-        easeout 2.8 zoom 1.0 yoffset 0
+        easein 2.8 zoom (SPRITE_ZOOM * (1.0 + BREATHE_ZOOM)) yoffset -BREATHE_LIFT
+        easeout 2.8 zoom SPRITE_ZOOM yoffset 0
         repeat
 
 
