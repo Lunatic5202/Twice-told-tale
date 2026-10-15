@@ -392,9 +392,10 @@ transform menu_title_bg:
     xalign 0.5
     yalign 0.5
     subpixel True
+    zoom 1.06
     block:
-        easein 26.0 zoom 1.05 xoffset 12
-        easeout 26.0 zoom 1.0 xoffset -12
+        easein 26.0 zoom 1.13 xoffset 16
+        easeout 26.0 zoom 1.06 xoffset -16
         repeat
 
 
