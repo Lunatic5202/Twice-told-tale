@@ -392,10 +392,10 @@ transform menu_title_bg:
     xalign 0.5
     yalign 0.5
     subpixel True
-    zoom 1.06
+    zoom TITLE_ZOOM
     block:
-        easein 26.0 zoom 1.13 xoffset 16
-        easeout 26.0 zoom 1.06 xoffset -16
+        easein 26.0 zoom TITLE_ZOOM2 xoffset TITLE_OX
+        easeout 26.0 zoom TITLE_ZOOM xoffset -TITLE_OX
         repeat
 
 
@@ -846,6 +846,7 @@ screen preferences():
                     style_prefix "check"
                     label _("Text & Accessibility")
                     textbutton _("High Contrast") action Preference("high contrast text", "toggle")
+                    textbutton _("Reduce Motion") action ToggleReduceMotion()
                     textbutton _("Accessibility Options") action Preference("accessibility menu")
 
             null height gui.scale(6)

@@ -43,22 +43,35 @@ define bloom_dissolve = Dissolve(0.7)
 ## These are attached to whole image tags (see the registration at the bottom of
 ## this file) so every background drifts and every CG pushes in on its own.
 
+## Motion amounts. These are store variables (not constants) so the "Reduce
+## Motion" preference can flatten them at runtime; see _apply_motion() below.
+define KEN_ZOOM = 1.06
+define KEN_ZOOM2 = 1.13
+define KEN_OX = 20
+define KEN_OY = 12
+define CG_ZOOM = 1.06
+define BREATHE_ZOOM = 0.009
+define BREATHE_LIFT = 3
+define TITLE_ZOOM = 1.06
+define TITLE_ZOOM2 = 1.13
+define TITLE_OX = 16
+
 ## A gentle endless pan-and-breathe for backgrounds. The base zoom keeps the
 ## slightly-larger-than-screen plate covering the frame at all times.
 transform ken_burns:
     subpixel True
-    zoom 1.06
+    zoom KEN_ZOOM
     xalign 0.5
     yalign 0.5
     parallel:
         block:
-            easein 24.0 zoom 1.13
-            easeout 24.0 zoom 1.06
+            easein 24.0 zoom KEN_ZOOM2
+            easeout 24.0 zoom KEN_ZOOM
             repeat
     parallel:
         block:
-            easein 32.0 xoffset 20 yoffset -12
-            easeout 32.0 xoffset -20 yoffset 12
+            easein 32.0 xoffset KEN_OX yoffset -KEN_OY
+            easeout 32.0 xoffset -KEN_OX yoffset KEN_OY
             repeat
 
 ## CGs hold, then push in slowly and settle back, like a held breath.
@@ -68,7 +81,7 @@ transform cg_push:
     xalign 0.5
     yalign 0.5
     block:
-        easein 7.0 zoom 1.06
+        easein 7.0 zoom CG_ZOOM
         pause 3.5
         easeout 7.0 zoom 1.0
         pause 2.5
@@ -124,20 +137,64 @@ screen ambience():
     ## the scene itself, so the dust drifts in front of the art, not the text.
     zorder -1
 
-    if not main_menu and not renpy.get_screen("game_menu"):
+    if not main_menu and not renpy.get_screen("game_menu") and not persistent.reduce_motion:
         for _xp, _ys, _dur, _delay, _z, _drift, _img in AMBIENT_MOTES:
             add _img at mote_drift(_xp, _ys, _dur, _delay, _z, _drift)
 
 
 ## ----------------------------------------------------------------------------
-## Registration
+## Reduce Motion
 ## ----------------------------------------------------------------------------
-## Attach the camera moves to the image tags used by the script, and show the
-## ambience overlay above the background but below the dialogue HUD.
+## An accessibility preference that flattens the camera moves, sprite breathing,
+## title drift, and ambient dust for players who are sensitive to motion. It is
+## exposed as a checkbox in Preferences. The one-shot UI slides (notify, quick
+## menu) are brief enough to leave alone.
+
+default persistent.reduce_motion = False
+
+init python:
+    _MOTION_FULL = dict(
+        KEN_ZOOM=1.06, KEN_ZOOM2=1.13, KEN_OX=20, KEN_OY=12, CG_ZOOM=1.06,
+        BREATHE_ZOOM=0.009, BREATHE_LIFT=3,
+        TITLE_ZOOM=1.06, TITLE_ZOOM2=1.13, TITLE_OX=16,
+    )
+    _MOTION_NONE = dict(
+        KEN_ZOOM=1.0, KEN_ZOOM2=1.0, KEN_OX=0, KEN_OY=0, CG_ZOOM=1.0,
+        BREATHE_ZOOM=0.0, BREATHE_LIFT=0,
+        TITLE_ZOOM=1.06, TITLE_ZOOM2=1.06, TITLE_OX=0,
+    )
+
+    def _apply_motion(interactive=False):
+        rm = bool(getattr(persistent, "reduce_motion", False))
+
+        for _k, _v in (_MOTION_NONE if rm else _MOTION_FULL).items():
+            setattr(store, _k, _v)
+
+        if rm:
+            config.tag_transform.pop("bg", None)
+            config.tag_transform.pop("cg", None)
+            if "ambience" in config.overlay_screens:
+                config.overlay_screens.remove("ambience")
+            if interactive:
+                renpy.hide_screen("ambience")
+        else:
+            config.tag_transform["bg"] = ken_burns
+            config.tag_transform["cg"] = cg_push
+            if "ambience" not in config.overlay_screens:
+                config.overlay_screens.append("ambience")
+
+    def set_reduce_motion(flag):
+        persistent.reduce_motion = bool(flag)
+        _apply_motion(interactive=True)
+        renpy.restart_interaction()
+
+    class ToggleReduceMotion(Action):
+        def __call__(self):
+            set_reduce_motion(not getattr(persistent, "reduce_motion", False))
+
+        def get_selected(self):
+            return bool(getattr(persistent, "reduce_motion", False))
+
 
 init 10 python:
-    config.tag_transform["bg"] = ken_burns
-    config.tag_transform["cg"] = cg_push
-
-    if "ambience" not in config.overlay_screens:
-        config.overlay_screens.append("ambience")
+    _apply_motion()

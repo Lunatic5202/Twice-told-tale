@@ -21,7 +21,7 @@ transform at_far_left:
     subpixel True
     transform_anchor True
     block:
-        easein 3.6 zoom 1.008 yoffset -3
+        easein 3.6 zoom (1.0 + BREATHE_ZOOM) yoffset -BREATHE_LIFT
         easeout 3.6 zoom 1.0 yoffset 0
         repeat
 
@@ -31,7 +31,7 @@ transform at_left:
     subpixel True
     transform_anchor True
     block:
-        easein 3.0 zoom 1.008 yoffset -2
+        easein 3.0 zoom (1.0 + BREATHE_ZOOM) yoffset -(BREATHE_LIFT - 1)
         easeout 3.0 zoom 1.0 yoffset 0
         repeat
 
@@ -41,7 +41,7 @@ transform at_center:
     subpixel True
     transform_anchor True
     block:
-        easein 3.4 zoom 1.009 yoffset -3
+        easein 3.4 zoom (1.0 + BREATHE_ZOOM) yoffset -BREATHE_LIFT
         easeout 3.4 zoom 1.0 yoffset 0
         repeat
 
@@ -51,7 +51,7 @@ transform at_right:
     subpixel True
     transform_anchor True
     block:
-        easein 3.2 zoom 1.008 yoffset -2
+        easein 3.2 zoom (1.0 + BREATHE_ZOOM) yoffset -(BREATHE_LIFT - 1)
         easeout 3.2 zoom 1.0 yoffset 0
         repeat
 
@@ -61,7 +61,7 @@ transform at_far_right:
     subpixel True
     transform_anchor True
     block:
-        easein 2.8 zoom 1.008 yoffset -3
+        easein 2.8 zoom (1.0 + BREATHE_ZOOM) yoffset -BREATHE_LIFT
         easeout 2.8 zoom 1.0 yoffset 0
         repeat
 

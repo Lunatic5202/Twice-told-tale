@@ -7,7 +7,10 @@ label prologue_0_1:
     scene bg annex_night with scene_fade
     $ show_title("PROLOGUE \u00b7 MARGINALIA\n\nSCENE 0.1 \u00b7 The Archive Annex \u00b7 Midnight")
 
-    play music audio.marginalia fadein 2.0
+    ## The title theme is already playing from the menu; only start it if the
+    ## music channel is silent (e.g. the player muted and restored, or loaded in).
+    if not renpy.music.get_playing("music"):
+        play music audio.marginalia fadein 2.0
 
     n "Everyone in the archive knows about the Folio. Nobody has read it. It sits in a cabinet that hums, and for three months it has waited for someone with steady hands and no sense of self-preservation."
 

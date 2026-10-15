@@ -108,6 +108,10 @@ define gui.textbox_height = gui.scale(185)
 ## center, and 1.0 is the bottom.
 define gui.textbox_yalign = 1.0
 
+## A soft outline keeps dialogue legible where the textbox sits over moving,
+## textured art.
+define gui.dialogue_text_outlines = [(2, "#0a0a14cc", 0, 0)]
+
 
 ## The placement of the speaking character's name, relative to the textbox.
 ## These can be a whole number of pixels from the left or top, or 0.5 to center.

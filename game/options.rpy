@@ -25,7 +25,7 @@ define gui.show_name = True
 
 ## The version of the game.
 
-define config.version = "0.1.0"
+define config.version = "1.0.0"
 
 
 ## Text that is placed on the game's about screen. Place the text between
@@ -70,6 +70,13 @@ define config.has_voice = True
 ## into the game, until it is stopped or another file is played.
 
 # define config.main_menu_music = "main-menu-theme.ogg"
+
+## The opening theme plays from the first frame (splashscreen) through the main
+## menu and into the prologue. Because it is unchanged between the two, the main
+## menu does not restart it (Ren'Py uses an if-changed play here).
+
+define config.main_menu_music = "audio/music/marginalia.ogg"
+define config.main_menu_music_fadein = 2.0
 
 
 ## Transitions #################################################################

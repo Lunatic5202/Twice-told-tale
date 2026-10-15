@@ -229,9 +229,25 @@ transform logo_glitch:
     pause 0.6
 
 
+## A calm version of the logo reveal for the Reduce Motion preference.
+transform logo_glitch_soft:
+    subpixel True
+    fit "contain"
+    xysize (640, 440)
+    xalign 0.5
+    yalign 0.5
+    alpha 0.0
+    linear 0.6 alpha 1.0
+    pause 1.8
+
+
 label splashscreen:
     scene black
     with None
+
+    ## The theme starts here so the game is never silent, and continues into the
+    ## main menu and the prologue.
+    play music audio.marginalia fadein 2.0
 
     ## Act one: the byline fades in and out.
     show text "{size=54}{color=#ece5d3}outline=(4,"#0a0a14dd",0,0)Made by Lunatic" at splash_byline
@@ -240,8 +256,12 @@ label splashscreen:
     hide text
     with Dissolve(0.3)
 
-    ## Act two: the logo glitches into place.
-    show expression "images/ui/logo.png" at logo_glitch
+    ## Act two: the logo glitches into place. Under Reduce Motion the glitch is
+    ## skipped, since its rapid flashing is exactly what that setting is for.
+    if persistent.reduce_motion:
+        show expression "images/ui/logo.png" at logo_glitch_soft
+    else:
+        show expression "images/ui/logo.png" at logo_glitch
     with None
     $ renpy.pause(2.4, hard=False)
 
