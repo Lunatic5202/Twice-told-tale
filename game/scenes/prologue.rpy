@@ -4,7 +4,7 @@
 
 label prologue_0_1:
 
-    scene bg annex_night with fade
+    scene bg annex_night with scene_fade
     $ show_title("PROLOGUE \u00b7 MARGINALIA\n\nSCENE 0.1 \u00b7 The Archive Annex \u00b7 Midnight")
 
     play music audio.marginalia fadein 2.0
@@ -17,13 +17,13 @@ label prologue_0_1:
 
     # [CG: Close on the page. The line reads "...and he reached out his hand,
     #  and the whole tree held its breath, and" and then a torn edge.]
-    scene cg folio_page with dissolve
+    scene cg folio_page with soft_dissolve
 
     mc "A sentence shouldn\u2019t end like that. Nobody should."
 
     # [The Pen lies beside the Folio. Gold nib, worn grip. Every apprentice is
     #  issued one.]
-    scene bg annex_night with dissolve
+    scene bg annex_night with soft_dissolve
 
     n "Rule one of the archive: mend what is torn, and never change what is written. The Pen can do both. Only one of them is allowed."
 
@@ -41,8 +41,8 @@ label prologue_0_1:
     # [CG: A figure steps out of the ink. A red and purple jacket, a veil
     #  printed with a single character, a mask on the hat. His eyes are shut.
     #  They open.]
-    scene cg prologue_echo with dissolve
-    show echo sneer at center with dissolve
+    scene cg prologue_echo with soft_dissolve
+    show echo sneer at at_center with soft_dissolve
 
     echo "...Hm."
 
@@ -101,11 +101,11 @@ label prologue_0_1:
 
 label prologue_0_2:
 
-    scene bg annex_predawn with fade
+    scene bg annex_predawn with scene_fade
     $ show_title("SCENE 0.2 \u00b7 The Archive Annex \u00b7 Before Dawn")
 
     play music audio.marginalia_dawn fadein 2.0
-    show echo cold at left with dissolve
+    show echo cold at at_left with soft_dissolve
 
     echo "You did not run for help."
 
@@ -128,7 +128,7 @@ label prologue_0_2:
 
     # [CG: The first page burns. A small ring of ash, a counter on the cover
     #  turning from 30 to 29.]
-    scene cg first_page_burn with dissolve
+    scene cg first_page_burn with soft_dissolve
     $ set_page(29)
 
     echo "Something is counting."
@@ -137,12 +137,12 @@ label prologue_0_2:
 
     # [The door at the far end of the archive opens. Someone stands in it,
     #  holding a cup of tea, mid-sip. He is wearing a hat.]
-    scene bg annex_predawn with dissolve
-    show echo cold at left with dissolve
+    scene bg annex_predawn with soft_dissolve
+    show echo cold at at_left with soft_dissolve
 
     # [MUSIC: Cut. A single note held.]
     stop music fadeout 0.5
-    show wanderer neutral at right with dissolve
+    show wanderer neutral at at_right with soft_dissolve
 
     wanderer "..."
 

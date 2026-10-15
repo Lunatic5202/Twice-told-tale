@@ -10,27 +10,60 @@
 ## Sprite slots
 ## ----------------------------------------------------------------------------
 ## Five standing positions, left to right, so busy scenes (two leads plus
-## visitors) can stage cleanly.
+## visitors) can stage cleanly. Each slot carries a subtle idle "breath" - a
+## gentle scale around the character's feet plus a slow lift - so that standing
+## sprites never sit perfectly still. The periods are deliberately mismatched so
+## two characters on screen never fall into step.
 
 transform at_far_left:
     xalign 0.02
     yalign 1.0
+    subpixel True
+    transform_anchor True
+    block:
+        easein 3.6 zoom 1.008 yoffset -3
+        easeout 3.6 zoom 1.0 yoffset 0
+        repeat
 
 transform at_left:
     xalign 0.22
     yalign 1.0
+    subpixel True
+    transform_anchor True
+    block:
+        easein 3.0 zoom 1.008 yoffset -2
+        easeout 3.0 zoom 1.0 yoffset 0
+        repeat
 
 transform at_center:
     xalign 0.5
     yalign 1.0
+    subpixel True
+    transform_anchor True
+    block:
+        easein 3.4 zoom 1.009 yoffset -3
+        easeout 3.4 zoom 1.0 yoffset 0
+        repeat
 
 transform at_right:
     xalign 0.78
     yalign 1.0
+    subpixel True
+    transform_anchor True
+    block:
+        easein 3.2 zoom 1.008 yoffset -2
+        easeout 3.2 zoom 1.0 yoffset 0
+        repeat
 
 transform at_far_right:
     xalign 0.98
     yalign 1.0
+    subpixel True
+    transform_anchor True
+    block:
+        easein 2.8 zoom 1.008 yoffset -3
+        easeout 2.8 zoom 1.0 yoffset 0
+        repeat
 
 
 ## ----------------------------------------------------------------------------

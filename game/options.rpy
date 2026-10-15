@@ -89,6 +89,18 @@ define config.exit_transition = ink_fade
 define config.intra_transition = quick_fade
 
 
+## Between the main menu and the game itself.
+
+define config.main_game_transition = scene_fade
+define config.game_main_transition = ink_fade
+
+
+## Entering and leaving a gallery / replay.
+
+define config.enter_replay_transition = ink_dissolve
+define config.exit_replay_transition = quick_fade
+
+
 ## A transition that is used after a game has been loaded.
 
 define config.after_load_transition = ink_dissolve

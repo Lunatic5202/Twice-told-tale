@@ -244,7 +244,7 @@ screen quick_menu():
 
     if quick_menu:
 
-        frame:
+        frame at quick_menu_appear:
             style "quick_menu_frame"
 
             hbox:
@@ -272,6 +272,16 @@ style quick_menu_frame is empty
 style quick_menu is hbox
 style quick_button is default
 style quick_button_text is button_text
+
+## The quick bar rises into place whenever it appears.
+transform quick_menu_appear:
+    subpixel True
+    alpha 0.0
+    yoffset gui.scale(18)
+    parallel:
+        easeout 0.38 alpha 1.0
+    parallel:
+        easeout 0.38 yoffset gui.scale(-6)
 
 style quick_menu_frame:
     xalign 0.5
@@ -381,6 +391,11 @@ transform menu_title_bg:
     xysize (1280, 720)
     xalign 0.5
     yalign 0.5
+    subpixel True
+    block:
+        easein 26.0 zoom 1.05 xoffset 12
+        easeout 26.0 zoom 1.0 xoffset -12
+        repeat
 
 
 screen main_menu():
@@ -685,6 +700,7 @@ screen file_slots(title):
 
                     button:
                         action FileAction(slot)
+                        at slot_anim
 
                         has vbox
 
@@ -746,6 +762,14 @@ style slot_button is gui_button
 style slot_button_text is gui_button_text
 style slot_time_text is slot_button_text
 style slot_name_text is slot_button_text
+
+## A slot lifts and swells a touch under the cursor.
+transform slot_anim:
+    subpixel True
+    on idle:
+        easeout 0.18 zoom 1.0 yoffset 0
+    on hover:
+        easeout 0.18 zoom 1.035 yoffset -6
 
 style page_label:
     xpadding gui.scale(50)
@@ -1261,9 +1285,9 @@ screen confirm(message, yes_action, no_action):
 
     style_prefix "confirm"
 
-    add "gui/overlay/confirm.png"
+    add "gui/overlay/confirm.png" at confirm_dim
 
-    frame:
+    frame at confirm_in:
 
         vbox:
             xalign .5
@@ -1290,6 +1314,20 @@ style confirm_prompt is gui_prompt
 style confirm_prompt_text is gui_prompt_text
 style confirm_button is gui_medium_button
 style confirm_button_text is gui_medium_button_text
+
+## The confirm prompt rises and settles into place; the dim fades in behind it.
+transform confirm_in:
+    subpixel True
+    alpha 0.0
+    zoom 0.94
+    parallel:
+        easeout 0.26 alpha 1.0
+    parallel:
+        easeout 0.32 zoom 1.0
+
+transform confirm_dim:
+    alpha 0.0
+    linear 0.3 alpha 1.0
 
 style confirm_frame:
     background Frame([ "gui/confirm_frame.png", "gui/frame.png"], gui.confirm_frame_borders, tile=gui.frame_tile)
@@ -1400,11 +1438,13 @@ screen notify(message):
 
 
 transform notify_appear:
+    subpixel True
     on show:
-        alpha 0
-        linear .25 alpha 1.0
+        alpha 0.0
+        yoffset -28
+        easeout 0.38 alpha 1.0 yoffset 0
     on hide:
-        linear .5 alpha 0.0
+        easein 0.4 alpha 0.0 yoffset -12
 
 
 style notify_frame is empty
@@ -1649,7 +1689,7 @@ screen quick_menu():
 
     if quick_menu:
 
-        frame:
+        frame at quick_menu_appear:
             style "quick_menu_frame"
 
             hbox:

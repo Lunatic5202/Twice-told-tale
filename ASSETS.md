@@ -252,7 +252,12 @@ procedurally generated and safe to replace with hand-drawn versions; re-running
 | `game/gui/overlay/vignette.png` | 1280×720 | in-game atmosphere overlay |
 | `game/gui/overlay/grain.png` | 256×256 (tiled) | drifting film grain |
 | `game/gui/overlay/ink_blot.png` | 1024×1024 | main-menu / splash ink bloom |
+| `game/gui/mask/wipe_{lr,tb,diag,radial}.png` | 1280×720 | directional/radial `ImageDissolve` wipes (`animations.rpy`) |
+| `game/gui/overlay/mote.png`, `fiber.png` | 64×64 / 56×10 | drifting dust motes in the `ambience` overlay |
 
 Behaviour for all of the above lives in `game/gui_effects.rpy` (transitions,
-cursor, CTC, splash/loading screen, atmosphere overlay, menu-motion transforms).
+cursor, CTC, splash/loading screen, atmosphere overlay, menu-motion transforms)
+and `game/animations.rpy` (wipe transitions, slow camera moves on backgrounds and
+CGs, sprite idle breathing, drifting dust). The masks and motes are regenerated
+with `python3 tools/make_effects.py`.
 

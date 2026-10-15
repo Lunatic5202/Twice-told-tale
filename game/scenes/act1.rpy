@@ -5,12 +5,12 @@
 label act1_1_1:
 
     $ set_page(29, 1)
-    scene bg annex_day with fade
+    scene bg annex_day with scene_fade
     $ show_title("DAY 1 \u00b7 SCENE 1.1\nThe Archive Annex \u00b7 Morning")
 
     play music audio.double_trouble fadein 2.0
-    show echo sneer at at_left with dissolve
-    show wanderer neutral at at_right with dissolve
+    show echo sneer at at_left with soft_dissolve
+    show wanderer neutral at at_right with soft_dissolve
 
     wanderer "...No. No. I haven\u2019t had enough tea for this."
 
@@ -29,11 +29,11 @@ label act1_1_1:
 
     # [CG: Nahida between the two of them, a hand raised like a teacher
     #  quieting a classroom.]
-    scene cg nahida_between with dissolve
-    scene bg annex_day with dissolve
+    scene cg nahida_between with soft_dissolve
+    scene bg annex_day with soft_dissolve
     show echo sneer at at_left
     show wanderer neutral at at_right
-    show nahida gentle at at_center with dissolve
+    show nahida gentle at at_center with soft_dissolve
 
     nahida "Good morning, both of you. Please don\u2019t kill each other before I\u2019ve finished explaining. It\u2019s rude to the carpets."
 
@@ -104,12 +104,12 @@ label act1_1_1:
 label act1_1_2:
 
     $ set_page(28, 2)
-    scene bg courtyard_day with fade
+    scene bg courtyard_day with scene_fade
     $ show_title("DAY 2 \u00b7 SCENE 1.2\nAkademiya Courtyard \u00b7 Noon")
 
     play music audio.hat_guy fadein 2.0
-    show echo amused at at_left with dissolve
-    show wanderer guarded at at_far_right with dissolve
+    show echo amused at at_left with soft_dissolve
+    show wanderer guarded at at_far_right with soft_dissolve
 
     n "The Echo cannot go more than forty paces from the Folio. The Wanderer will not let the Echo out of his sight. So the Folio goes to lunch, and everyone goes with it."
 
@@ -119,8 +119,8 @@ label act1_1_2:
 
     # [Two familiar silhouettes cross the courtyard. Tighnari first, ears up.
     #  Cyno behind him with a card deck.]
-    show tighnari neutral at at_center with dissolve
-    show cyno neutral at at_right with dissolve
+    show tighnari neutral at at_center with soft_dissolve
+    show cyno neutral at at_right with soft_dissolve
 
     tighnari "Hat Guy. Why are there two of you?"
 
@@ -175,17 +175,17 @@ label act1_1_2:
 label act1_1_3:
 
     $ set_page(27, 3)
-    scene bg dining_evening with fade
+    scene bg dining_evening with scene_fade
     $ show_title("DAY 3 \u00b7 SCENE 1.3\nThe Dining Hall \u00b7 Evening")
 
     play music audio.the_table fadein 2.0
 
     # [CG: The Wanderer, standing at the end of the table, looking at the soup.
     #  Not at the people. At the soup.]
-    scene cg wanderer_soup with dissolve
-    scene bg dining_evening with dissolve
-    show wanderer tired at at_right with dissolve
-    show echo amused at at_left with dissolve
+    scene cg wanderer_soup with soft_dissolve
+    scene bg dining_evening with soft_dissolve
+    show wanderer tired at at_right with soft_dissolve
+    show echo amused at at_left with soft_dissolve
 
     echo "You are staring at that bowl as though it owes you money."
 
@@ -249,7 +249,7 @@ label act1_1_3:
 label act1_1_4:
 
     $ set_page(26, 4)
-    scene bg annex_night with fade
+    scene bg annex_night with scene_fade
     $ show_title("DAY 4 \u00b7 SCENE 1.4\nThe Archive Annex \u00b7 Night")
 
     play music audio.mechanical_ears fadein 2.0
@@ -257,8 +257,8 @@ label act1_1_4:
     # [BG: Low lamp. The Echo sits against a bookcase, one hand pressed over
     #  his ear. The Wanderer stands over him with a small velvet roll of
     #  tools.]
-    show echo cold at at_left with dissolve
-    show wanderer neutral at at_right with dissolve
+    show echo cold at at_left with soft_dissolve
+    show wanderer neutral at at_right with soft_dissolve
 
     echo "There\u2019s a sound. Like a sheet of tin in the wind. I can hear the lamp thinking."
 
@@ -301,12 +301,12 @@ label act1_1_4:
 label act1_1_5:
 
     $ set_page(25, 5)
-    scene bg annex_night with fade
+    scene bg annex_night with scene_fade
     $ show_title("DAY 5 \u00b7 SCENE 1.5\nThe Archive Annex \u00b7 Night")
 
     play music audio.what_he_can_t_read fadein 2.0
-    show echo cold at at_left with dissolve
-    show wanderer guarded at at_right with dissolve
+    show echo cold at at_left with soft_dissolve
+    show wanderer guarded at at_right with soft_dissolve
 
     echo "\u201cThe Pavilion.\u201d \u201cTatarasuna.\u201d \u201cThe Boy.\u201d I can read the doors. I can\u2019t read the rooms."
 
@@ -348,12 +348,12 @@ label act1_1_5:
 label act1_montage:
 
     $ set_page(24, 6)
-    scene bg annex_day with fade
+    scene bg annex_day with scene_fade
     $ show_title("DAY 6 \u00b7 MONTAGE\n\u201cThree Small Disasters\u201d")
 
     play music audio.hat_guy_reprise fadein 2.0
-    show echo amused at at_left with dissolve
-    show wanderer flustered at at_right with dissolve
+    show echo amused at at_left with soft_dissolve
+    show wanderer flustered at at_right with soft_dissolve
 
     n "The Echo and the Wanderer fight over the window seat. The Echo wins by sitting on the Wanderer\u2019s hat."
 
@@ -367,11 +367,11 @@ label act1_montage:
 label act1_1_6:
 
     $ set_page(23, 7)
-    scene bg rooftop_night with fade
+    scene bg rooftop_night with scene_fade
     $ show_title("DAY 7 \u00b7 SCENE 1.6\nThe Akademiya Rooftop \u00b7 Night")
 
     play music audio.which_of_us fadein 2.0
-    show wanderer soft at at_center with dissolve
+    show wanderer soft at at_center with soft_dissolve
 
     wanderer "I tried to erase myself, once. From Irminsul. From history. To undo what had happened."
 
@@ -417,13 +417,13 @@ label act1_1_6:
 label act1_1_7:
 
     $ set_page(22, 8)
-    scene bg annex_dawn with fade
+    scene bg annex_dawn with scene_fade
     $ show_title("DAY 8 \u00b7 SCENE 1.7\nThe Archive Annex \u00b7 Dawn")
 
     play music audio.the_margin_door fadein 2.0
-    show nahida serious at at_center with dissolve
-    show wanderer guarded at at_left with dissolve
-    show echo cold at at_right with dissolve
+    show nahida serious at at_center with soft_dissolve
+    show wanderer guarded at at_left with soft_dissolve
+    show echo cold at at_right with soft_dissolve
 
     nahida "The Doctor has been asking after a \u201clightning-boned prototype.\u201d He doesn\u2019t know who. He is near enough to guess."
 
@@ -438,8 +438,8 @@ label act1_1_7:
 
     # [CG: A door in the margin, edged in gold ink. Beyond it, mist and the
     #  smell of wet stone.]
-    scene cg margin_door with dissolve
-    scene bg annex_dawn with dissolve
+    scene cg margin_door with soft_dissolve
+    scene bg annex_dawn with soft_dissolve
     show nahida serious at at_center
     show wanderer guarded at at_left
     show echo cold at at_right
