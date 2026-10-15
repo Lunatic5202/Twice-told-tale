@@ -381,9 +381,17 @@ style navigation_button_text:
 ##
 ## https://www.renpy.org/doc/html/screen_special.html#main-menu
 
-transform logo_plate:
-    fit "contain"
-    xysize (440, 300)
+## The logo lockup is type set in Hassengard rather than a bitmap, so it stays
+## sharp at any size and can be glitched on the way in.
+style logo_text is gui_text:
+    font gui.logo_font
+    size gui.scale(72)
+    color "#ece5d3"
+    outlines [(4, "#0a0a14cc", 0, 0)]
+
+style splash_logo_text is logo_text:
+    size gui.scale(176)
+    outlines [(5, "#0a0a14cc", 0, 0)]
 
 
 transform menu_title_bg:
@@ -426,9 +434,10 @@ screen main_menu():
             style "main_menu_vbox"
             at rise_in(0.05, 24, 0.8)
 
-            add "images/ui/logo.png":
+            text "Twice-Told Tale":
+                style "logo_text"
                 xalign 1.0
-                at logo_plate, breathe(1.0, 0.99, 3.6)
+                at breathe(1.0, 0.99, 3.6)
 
             text "[config.version]":
                 style "main_menu_version"
@@ -618,7 +627,7 @@ screen about():
 
         vbox:
 
-            add "images/ui/logo.png" at logo_plate
+            text "Twice-Told Tale" style "logo_text"
 
             label "[config.name!t]"
             text _("Version [config.version!t]\n")

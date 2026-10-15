@@ -193,6 +193,12 @@ transform breathe(min_z=1.0, max_z=0.985, period=2.6):
 ## ----------------------------------------------------------------------------
 
 ## "Made by Lunatic" fades in, holds, then fades out.
+style splash_byline_text is gui_text:
+    font gui.display_font
+    size gui.scale(46)
+    color "#ece5d3"
+    outlines [(3, "#0a0a14cc", 0, 0)]
+
 transform splash_byline:
     xalign 0.5
     yalign 0.5
@@ -202,43 +208,67 @@ transform splash_byline:
     linear 0.7 alpha 0.0
 
 
-## The logo snaps in with a short glitch, then settles.
-transform logo_glitch:
+## The title is type, not a bitmap, so it stays sharp and can be glitched. The
+## reveal is a brief chromatic split: the cream logotype never moves - only two
+## coloured ghosts flicker around it - so it reads as a digital glitch rather
+## than a shake.
+transform title_settle:
     subpixel True
-    fit "contain"
-    xysize (640, 440)
-    xalign 0.5
-    yalign 0.5
     alpha 0.0
-    easein 0.10 alpha 1.0
-    block:
-        xoffset 14 yoffset -8 alpha 0.7
-        pause 0.03
-        xoffset -11 yoffset 7 alpha 1.0
-        pause 0.03
-        xoffset 7 yoffset 5 alpha 0.55
-        pause 0.02
-        xoffset -6 yoffset -9 alpha 1.0
-        pause 0.03
-        xoffset 3 yoffset 2 alpha 0.8
-        pause 0.02
-        xoffset 0 yoffset 0 alpha 1.0
-        pause 0.05
-        repeat 5
-    xoffset 0 yoffset 0 alpha 1.0
-    pause 0.6
+    linear 0.04 alpha 1.0
+    pause 0.04
+    alpha 0.2
+    pause 0.03
+    alpha 1.0
+    pause 0.05
+    alpha 0.4
+    pause 0.03
+    alpha 1.0
+    pause 100.0
 
-
-## A calm version of the logo reveal for the Reduce Motion preference.
-transform logo_glitch_soft:
+transform title_ghost(dx, dy=0):
     subpixel True
-    fit "contain"
-    xysize (640, 440)
-    xalign 0.5
-    yalign 0.5
+    alpha 0.25
+    xoffset dx
+    yoffset dy
+    linear 0.04 alpha 0.9
+    pause 0.03
+    xoffset dx * 1.6
+    alpha 0.45
+    pause 0.03
+    xoffset dx * 0.4
+    alpha 0.9
+    pause 0.04
+    xoffset dx * 1.2
+    alpha 0.35
+    pause 0.03
+    xoffset -dx * 0.5
+    alpha 0.7
+    pause 0.03
+    linear 0.08 alpha 0.0
+    xoffset 0
+    pause 100.0
+
+## A calm fade for the Reduce Motion preference.
+transform title_soft:
+    subpixel True
     alpha 0.0
     linear 0.6 alpha 1.0
-    pause 1.8
+    pause 100.0
+
+screen splash_title():
+    zorder 10
+
+    fixed:
+        xfill True
+        yfill True
+
+        if persistent.reduce_motion:
+            text "Twice-Told Tale" style "splash_logo_text" xalign 0.5 yalign 0.5 at title_soft
+        else:
+            text "Twice-Told Tale" style "splash_logo_text" color "#ff2f5e" outlines [] xalign 0.5 yalign 0.5 at title_ghost(-7, -2)
+            text "Twice-Told Tale" style "splash_logo_text" color "#2fe0ff" outlines [] xalign 0.5 yalign 0.5 at title_ghost(7, 2)
+            text "Twice-Told Tale" style "splash_logo_text" xalign 0.5 yalign 0.5 at title_settle
 
 
 label splashscreen:
@@ -250,21 +280,19 @@ label splashscreen:
     play music audio.marginalia fadein 2.0
 
     ## Act one: the byline fades in and out.
-    show text "{size=54}{color=#ece5d3}outline=(4,"#0a0a14dd",0,0)Made by Lunatic" at splash_byline
+    show expression Text("Made by Lunatic", style="splash_byline_text") as byline at splash_byline
     with None
     $ renpy.pause(2.6, hard=False)
-    hide text
+    hide byline
     with Dissolve(0.3)
 
-    ## Act two: the logo glitches into place. Under Reduce Motion the glitch is
-    ## skipped, since its rapid flashing is exactly what that setting is for.
-    if persistent.reduce_motion:
-        show expression "images/ui/logo.png" at logo_glitch_soft
-    else:
-        show expression "images/ui/logo.png" at logo_glitch
+    ## Act two: the title glitches into place.
+    show screen splash_title
     with None
     $ renpy.pause(2.4, hard=False)
 
     scene black
+    hide screen splash_title
     with ink_dissolve
+
     return

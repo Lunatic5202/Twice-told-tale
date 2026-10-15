@@ -89,6 +89,10 @@ screen credits():
             xalign 0.5
             size 30
             color "#e6dfd0"
+        text "Hassengard by Geminorum (freeware, non-commercial)":
+            xalign 0.5
+            size 30
+            color "#e6dfd0"
 
         text "Built with":
             xalign 0.5

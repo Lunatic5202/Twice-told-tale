@@ -70,6 +70,10 @@ define gui.interface_text_font = "gui/fonts/CrimsonText-Regular.ttf"
 define gui.title_font = "gui/fonts/CinzelDecorative-Bold.ttf"
 define gui.display_font = "gui/fonts/CinzelDecorative-Regular.ttf"
 
+## The logotype font. Hassengard is the game's logo lockup, used for the splash
+## title, the main-menu plate, and the About screen.
+define gui.logo_font = "gui/fonts/HassengardRegular.ttf"
+
 ## The size of normal dialogue text.
 define gui.text_size = gui.scale(22)
 
