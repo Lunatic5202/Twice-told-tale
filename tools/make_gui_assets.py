@@ -9,7 +9,7 @@ This writes (all paths relative to game/gui/):
 
     cursor/pen_N.png          animated ink-nib pointer (N = 0..3)
     cursor/pen_hover_N.png    glowing variant for hover states
-    mask/ink_dissolve.png     256-grey mask for the ink-dissolve transition
+    mask/ink_dissolve.png     256-grey mask (1280x720) for the ink-dissolve transition
     overlay/vignette.png      soft dark vignette, 1280x720
     overlay/grain.png         tileable film grain, 256x256
     overlay/ink_blot.png      soft ink splotches for menu decoration
@@ -131,11 +131,14 @@ def make_grain():
 
 def make_ink_mask():
     rng = np.random.default_rng(3)
-    small = rng.random((48, 48))
+    # An ImageDissolve mask must match the scene size, or the dissolve only
+    # advances across the top-left corner of the frame. Keep the noise source
+    # at the same 16:9 aspect so the grain does not stretch.
+    small = rng.random((36, 64))
     im = Image.fromarray((small * 255).astype(np.uint8), "L")
-    im = im.resize((512, 512), Image.BICUBIC).filter(ImageFilter.GaussianBlur(2.5))
+    im = im.resize(RES, Image.BICUBIC).filter(ImageFilter.GaussianBlur(2.5))
     im.save(ensure("mask", "ink_dissolve.png"))
-    print("ink mask: 512x512")
+    print("ink mask: %dx%d" % RES)
 
 
 def make_ctc_drop():
