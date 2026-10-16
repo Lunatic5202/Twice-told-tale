@@ -34,24 +34,35 @@ label act2_2_2:
     # Footsteps. The screens slide open. Two women enter. One in purple and silver, her expression a grief held very still. The other in white and red, ears forward, a small curve to her mouth.
     scene cg raiden_yae
     with scene_fade
-    n "MIKO: Here it is. The prototype."
+    miko "Here it is. The prototype."
+    scene bg tatami_room
+    with soft_dissolve
+    show ei sad at at_left
+    show yae amused at at_right
+    with soft_dissolve
     ei "He is weeping."
-    n "MIKO: Puppets don’t weep."
+    miko "Puppets don’t weep."
     ei "This one does. In his sleep."
-    n "MIKO: Then it’s a flaw. A flaw is retired. I said so at the start. You won’t like it, but the cleanest thing is to return the wood to the tree."
+    miko "Then it’s a flaw. A flaw is retired. I said so at the start. You won’t like it, but the cleanest thing is to return the wood to the tree."
     # Ei kneels. Her hand hovers over the puppet’s face and does not touch it.
     ei "He is too gentle to hold a Gnosis. I can see that."
+    show ei serious at at_left
     ei "But I will not end him."
-    n "MIKO: Then what?"
+    miko "Then what?"
     ei "Free him."
-    n "MIKO: (a careful pause) Free him. In a pavilion no one visits."
+    miko "(a careful pause) Free him. In a pavilion no one visits."
     ei "I will seal his power so it cannot harm him. He may wake when he wishes, and live as he likes."
-    n "MIKO: And if he never wakes?"
+    miko "And if he never wakes?"
+    show ei soft at at_left
     ei "(a long breath) Then he will have rest."
     # She takes a small gold feather from her sleeve and presses it into the sleeper’s hand. His fingers curl around it without waking.
     ei "So that he may know whose he was, if he ever needs to."
-    n "MIKO: Or so that he knows who left him."
+    show yae smug at at_right
+    miko "Or so that he knows who left him."
     ei "...Yes. That, too."
+    hide ei
+    hide yae
+    with soft_dissolve
     play sound audio.sfx_page
     # The ink on the floor splits: a hairline crack running toward the Echo’s feet.
     echo "Pity."
@@ -228,11 +239,16 @@ label act2_2_9:
     echo "I went to the shrine. They told me to."
     scene bg shrine_night
     with scene_fade
-    n "MIKO: The Shogun is not receiving anyone. She has sealed herself away."
+    show yae neutral at at_center
+    with soft_dissolve
+    miko "The Shogun is not receiving anyone. She has sealed herself away."
     puppet "(very small) They are dying. Please."
-    n "MIKO: (a long pause) I’ll send help. Immediately."
+    miko "(a long pause) I’ll send help. Immediately."
     puppet "You are lying."
-    n "MIKO: I never lie about help. I only lie about how long it takes."
+    show yae smug at at_center
+    miko "I never lie about help. I only lie about how long it takes."
+    hide yae
+    with soft_dissolve
     # The Echo, watching, makes a tiny sound that is nearly a laugh.
     echo "She said “immediately.” I believed her for one whole night."
 

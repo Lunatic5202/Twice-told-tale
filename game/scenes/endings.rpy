@@ -5,6 +5,8 @@ label ending_shared_beat:
     # SHARED BEAT · The Doctor Loses
     scene bg white_page_street
     with scene_fade
+    show dottore cold at at_center
+    with soft_dissolve
     play music audio.reprise_clean_instruments fadein 2.0  # “Reprise: Clean Instruments”: the sterile piano, cracking.
     dottore "(for the first time, not smiling) That isn’t possible. The seal was mine."
     nahida "(quietly) You wrote a book without the one thing a book needs, Doctor. A reader."
@@ -181,6 +183,8 @@ label ending_blank_page:
     # Gate: PEN ≥ 3. Tone: existential horror; the ending refuses to confirm death, erasure, or salvation.
     scene bg white_page
     with scene_fade
+    show dottore cold at at_center
+    with soft_dissolve
     stop music fadeout 2.0
     dottore "How interesting. You have learned to fear the Pen. Tell me, Archivist: if the corrector is wrong, who corrects the corrector?"
     # You look down. The nib is black. Your fingers are clean.
@@ -228,6 +232,8 @@ label ending_archivist:
     # BAD ENDING 1 · “The Archivist’s Fee”
     scene bg white_page_dark
     with scene_fade
+    show dottore pleasant at at_center
+    with soft_dissolve
     play music audio.clean_instruments fadein 2.0  # “Clean Instruments”: the metronome, relentless.
     # The Doctor takes the pen without a word. He doesn’t gloat. That is the worst thing about it.
     dottore "Thank you. I’ll be fair. A very small fee. One page."

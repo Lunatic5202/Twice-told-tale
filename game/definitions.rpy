@@ -22,9 +22,6 @@ define nahida = Character("Nahida", color="#8fd35a", who_outlines=[(1, "#0000008
 ## Dottore. Courteous, clinical, curious.
 define dottore = Character("Dottore", color="#7fb0d9", who_outlines=[(1, "#00000080")])
 
-## Paimon. Loud, cheerful, snack-driven.
-define paimon = Character("Paimon", color="#e8c96a", who_outlines=[(1, "#00000080")])
-
 ## Prose narration. No name box.
 define n = Character(None, what_prefix="", what_suffix="")
 

@@ -94,6 +94,8 @@ label act3_3_3:
     $ show_title("DAY 24 · SCENE 3.3\nThe Hall of Science · Night")
     scene bg lab_white
     with scene_fade
+    show dottore pleasant at at_center
+    with soft_dissolve
     play music audio.the_doctor_s_hour fadein 2.0  # “The Doctor’s Hour”: a clean harpsichord line, played perfectly and with no warmth.
     dottore "(without turning) You came. Delightful. I had a wager with myself that you wouldn’t."
     dottore "(turning) The Folio-mender. And the Wanderer, of course. And... ah. There. There. Look at that shimmer behind your shoulder."
@@ -135,6 +137,8 @@ label act3_3_3:
             $ bump('pen', 2)
 
     if _sel_10 == 'A':
+        show dottore delighted at at_center
+        with soft_dissolve
         dottore "(delighted) Oh, I knew you’d say that. Pity. I’d already printed the second page of the proposal."
     elif _sel_10 == 'B':
         dottore "The book belongs to a library, naturally. My library."
@@ -144,6 +148,8 @@ label act3_3_3:
         echo "(a long beat) ...And I’d like to keep my seat at the table. Small as it is."
     elif _sel_10 == 'D':
         # The vial is warm against your palm. The Doctor’s smile deepens by one precise
+        show dottore cold at at_center
+        with soft_dissolve
         dottore "(softly) Good. Hold it. Hold it and think."
 
 label act3_3_4:

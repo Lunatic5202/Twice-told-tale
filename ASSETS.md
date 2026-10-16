@@ -45,14 +45,14 @@ python3 tools/make_art.py --montage  # contact sheet at tools/out/montage.png
 ```
 
 - Backgrounds/CGs: `game/images/bg/*.webp`, `game/images/cg/*.webp` (1280×720 WebP)
-- Sprites: `game/images/sprites/<tag>_<expr>.png` (700×1050, transparent)
+- Sprites: `game/images/sprites/<tag>_<expr>.png` (700×1120, transparent)
 - Image registry: `game/images.rpy` (do not hand-edit; re-run the generator)
 
 ---
 
 ## Character sprites
 
-Seven characters need sprite sets. Each expression is a separate transparent
+Eight characters need sprite sets. Each expression is a separate transparent
 image named `<tag>_<expression>.png`. Neutral/blank base pose first.
 
 | Character | Tag | Expressions needed | Notes |
@@ -61,17 +61,30 @@ image named `<tag>_<expression>.png`. Neutral/blank base pose first.
 | Scaramouche / The Echo | `echo` | `sneer`, `cold`, `amused`, `startled`, `grieving`, `shy`, `smile` | Red/purple jacket, veiled hat, mask on brim; `smile` = the rare real one |
 | Nahida | `nahida` | `gentle`, `serious`, `mischievous`, `sad` | |
 | Dottore | `dottore` | `pleasant`, `delighted`, `cold`, `fascinated` | White coat, blue-grey palette |
-| Paimon | `paimon` | `cheerful`, `worried`, `excited` | |
 | Tighnari | `tighnari` | `neutral`, `sly` | |
 | Cyno | `cyno` | `neutral`, `grinning` | |
+| Raiden Ei | `ei` | `neutral`, `sad`, `serious`, `soft` | Violet/silver, grief held very still (Act 2) |
+| Yae Miko | `yae` | `neutral`, `amused`, `smug`, `serious` | White/red miko, pink hair, fox ears (Act 2) |
 
 Placeholder image keys currently registered: `image (<tag>, "<expression>")`.
 
 **Special cases**
+- All eight sprite sets are cut from hand-supplied expression sheets by
+  `tools/import_sheets.py`.  Source: `~/Downloads/sprite.tar` (extracted to
+  `~/Downloads/sprite_clean/sprite/<tag>.png`) — one transparent PNG per
+  character holding a grid of expressions.  The importer strips the text labels
+  that sit above each head, trims to the alpha bbox, and scales to the standard
+  700×1120 canvas.  These tags are listed in `SHEET_CHARS` in
+  `tools/make_art.py`, so `--sprites` skips them and never overwrites the
+  imported art (`--only <tag>` force-regenerates).
+  `wanderer soft` and `echo sneer` are absent from the sheets and are copied from
+  the nearest pose (`neutral` / `cold`).
 - The Puppet and The Boy (Wanderer's past forms) have no sprite yet — either a
   dedicated sprite or handled entirely in CG. See Page-Walk acts.
 - Escher (Dottore in disguise) can reuse the `dottore` sprite with a costume
   variant.
+- Paimon's sprites were removed — she does not appear in the finalized script
+  and has no dialogue, so no sprite set is generated.
 
 ---
 
