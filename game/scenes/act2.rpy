@@ -3,10 +3,11 @@
 ################################################################################
 label act2_2_1:
     # DAY 9 · SCENE 2.1 · The Margin Door
-    $ set_page(21, 9)
-    $ show_title("DAY 9 · SCENE 2.1\nThe Margin Door")
     scene bg corridor_mist
-    with scene_fade
+    with act_wipe
+    $ set_page(21, 9)
+    $ show_act("II", "The Warm Table")
+    $ show_title("DAY 9 · SCENE 2.1\nThe Margin Door")
     play music audio.page_walk fadein 2.0  # “Page-Walk”: a harp, glass chimes, very far away.
     nahida "(voice only, from the other side) You can see, but not touch. Nothing you do will change what happened. But what you feel leaves a mark on the page."
     nahida "When the ink cracks, someone has been hurt. Be careful what you stand in."

@@ -373,6 +373,12 @@ style navigation_button:
 
 style navigation_button_text:
     properties gui.text_properties("navigation_button")
+    idle_color "#b6ad9c"
+    hover_color "#eed7a2"
+    selected_idle_color "#eed7a2"
+    selected_hover_color "#f6e6bc"
+    outlines [(1, "#0a0a14aa", 0, 0)]
+    kerning gui.scale(0.6)
 
 
 ## Main Menu screen ############################################################
@@ -407,6 +413,42 @@ transform menu_title_bg:
         repeat
 
 
+## Cinematic letterbox edges for the title screen.
+transform menu_bar_top:
+    subpixel True
+    xalign 0.5
+    yalign 0.0
+    alpha 0.9
+
+transform menu_bar_bottom:
+    subpixel True
+    xalign 0.5
+    yalign 1.0
+    alpha 0.9
+
+## Slow fade-in used by the thin gold page-edge frame.
+transform page_edge(delay=0.0):
+    subpixel True
+    alpha 0.0
+    pause delay
+    linear 0.9 alpha 1.0
+
+## A hairline gold double-rule inset from the frame edge, so the title screen
+## reads as a page laid on a table rather than a flat image. Built as a single
+## resizable `Frame` (Feniks' 9-patch technique) so the corners stay crisp and
+## the rules stretch to whatever size the panel becomes.
+screen page_frame():
+    zorder 3
+
+    ## The border art keeps 48px corners; the 6px-inset rule means the panel is
+    ## offset by 42 so the visible rule lands 48px in from the frame edge.
+    $ _off = gui.scale(42)
+    $ _w = gui.scale(1196)
+    $ _h = gui.scale(636)
+
+    add Frame("gui/overlay/page_border.png", gui.scale(48), gui.scale(48)) at page_edge(0.5) xpos _off ypos _off xysize (_w, _h)
+
+
 screen main_menu():
 
     ## This ensures that any other menu screen is replaced.
@@ -419,6 +461,20 @@ screen main_menu():
 
     ## A slow-drifting ink bloom behind the interface.
     add "gui/overlay/ink_blot.png" at ink_bloom
+
+    ## Atmosphere, so the title screen breathes the same air as the story:
+    ## a vignette, drifting film grain, and a few motes of dust.
+    add "gui/overlay/vignette.png"
+    add "film_grain" at grain_drift
+
+    if not persistent.reduce_motion:
+        for _xp, _ys, _dur, _delay, _z, _drift, _img in AMBIENT_MOTES[:8]:
+            add _img at mote_drift(_xp, _ys, _dur, _delay, _z, _drift)
+
+    ## Cinematic letterbox edges and a thin gold page-edge frame.
+    add "gui/overlay/bar_top.png" at menu_bar_top
+    add "gui/overlay/bar_bottom.png" at menu_bar_bottom
+    use page_frame
 
     ## This empty frame darkens the main menu.
     frame:
@@ -439,6 +495,16 @@ screen main_menu():
                 xalign 1.0
                 at breathe(1.0, 0.99, 3.6)
 
+            add "gui/overlay/rule_gold.png":
+                xysize (gui.scale(440), gui.scale(2))
+                xalign 1.0
+                at rise_in(0.4, 0, 0.8)
+
+            text "Thirty days. Thirty pages.":
+                style "main_menu_tagline"
+                xalign 1.0
+                at rise_in(0.5, 8, 0.7)
+
             text "[config.version]":
                 style "main_menu_version"
 
@@ -448,6 +514,7 @@ style main_menu_vbox is vbox
 style main_menu_text is gui_text
 style main_menu_title is main_menu_text
 style main_menu_version is main_menu_text
+style main_menu_tagline is main_menu_text
 
 style main_menu_frame:
     xsize gui.scale(280)
@@ -471,6 +538,13 @@ style main_menu_title:
 
 style main_menu_version:
     properties gui.text_properties("version")
+
+style main_menu_tagline:
+    properties gui.text_properties("version")
+    size gui.scale(21)
+    color "#c9b789"
+    outlines [(1, "#0a0a14aa", 0, 0)]
+    kerning gui.scale(1.5)
 
 
 ## Game Menu screen ############################################################
@@ -856,6 +930,7 @@ screen preferences():
                     label _("Text & Accessibility")
                     textbutton _("High Contrast") action Preference("high contrast text", "toggle")
                     textbutton _("Reduce Motion") action ToggleReduceMotion()
+                    textbutton _("Particle Effects") action ToggleParticles()
                     textbutton _("Accessibility Options") action Preference("accessibility menu")
 
             null height gui.scale(6)

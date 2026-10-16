@@ -25,12 +25,23 @@ init offset = -1
 ## noise mask so scenes bleed into one another like ink through paper.
 
 define ink_fade = Fade(0.45, 0.15, 0.55, color="#0a0a14")
-define scene_fade = Fade(0.35, 0.05, 0.40, color="#0a0a14")
 define quick_fade = Fade(0.18, 0.0, 0.22, color="#0a0a14")
 define white_fade = Fade(0.5, 0.12, 0.5, color="#f4ecd8")
 define ink_dissolve = ImageDissolve("gui/mask/ink_dissolve.png", 0.9, ramplen=8)
 define page_wipe = ImageDissolve("gui/mask/ink_dissolve.png", 0.7, reverse=True, ramplen=8)
 define soft_wipe = Pixellate(0.4, 12)
+
+## Weighted scene and act changes. Every scene change in the script uses
+## `scene_fade`, so giving it texture here changes the whole game at once: the
+## old plate bleeds into the next one through the ink mask instead of a flat
+## dissolve. `scene_ink` is the slower variant for reflective beats.
+##
+## Act boundaries are deliberately heavier: they dip to ink and stay there for a
+## beat while the act card lands, so a chapter break actually reads as a turn of
+## the page. `act_wipe` opens and closes each act card.
+define scene_fade = ImageDissolve("gui/mask/ink_dissolve.png", 0.5, ramplen=10)
+define scene_ink = ImageDissolve("gui/mask/ink_dissolve.png", 0.75, ramplen=12)
+define act_wipe = Fade(0.55, 0.18, 0.65, color="#0a0a14")
 
 ## A default used after every scene/sprite change in the script (set on the
 ## Character objects so expression changes cross-fade instead of snapping).

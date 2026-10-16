@@ -3,10 +3,11 @@
 ################################################################################
 label act3_3_1:
     # DAY 22 · SCENE 3.1 · Sumeru City, the Akademiya Steps · Morning
-    $ set_page(8, 22)
-    $ show_title("DAY 22 · SCENE 3.1\nSumeru City, the Akademiya Steps · Morning")
     scene bg akademiya_dawn
-    with scene_fade
+    with act_wipe
+    $ set_page(8, 22)
+    $ show_act("III", "The Second Box")
+    $ show_title("DAY 22 · SCENE 3.1\nSumeru City, the Akademiya Steps · Morning")
     play music audio.clean_instruments fadein 2.0  # “Clean Instruments”: sterile piano, a metronome underneath.
     # The Wanderer is walking half a step ahead of you. The Echo is a shade at your shoulder, visible only as a tint in the air where he stands.
     wanderer "Stay between us. Don’t speak to anyone in a white coat."

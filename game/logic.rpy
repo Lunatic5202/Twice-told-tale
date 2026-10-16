@@ -48,12 +48,19 @@ init python:
         if day is not None:
             store.current_day = day
 
-    def show_title(text, delay=1.9):
+    def show_title(text, delay=2.0):
         """Show a centred scene-title card and wait for it to fade. The wait is
         skippable (a click dismisses it early)."""
         renpy.show_screen("scene_title", text=text)
         renpy.pause(delay, hard=False)
         renpy.hide_screen("scene_title")
+
+    def show_act(roman, title, kicker="ACT", delay=2.4):
+        """Show the ceremonial act-boundary card (screens_extra.rpy) and wait
+        for it to clear. Skippable, like show_title()."""
+        renpy.show_screen("act_title", roman=roman, title=title, kicker=kicker)
+        renpy.pause(delay, hard=False)
+        renpy.hide_screen("act_title")
 
     ## ---- Ending gates ------------------------------------------------------
     ## Canonical order, from the script's tuning notes.

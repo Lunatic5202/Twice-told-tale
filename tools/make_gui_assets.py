@@ -13,6 +13,13 @@ This writes (all paths relative to game/gui/):
     overlay/vignette.png      soft dark vignette, 1280x720
     overlay/grain.png         tileable film grain, 256x256
     overlay/ink_blot.png      soft ink splotches for menu decoration
+    overlay/bar_top.png       cinematic letterbox bar, 1280x130 (bar_bottom mirrors it)
+    overlay/rule_gold.png     gold flourish rule that fades out at both ends
+    overlay/page_border.png   thin gold double-rule border for a resizable Frame
+    particle/rain.png         falling-rain streak sprite
+    particle/snow.png         soft snowflake sprite
+    particle/ember.png        glowing ember sprite
+    particle/leaf.png         drifting leaf sprite
 
 Everything here is meant to be replaced by a real artist. The generator keeps
 the game looking intentional until then, and re-running it is harmless.
@@ -174,6 +181,152 @@ def make_ink_blot():
     print("ink blot: %dx%d" % (s, s))
 
 
+def make_letterbox():
+    """Soft cinematic letterbox bars: solid at the frame edge, fading out
+    inward. bar_top.png and bar_bottom.png are the same bar mirrored."""
+    w, _ = RES
+    h = 130
+    yy = np.arange(h)[:, None].astype(np.float32) / (h - 1)
+    alpha = np.clip(1.0 - yy * 1.35, 0, 1) ** 1.5
+    alpha = (alpha * 240).astype(np.uint8)
+
+    out = np.zeros((h, w, 4), dtype=np.uint8)
+    out[..., 3] = np.broadcast_to(alpha, (h, w)).copy()
+
+    Image.fromarray(out, "RGBA").save(ensure("overlay", "bar_top.png"))
+    Image.fromarray(out[::-1], "RGBA").save(ensure("overlay", "bar_bottom.png"))
+    print("letterbox bars: %dx%d" % (w, h))
+
+
+def make_gold_rule():
+    """A thin gold rule that fades out at both ends - used as a flourish under
+    titles and scene cards."""
+    w = 720
+    h = 3
+    xx = np.arange(w)[None, :].astype(np.float32) / (w - 1)
+    alpha = np.clip(np.sin(xx * math.pi), 0.0, 1.0) ** 0.85
+
+    out = np.zeros((h, w, 4), dtype=np.uint8)
+    out[..., 0] = 214
+    out[..., 1] = 178
+    out[..., 2] = 94
+    out[..., 3] = (alpha * 235).astype(np.uint8)
+
+    Image.fromarray(out, "RGBA").save(ensure("overlay", "rule_gold.png"))
+    print("gold rule: %dx%d" % (w, h))
+
+
+def make_page_border():
+    """A thin gold double-rule border with corner ticks, built to be used as a
+    Ren'Py Frame: the corners are preserved and the straight edges stretch to
+    fit any panel size (see weather.rpy / screens.rpy). The centre is fully
+    transparent so the border can frame whatever is behind it."""
+    unit = 48          # distance preserved at each corner
+    size = unit * 3
+    img = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+
+    gold = (214, 178, 94, 190)
+    faint = (214, 178, 94, 90)
+    inset = 6
+    far = size - 1 - inset
+
+    # Outer rule.
+    d.rectangle([inset, inset, far, far], outline=gold, width=1)
+    # Inner rule, a few pixels in.
+    d.rectangle([inset + 5, inset + 5, far - 5, far - 5], outline=faint, width=1)
+
+    # Corner ticks that overlap both rules.
+    tick = 12
+    for cx, cy, sx, sy in ((inset, inset, 1, 1),
+                           (far, inset, -1, 1),
+                           (inset, far, 1, -1),
+                           (far, far, -1, -1)):
+        d.line([(cx, cy), (cx + sx * tick, cy)], fill=gold, width=1)
+        d.line([(cx, cy), (cx, cy + sy * tick)], fill=gold, width=1)
+
+    img.save(ensure("overlay", "page_border.png"))
+    print("page border: %dx%d (Frame %d)" % (size, size, unit))
+
+
+def _radial(size, cut=1.0, power=1.0):
+    """A soft radial falloff: 1.0 at the centre, fading to 0 at `cut` of the
+    way to the corner."""
+    c = (size - 1) / 2.0
+    yy, xx = np.mgrid[0:size, 0:size]
+    dist = np.sqrt((xx - c) ** 2 + (yy - c) ** 2) / c
+    return np.clip((cut - dist) / cut, 0, 1) ** power
+
+
+def make_rain():
+    """A short vertical streak, bright at the middle and tapered at the tips."""
+    w, h = 5, 56
+    along = np.clip(np.sin(np.linspace(0, 1, h)[:, None] * math.pi), 0, 1) ** 0.6
+    across = np.exp(-(np.linspace(-1, 1, w)[None, :] ** 2) * 6.0)
+    alpha = along * across
+
+    out = np.zeros((h, w, 4), dtype=np.uint8)
+    out[..., 0] = 200
+    out[..., 1] = 218
+    out[..., 2] = 228
+    out[..., 3] = (alpha * 165).astype(np.uint8)
+
+    im = Image.fromarray(out, "RGBA").filter(ImageFilter.GaussianBlur(0.7))
+    im.save(ensure("particle", "rain.png"))
+    print("rain sprite: %dx%d" % (w, h))
+
+
+def make_snow():
+    s = 14
+    out = np.zeros((s, s, 4), dtype=np.uint8)
+    out[..., 0] = 245
+    out[..., 1] = 246
+    out[..., 2] = 250
+    out[..., 3] = (_radial(s, 0.92, 1.3) * 235).astype(np.uint8)
+
+    im = Image.fromarray(out, "RGBA").filter(ImageFilter.GaussianBlur(1.0))
+    im.save(ensure("particle", "snow.png"))
+    print("snow sprite: %dx%d" % (s, s))
+
+
+def make_ember():
+    """A warm dot: a bright core inside a soft halo."""
+    s = 11
+    core = _radial(s, 0.55, 0.6)
+    halo = _radial(s, 1.0, 1.1)
+    alpha = np.clip(core + halo * 0.55, 0, 1)
+
+    out = np.zeros((s, s, 4), dtype=np.uint8)
+    out[..., 0] = 255
+    out[..., 1] = 152
+    out[..., 2] = 64
+    out[..., 3] = (alpha * 240).astype(np.uint8)
+
+    im = Image.fromarray(out, "RGBA").filter(ImageFilter.GaussianBlur(0.7))
+    im.save(ensure("particle", "ember.png"))
+    print("ember sprite: %dx%d" % (s, s))
+
+
+def make_leaf():
+    """A small, slightly irregular leaf with a darker midrib."""
+    s = 20
+    img = Image.new("RGBA", (s, s), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    d.polygon([(10, 2), (14, 7), (15, 13), (10, 18), (5, 13), (6, 7)],
+              fill=(150, 168, 96, 225))
+    d.line([(10, 4), (10, 16)], fill=(92, 106, 56, 220), width=1)
+    img = img.rotate(24, resample=Image.BICUBIC, expand=False)
+    img.save(ensure("particle", "leaf.png"))
+    print("leaf sprite: %dx%d" % (s, s))
+
+
+def make_particles():
+    make_rain()
+    make_snow()
+    make_ember()
+    make_leaf()
+
+
 def main():
     make_cursors()
     make_vignette()
@@ -181,6 +334,10 @@ def main():
     make_ink_mask()
     make_ctc_drop()
     make_ink_blot()
+    make_letterbox()
+    make_gold_rule()
+    make_page_border()
+    make_particles()
 
 
 if __name__ == "__main__":

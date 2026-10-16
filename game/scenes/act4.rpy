@@ -3,10 +3,11 @@
 ################################################################################
 label act4_4_1:
     # DAY 28 · SCENE 4.1 · The Archive Annex · Evening
-    $ set_page(3, 28)
-    $ show_title("DAY 28 · SCENE 4.1\nThe Archive Annex · Evening")
     scene bg annex_evening
-    with scene_fade
+    with act_wipe
+    $ set_page(3, 28)
+    $ show_act("IV", "The Doctor's Hour")
+    $ show_title("DAY 28 · SCENE 4.1\nThe Archive Annex · Evening")
     play music audio.what_i_never_said fadein 2.0  # “What I Never Said”: solo piano, slow, one hand.
     n "If PEN ≥ 3 (Bad Route Warning): [[The margins of the Folio smolder, a thin orange line eating inward. The ink obeys a clean, cold hand that isn’t yours. The Wanderer sees it before you do.]"
     wanderer "(low) Quill, the page is burning."

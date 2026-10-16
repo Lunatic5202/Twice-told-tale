@@ -4,8 +4,9 @@
 
 label act1_1_1:
 
+    scene bg annex_day with act_wipe
     $ set_page(29, 1)
-    scene bg annex_day with scene_fade
+    $ show_act("I", "Two at the Same Table")
     $ show_title("DAY 1 \u00b7 SCENE 1.1\nThe Archive Annex \u00b7 Morning")
 
     play music audio.double_trouble fadein 2.0

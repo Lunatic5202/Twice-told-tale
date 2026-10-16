@@ -126,26 +126,31 @@ screen stat_toast(text="", color="#ffffff"):
 ## Scene title banner
 ## ----------------------------------------------------------------------------
 ## A centred title card shown for a beat at the top of each scene. Driven by
-## the show_title() helper in logic.rpy.
+## the show_title() helper in logic.rpy. It rises out of the dissolve, draws a
+## fine gold rule beneath, and holds just long enough to read.
 
 transform scene_title_anim:
     subpixel True
     alpha 0.0
-    zoom 1.06
+    zoom 1.04
+    yoffset 12
     parallel:
         linear 0.45 alpha 1.0
     parallel:
-        easeout 0.60 zoom 1.0
-    pause 1.0
-    linear 0.55 alpha 0.0
+        easeout 0.6 zoom 1.0 yoffset 0
+    pause 0.95
+    linear 0.45 alpha 0.0
 
 transform scene_title_rule:
     subpixel True
-    xzoom 0.001
+    xalign 0.5
+    xzoom 0.02
+    alpha 0.0
     pause 0.25
+    alpha 1.0
     easeout 0.55 xzoom 1.0
-    pause 0.7
-    linear 0.5 alpha 0.0
+    pause 0.55
+    linear 0.45 alpha 0.0
 
 screen scene_title(text=""):
     zorder 90
@@ -159,7 +164,7 @@ screen scene_title(text=""):
         vbox:
             xalign 0.5
             yalign 0.5
-            spacing 16
+            spacing 18
 
             text text:
                 xalign 0.5
@@ -169,8 +174,112 @@ screen scene_title(text=""):
                 size 46
                 outlines [(3, "#000000cc", 0, 0)]
 
-            add Solid("#d6b25e", xysize=(280, 2)) at scene_title_rule:
+            add "gui/overlay/rule_gold.png":
+                xysize (gui.scale(300), gui.scale(2))
                 xalign 0.5
+                at scene_title_rule
+
+
+## ----------------------------------------------------------------------------
+## Act title card
+## ----------------------------------------------------------------------------
+## The heavier card shown at each act boundary. A dark veil closes over the
+## frame, cinematic bars slide in, and the act number is set in the logo face -
+## then it all lifts to reveal the act's first scene. Driven by show_act() in
+## logic.rpy.
+
+transform act_veil:
+    subpixel True
+    alpha 0.0
+    linear 0.4 alpha 1.0
+    pause 1.5
+    linear 0.5 alpha 0.0
+
+transform card_bar_top:
+    subpixel True
+    xalign 0.5
+    yalign 0.0
+    yoffset -140
+    easeout 0.45 yoffset 0
+    pause 1.2
+    easein 0.4 yoffset -140
+
+transform card_bar_bottom:
+    subpixel True
+    xalign 0.5
+    yalign 1.0
+    yoffset 140
+    easeout 0.45 yoffset 0
+    pause 1.2
+    easein 0.4 yoffset 140
+
+transform act_kicker_in:
+    subpixel True
+    alpha 0.0
+    linear 0.45 alpha 1.0
+    pause 1.1
+    linear 0.45 alpha 0.0
+
+transform act_num_in:
+    subpixel True
+    alpha 0.0
+    zoom 1.12
+    parallel:
+        linear 0.4 alpha 1.0
+    parallel:
+        easeout 0.7 zoom 1.0
+    pause 0.9
+    linear 0.45 alpha 0.0
+
+screen act_title(roman="I", title="", kicker="ACT"):
+    zorder 92
+
+    ## Dark veil so the act break reads as its own moment.
+    add Solid("#0a0a14") at act_veil
+
+    ## Cinematic bars.
+    add "gui/overlay/bar_top.png" at card_bar_top
+    add "gui/overlay/bar_bottom.png" at card_bar_bottom
+
+    frame:
+        background None
+        xalign 0.5
+        yalign 0.5
+
+        vbox:
+            xalign 0.5
+            yalign 0.5
+            spacing 12
+
+            text kicker:
+                xalign 0.5
+                font gui.display_font
+                size 22
+                color "#c9b789"
+                kerning 8
+                at act_kicker_in
+
+            text roman:
+                xalign 0.5
+                font gui.logo_font
+                size 118
+                color "#ece5d3"
+                outlines [(5, "#0a0a14cc", 0, 0)]
+                at act_num_in
+
+            add "gui/overlay/rule_gold.png":
+                xysize (gui.scale(520), gui.scale(2))
+                xalign 0.5
+                at scene_title_rule
+
+            text title:
+                xalign 0.5
+                textalign 0.5
+                font gui.title_font
+                size 42
+                color "#ffffff"
+                outlines [(3, "#000000cc", 0, 0)]
+                at act_kicker_in
 
 
 ## ----------------------------------------------------------------------------
