@@ -36,6 +36,35 @@ define circle_close = ImageDissolve("gui/mask/wipe_radial.png", 0.9, ramplen=8, 
 define ash_fade = Fade(0.45, 0.1, 0.6, color="#0a0a14")
 define bloom_dissolve = Dissolve(0.7)
 
+## Plain cross-fades at three weights: a quick expression swap, the house
+## default, and a long reflective one.  The stock `dissolve`/`fade` remain
+## available too; these just name the weights the script actually uses.
+define quick_dissolve = Dissolve(0.25)
+define slow_dissolve = Dissolve(0.9)
+define deep_fade = Fade(0.6, 0.25, 0.7, color="#0a0a14")
+
+## Reveals.  `blinds` lifts a scene in venetian slats, `squares_wipe`
+## assembles it from a checkerboard - both read as a page being drawn rather
+## than dipped.  `iris_open`/`iris_shut` open and close a circular lens for
+## moments that narrow to a single detail.
+define door_blinds = ImageDissolve(Tile("blindstile.png"), 0.9, 8)
+define squares_wipe = ImageDissolve(Tile("squarestile.png"), 0.9, 256)
+define iris_open = CropMove(0.7, "irisin")
+define iris_shut = CropMove(0.7, "irisout")
+
+## Lateral moves.  Used where the story travels - a corridor, a page turned
+## sideways - so the new plate pushes the old one off in the direction of travel.
+define slide_left = PushMove(0.6, "pushleft")
+define slide_right = PushMove(0.6, "pushright")
+
+## Camera punches.  These shake every layer at once, so a blow or a crash
+## reads as the camera taking the hit, not just the sprite.  `hpunch`/`vpunch`
+## are Ren'Py's own quarter-second shakes; `shake`/`quake`/`jolt` are longer,
+## stronger variants for impacts that should rattle the whole frame.
+define shake = Move((0, 7), (0, -7), 0.05, bounce=True, repeat=True, delay=0.30)
+define quake = Move((0, 16), (0, -16), 0.05, bounce=True, repeat=True, delay=0.55)
+define jolt = Move((-22, 0), (22, 0), 0.05, bounce=True, repeat=True, delay=0.42)
+
 
 ## ----------------------------------------------------------------------------
 ## Slow camera moves
@@ -94,64 +123,10 @@ transform cg_push:
 
 
 ## ----------------------------------------------------------------------------
-## Ambient dust
-## ----------------------------------------------------------------------------
-## Faint motes and fibres that drift slowly upward through the frame, tying the
-## otherwise-still backgrounds to the atmosphere overlay.
-
-image mote = "gui/overlay/mote.png"
-image fiber = "gui/overlay/fiber.png"
-
-transform mote_drift(xp, ystart, dur, delay, z, drift):
-    subpixel True
-    xpos xp
-    ypos ystart
-    zoom z
-    alpha 0.0
-    pause delay
-    block:
-        ypos ystart
-        xoffset 0
-        alpha 0.0
-        parallel:
-            linear 1.4 alpha 0.5
-            pause (dur - 2.8)
-            linear 1.4 alpha 0.0
-        parallel:
-            linear dur ypos -0.14 xoffset drift
-        repeat
-
-init python:
-    import random as _pyrandom
-
-    _mrng = _pyrandom.Random(20261015)
-    AMBIENT_MOTES = []
-    for _i in range(18):
-        AMBIENT_MOTES.append((
-            _mrng.uniform(0.02, 0.98),          # x position
-            _mrng.uniform(1.05, 1.35),          # start y (just under the frame)
-            _mrng.uniform(11.0, 19.0),          # drift duration
-            _mrng.uniform(0.0, 13.0),           # start delay
-            _mrng.uniform(0.12, 0.42),          # zoom
-            _mrng.uniform(-54.0, 54.0),         # horizontal drift
-            _mrng.choice(["mote", "fiber"]),    # sprite
-        ))
-
-screen ambience():
-    ## Below the dialogue/choice UI (which sits at the default zorder) but above
-    ## the scene itself, so the dust drifts in front of the art, not the text.
-    zorder -1
-
-    if not main_menu and not renpy.get_screen("game_menu") and not persistent.reduce_motion:
-        for _xp, _ys, _dur, _delay, _z, _drift, _img in AMBIENT_MOTES:
-            add _img at mote_drift(_xp, _ys, _dur, _delay, _z, _drift)
-
-
-## ----------------------------------------------------------------------------
 ## Reduce Motion
 ## ----------------------------------------------------------------------------
 ## An accessibility preference that flattens the camera moves, sprite breathing,
-## title drift, and ambient dust for players who are sensitive to motion. It is
+## and title drift for players who are sensitive to motion. It is
 ## exposed as a checkbox in Preferences. The one-shot UI slides (notify, quick
 ## menu) are brief enough to leave alone.
 
@@ -178,15 +153,9 @@ init python:
         if rm:
             config.tag_transform.pop("bg", None)
             config.tag_transform.pop("cg", None)
-            if "ambience" in config.overlay_screens:
-                config.overlay_screens.remove("ambience")
-            if interactive:
-                renpy.hide_screen("ambience")
         else:
             config.tag_transform["bg"] = ken_burns
             config.tag_transform["cg"] = cg_push
-            if "ambience" not in config.overlay_screens:
-                config.overlay_screens.append("ambience")
 
     def set_reduce_motion(flag):
         persistent.reduce_motion = bool(flag)

@@ -3,10 +3,12 @@
 ## Twice-Told Tale - Procedural Art Generator
 ################################################################################
 ##
-## Generates every background, CG, and character sprite for the game in a
-## cohesive "ink & paper" style. All output is original, deterministic, and
-## copyright-free: layered painterly washes, silhouettes, atmosphere, and
-## paper grain.
+## Generates every background and CG illustration for the game in a cohesive
+## "ink & paper" style. All output is original, deterministic, and
+## copyright-free: layered painterly washes, silhouettes and atmosphere.
+## Character sprites are NOT generated here - they are sliced
+## from hand-supplied expression sheets by tools/import_sheets.py; the in-scene
+## figures on the CG plates are silhouettes cut from those installed sprites.
 ##
 ## Usage:
 ##     python3 tools/make_art.py                # generate everything
@@ -16,7 +18,7 @@
 ## Output:
 ##     game/images/bg/<key>.png
 ##     game/images/cg/<key>.png
-##     game/images/sprites/<tag>_<expr>.png
+##     game/images/sprites/<tag>_<expr>.png   (written by tools/import_sheets.py)
 
 import os
 import sys
@@ -26,7 +28,7 @@ import hashlib
 import argparse
 
 import numpy as np
-from PIL import Image, ImageDraw, ImageFilter, ImageChops
+from PIL import Image, ImageDraw, ImageFilter
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 IMAGES = os.path.join(ROOT, "game", "images")
@@ -216,21 +218,6 @@ def particles(layer, count, seed, kind="dust", color=(255, 255, 255), size=3.0):
     return layer
 
 
-def vignette(arr, strength=0.55):
-    yy, xx = np.mgrid[0:H, 0:W]
-    d = np.sqrt(((xx - W / 2) / (W / 2)) ** 2 + ((yy - H / 2) / (H / 2)) ** 2)
-    v = np.clip(d - 0.45, 0, 1) ** 1.6
-    return arr * (1 - v[..., None] * strength)
-
-
-def grain(arr, amount=8.0, seed=1):
-    rnd = np.random.default_rng(seed)
-    n = rnd.normal(0, amount, (H, W, 1))
-    light = np.mean(arr, axis=2, keepdims=True)
-    mod = 1.0 + n / 255.0
-    return np.clip(arr * mod, 0, 255)
-
-
 def paper_finish(arr, strength=0.18, seed=7):
     """Warm paper wash blended over the whole image."""
     yy, xx = np.mgrid[0:H, 0:W]
@@ -245,10 +232,11 @@ def paper_finish(arr, strength=0.18, seed=7):
     return arr
 
 
-def finish(arr, vig=0.5, gr=6.0, pf=0.14, seed=1):
-    arr = vignette(arr, vig)
+def finish(arr, vig=0.0, gr=0.0, pf=0.14, seed=1):
+    # Global vignette and film grain are intentionally NOT applied: on a bright
+    # panel they read as screen artefacts (dark corners, speckle) rather than art.
+    # `vig`/`gr` are kept in the signature so the many call sites stay valid.
     arr = paper_finish(arr, pf, seed + 3)
-    arr = grain(arr, gr, seed + 9)
     return np.clip(arr, 0, 255)
 
 
@@ -262,645 +250,36 @@ def ink_frame(arr, margin=26, color=(20, 18, 26), a=120, bl=0.0):
 
 
 # ----------------------------------------------------------------------------
-# Figures (character sprites and in-scene silhouettes)
+# Figures (in-scene figures cut from the installed character sprites)
 # ----------------------------------------------------------------------------
+# Character art is hand-supplied expression sheets, sliced into
+# game/images/sprites/<tag>_<expr>.png by tools/import_sheets.py.  In-scene
+# figures on the CG plates are flat dark silhouettes cut from those sprites.
 
-SPRITE_SPECS = {
-    "wanderer": dict(skin="#f0d8c0", hair="#1d2c4d", hair_style="short",
-                     coat="#33506e", coat_dark="#22384f", accent="#6fd0d8",
-                     trim="#eae6da", eyes="#3f7fc4", hair2="#4a6fa5",
-                     hat="kasa", height=950),
-    "echo": dict(skin="#f0d8c0", hair="#2a2050", hair_style="bob",
-                 coat="#6a2440", coat_dark="#471830", accent="#9a6bc0",
-                 trim="#e8e2d0", eyes="#8465cf", hair2="#523088",
-                 hat="veiled", height=945),
-    "nahida": dict(skin="#f7e4cf", hair="#dfeccf", hair_style="long",
-                   coat="#f2f6e8", coat_dark="#bcd8a4", accent="#6fa843",
-                   trim="#8fc15e", hat=None, height=770, head_ratio=0.25,
-                   leaf=True, eyes="#5ea23f", hair2="#a9cf82", eye_scale=1.2),
-    "dottore": dict(skin="#e8d3c3", hair="#8fbcd8", hair_style="spiky",
-                    coat="#dfe4ea", coat_dark="#c2cad4", accent="#3a5570",
-                    trim="#3a5570", eyes="#a83840", hair2="#cfe6f4",
-                    hat=None, height=955, mask=True),
-    "tighnari": dict(skin="#ecd2b4", hair="#6f7f3e", hair_style="short",
-                     coat="#4a5e2e", coat_dark="#33421f", accent="#c9b070",
-                     trim="#c9b070", eyes="#9bbf3a", hair2="#93a852",
-                     hat=None, ears="fox", height=940),
-    "cyno": dict(skin="#dcbd97", hair="#1c1c26", hair_style="short",
-                 coat="#2a2a34", coat_dark="#1a1a22", accent="#c9a44a",
-                 trim="#c9a44a", eyes="#cfa03a", hair2="#3a3a4a",
-                 hat=None, ears="jackal", height=950),
-    "ei": dict(skin="#f2ddca", hair="#6a5a9a", hair_style="long",
-               coat="#4a3a6a", coat_dark="#352a52", accent="#c9a44a",
-               trim="#dcd8ea", eyes="#8a6cd0", hair2="#9a86c8",
-               hat=None, height=955),
-    "yae": dict(skin="#f6e3cf", hair="#eec2d6", hair_style="long",
-                coat="#f0eee8", coat_dark="#d8d0c8", accent="#b03040",
-                trim="#b03040", eyes="#d06a9a", hair2="#f6d6e6",
-                hat=None, ears="fox", height=940),
-}
-
-EXPR = {
-    "neutral":   ("flat", "open", "flat"),
-    "guarded":   ("flat", "narrow", "flat"),
-    "smug":      ("oneup", "narrow", "smirk"),
-    "flustered": ("inner", "wide", "small", True),
-    "hurt":      ("inner", "droop", "frown"),
-    "soft":      ("up", "closed", "smile"),
-    "tired":     ("flat", "droop", "flat"),
-    "sneer":     ("angry", "narrow", "smirk"),
-    "cold":      ("flat", "narrow", "flat"),
-    "amused":    ("up", "narrow", "smirk"),
-    "startled":  ("up", "wide", "open"),
-    "grieving":  ("inner", "closed", "frown", False, True),
-    "shy":       ("inner", "side", "small", True),
-    "smile":     ("up", "closed", "grin"),
-    "gentle":    ("up", "closed", "smile"),
-    "serious":   ("down", "narrow", "flat"),
-    "mischievous": ("oneup", "narrow", "smirk"),
-    "sad":       ("inner", "droop", "frown", False, True),
-    "pleasant":  ("up", "open", "smile"),
-    "delighted": ("up", "closed", "grin"),
-    "fascinated": ("up", "wide", "open"),
-    "cheerful":  ("up", "closed", "grin"),
-    "worried":   ("inner", "open", "flat"),
-    "excited":   ("up", "wide", "open"),
-    "sly":       ("oneup", "narrow", "smirk"),
-    "grinning":  ("up", "narrow", "grin"),
-}
-
-INK = "#241f33"
+SPRITE_DIR = os.path.join(IMAGES, "sprites")
 
 
-# ----------------------------------------------------------------------------
-# Colour + silhouette helpers
-# ----------------------------------------------------------------------------
-
-# ----------------------------------------------------------------------------
-# Colour + silhouette helpers
-# ----------------------------------------------------------------------------
-
-# ----------------------------------------------------------------------------
-# Colour + silhouette helpers
-# ----------------------------------------------------------------------------
-
-# ----------------------------------------------------------------------------
-# Colour + silhouette helpers
-# ----------------------------------------------------------------------------
-
-def darken(c, f=0.74):
-    return (max(0, int(c[0] * f)), max(0, int(c[1] * f)), max(0, int(c[2] * f)))
-
-
-def lighten(c, f=0.34):
-    return (min(255, int(c[0] + (255 - c[0]) * f)),
-            min(255, int(c[1] + (255 - c[1]) * f)),
-            min(255, int(c[2] + (255 - c[2]) * f)))
-
-
-def mixc(a, b, t):
-    return (int(a[0] + (b[0] - a[0]) * t),
-            int(a[1] + (b[1] - a[1]) * t),
-            int(a[2] + (b[2] - a[2]) * t))
-
-
-def head_pts(hw, hh, n=64):
-    """Anime head silhouette: rounded dome on top, tapering to a soft chin."""
-    right = []
-    for i in range(n + 1):
-        t = i / n
-        if t < 0.50:
-            w = hw * math.sqrt(max(0.0, 1.0 - ((0.50 - t) / 0.50) ** 2))
-        else:
-            u = (t - 0.50) / 0.50
-            w = hw * (1.0 - 0.84 * u ** 1.9)
-        right.append((w, hh * t))
-    return right
-
-
-def ink_outline(img, color="#241f33", width=2, scale=3):
-    """Wrap a figure in a clean ink contour so it reads on any background."""
-    a = img.getchannel("A")
-    dil = a
-    for _ in range(max(1, int(round(width)) * scale)):
-        dil = dil.filter(ImageFilter.MaxFilter(3))
-    ring = ImageChops.subtract(dil, a)
-    ink = Image.new("RGBA", img.size, hx(color) + (0,))
-    ink.putalpha(ring)
-    return Image.alpha_composite(ink, img).convert("RGBA")
-
-
-def _cosprofile(keys):
-    """Smooth (cosine) interpolation through (y, half-width) keys."""
-    keys = sorted(keys)
-
-    def f(y):
-        if y <= keys[0][0]:
-            return keys[0][1]
-        if y >= keys[-1][0]:
-            return keys[-1][1]
-        for i in range(len(keys) - 1):
-            y0, v0 = keys[i]
-            y1, v1 = keys[i + 1]
-            if y0 <= y <= y1:
-                t = (y - y0) / max(1e-6, (y1 - y0))
-                t = (1.0 - math.cos(math.pi * t)) / 2.0
-                return v0 + (v1 - v0) * t
-        return keys[-1][1]
-
-    return f
-
-
-def _catmull_closed(pts, samples=8):
-    """Closed Catmull-Rom spline through control points (rounds corners)."""
-    n = len(pts)
-    out = []
-    for i in range(n):
-        p0, p1, p2, p3 = pts[(i - 1) % n], pts[i], pts[(i + 1) % n], pts[(i + 2) % n]
-        for j in range(samples):
-            t = j / samples
-            t2, t3 = t * t, t * t * t
-            x = 0.5 * ((2 * p1[0]) + (-p0[0] + p2[0]) * t +
-                       (2 * p0[0] - 5 * p1[0] + 4 * p2[0] - p3[0]) * t2 +
-                       (-p0[0] + 3 * p1[0] - 3 * p2[0] + p3[0]) * t3)
-            y = 0.5 * ((2 * p1[1]) + (-p0[1] + p2[1]) * t +
-                       (2 * p0[1] - 5 * p1[1] + 4 * p2[1] - p3[1]) * t2 +
-                       (-p0[1] + 3 * p1[1] - 3 * p2[1] + p3[1]) * t3)
-            out.append((x, y))
-    return out
-
-
-def _catmull_open(pts, samples=8):
-    """Open Catmull-Rom polyline through control points (smooths a curve)."""
-    if len(pts) < 3:
-        return list(pts)
-    P = [pts[0]] + list(pts) + [pts[-1]]
-    out = []
-    for i in range(len(P) - 3):
-        p0, p1, p2, p3 = P[i], P[i + 1], P[i + 2], P[i + 3]
-        for j in range(samples):
-            t = j / samples
-            t2, t3 = t * t, t * t * t
-            x = 0.5 * ((2 * p1[0]) + (-p0[0] + p2[0]) * t +
-                       (2 * p0[0] - 5 * p1[0] + 4 * p2[0] - p3[0]) * t2 +
-                       (-p0[0] + 3 * p1[0] - 3 * p2[0] + p3[0]) * t3)
-            y = 0.5 * ((2 * p1[1]) + (-p0[1] + p2[1]) * t +
-                       (2 * p0[1] - 5 * p1[1] + 4 * p2[1] - p3[1]) * t2 +
-                       (-p0[1] + 3 * p1[1] - 3 * p2[1] + p3[1]) * t3)
-            out.append((x, y))
-    out.append(pts[-1])
-    return out
-
-
-def almond(x0, y0, x1, y1, w):
-    """A leaf/almond lens from (x0,y0) to (x1,y1) with bulge width w."""
-    mx, my = (x0 + x1) / 2.0, (y0 + y1) / 2.0
-    dx, dy = x1 - x0, y1 - y0
-    L = math.hypot(dx, dy) or 1.0
-    nx, ny = -dy / L, dx / L
-    return [(x0, y0), (mx + nx * w, my + ny * w), (x1, y1), (mx - nx * w, my - ny * w)]
-
-
-def render_figure(tag, expr="neutral", flat=None):
-    """Draw a stylized character. `flat` overrides every colour with one
-    (used for dark in-scene silhouettes)."""
-    spec = SPRITE_SPECS.get(tag, SPRITE_SPECS["wanderer"])
-    ex = EXPR.get(expr) or EXPR["neutral"]
-    b, eye, mouth = ex[:3]
-    blush = len(ex) > 3 and bool(ex[3])
-    tear = len(ex) > 4 and bool(ex[4])
-
+def load_figure(tag, expr="neutral", flat=None):
+    """Open an installed sprite and trim it to its alpha bbox.  When `flat` is a
+    hex colour, the shape is refilled with that colour (a dark silhouette)."""
+    path = os.path.join(SPRITE_DIR, "%s_%s.png" % (tag, expr))
+    if not os.path.exists(path):
+        for e in SPRITES.get(tag, ["neutral"]):
+            p = os.path.join(SPRITE_DIR, "%s_%s.png" % (tag, e))
+            if os.path.exists(p):
+                path = p
+                break
+    im = Image.open(path).convert("RGBA")
+    a = np.array(im)[..., 3]
+    ys, xs = np.where(a > 8)
+    if len(xs):
+        im = im.crop((int(xs.min()), int(ys.min()),
+                      int(xs.max()) + 1, int(ys.max()) + 1))
     if flat:
-        skin = hair = coat = dark = accent = trim = hx(flat)
-    else:
-        skin, hair = hx(spec["skin"]), hx(spec["hair"])
-        coat, dark = hx(spec["coat"]), hx(spec["coat_dark"])
-        accent, trim = hx(spec["accent"]), hx(spec["trim"])
-
-    ink_c = hx(INK) if isinstance(INK, str) else INK
-    coat_sh = darken(coat, 0.82)
-    hair_sh = darken(hair, 0.80)
-    hair_hi = lighten(hair, 0.30)
-    hair2 = hair if flat else hx(spec.get("hair2", spec["hair"]))
-    skin_sh = darken(skin, 0.90)
-    iris_col = dark if flat else hx(spec.get("eyes", spec["accent"]))
-    eye_scale = 1.0 if flat else spec.get("eye_scale", 1.0)
-
-    FS = 3  # figure supersample (smoother edges than the global SS)
-    W_, H_ = 700, 1120
-    img = Image.new("RGBA", (W_ * FS, H_ * FS), (0, 0, 0, 0))
-    d = ImageDraw.Draw(img)
-
-    def P(x, y):
-        return (x * FS, y * FS)
-
-    def poly(pts, fill):
-        d.polygon([P(*p) for p in pts], fill=fill)
-
-    def rpoly(pts, fill, samples=8):
-        """Rounded polygon — smooths corners so shapes are never boxy."""
-        d.polygon([P(*p) for p in _catmull_closed(pts, samples)], fill=fill)
-
-    def ell(x0, y0, x1, y1, fill):
-        d.ellipse([P(min(x0, x1), min(y0, y1)), P(max(x0, x1), max(y0, y1))], fill=fill)
-
-    def line(pts, fill, w=2):
-        if len(pts) >= 3:
-            pts = _catmull_open(pts)
-        d.line([P(*p) for p in pts], fill=fill, width=max(1, int(round(w * FS))), joint="curve")
-
-    def soft(pts, color, alpha=150):
-        nonlocal img, d
-        lay = Image.new("RGBA", img.size, (0, 0, 0, 0))
-        ImageDraw.Draw(lay).polygon([P(*p) for p in _catmull_closed(pts, 6)], fill=tuple(color)[:3] + (alpha,))
-        img = Image.alpha_composite(img, lay)
-        d = ImageDraw.Draw(img)
-
-    def soft_ell(x0, y0, x1, y1, color, alpha=140):
-        nonlocal img, d
-        lay = Image.new("RGBA", img.size, (0, 0, 0, 0))
-        ImageDraw.Draw(lay).ellipse(
-            [P(min(x0, x1), min(y0, y1)), P(max(x0, x1), max(y0, y1))],
-            fill=tuple(color)[:3] + (alpha,))
-        img = Image.alpha_composite(img, lay)
-        d = ImageDraw.Draw(img)
-
-    def limb(x0, y0, x1, y1, w0, w1, fill):
-        """Smooth tapered capsule with rounded caps."""
-        dx, dy = x1 - x0, y1 - y0
-        L = math.hypot(dx, dy) or 1.0
-        nx, ny = -dy / L, dx / L
-        m = 14
-        r, l = [], []
-        for i in range(m + 1):
-            t = i / m
-            px, py = x0 + dx * t, y0 + dy * t
-            w = w0 + (w1 - w0) * t
-            r.append((px + nx * w, py + ny * w))
-            l.append((px - nx * w, py - ny * w))
-        poly(r + l[::-1], fill)
-        ell(x1 - w1, y1 - w1, x1 + w1, y1 + w1, fill)
-        ell(x0 - w0, y0 - w0, x0 + w0, y0 + w0, fill)
-
-    def grad_poly(pts, top, bottom, alpha=95):
-        nonlocal img, d
-        w, h = img.size
-        small = vgrad(8, h, [(0.0, tuple(top)), (1.0, tuple(bottom))])
-        gi = (Image.fromarray(np.clip(small, 0, 255).astype(np.uint8), "RGB")
-              .resize((w, h), Image.BILINEAR).convert("RGBA"))
-        mask = Image.new("L", img.size, 0)
-        ImageDraw.Draw(mask).polygon([P(*p) for p in pts], fill=alpha)
-        gi.putalpha(mask)
-        img = Image.alpha_composite(img, gi)
-        d = ImageDraw.Draw(img)
-
-    # ---- proportions ----
-    cx = 350.0
-    feet = 1080.0
-    Ht = float(spec["height"])
-    hr = spec.get("head_ratio", 0.165)
-    head_h = Ht * hr
-    head_w = head_h * 0.80
-    hw = head_w / 2.0
-    head_top = feet - Ht
-    chin = head_top + head_h
-    shoulder_y = chin + head_h * 0.13
-    waist_y = shoulder_y + (feet - shoulder_y) * 0.34
-    hip_y = shoulder_y + (feet - shoulder_y) * 0.50
-    coat_hem = feet - (feet - hip_y) * 0.30
-    shoulder_w = head_w * 2.10
-    bust_w = shoulder_w * 0.90
-    waist_w = shoulder_w * 0.64
-    hip_w = shoulder_w * 0.84
-    hem_w = shoulder_w * 1.40
-    neck_w = head_w * 0.32
-    leg_w = head_w * 0.32
-    style = spec["hair_style"]
-
-    # ---- ground shadow (soft) ----
-    sh = Image.new("RGBA", img.size, (0, 0, 0, 0))
-    ImageDraw.Draw(sh).ellipse([P(cx - hem_w * 0.72, feet - 16), P(cx + hem_w * 0.72, feet + 16)],
-                               fill=(18, 14, 28, 55))
-    sh = sh.filter(ImageFilter.GaussianBlur(6 * FS))
-    img = Image.alpha_composite(img, sh)
-    d = ImageDraw.Draw(img)
-
-    # ---- legs ----
-    for s in (-1, 1):
-        xt = cx + s * head_w * 0.30
-        xa = cx + s * head_w * 0.26
-        limb(xt, hip_y + head_h * 0.04, xa, feet - 20, leg_w * 0.50, leg_w * 0.40, dark)
-        ell(xa - leg_w * 0.60, feet - 34, xa + leg_w * 0.60, feet + 2, darken(dark, 0.72))
-
-    # ---- body silhouette (smooth profile) ----
-    bw = _cosprofile([
-        (shoulder_y, shoulder_w / 2),
-        (shoulder_y + (waist_y - shoulder_y) * 0.55, bust_w / 2),
-        (waist_y, waist_w / 2),
-        (hip_y, hip_w / 2),
-        (coat_hem, hem_w / 2),
-    ])
-    N = 56
-    ys = [shoulder_y + (coat_hem - shoulder_y) * i / N for i in range(N + 1)]
-    right = [(cx + bw(y), y) for y in ys]
-    hem_arc = [(cx + (hem_w / 2) * math.cos(t), coat_hem + head_h * 0.13 * math.sin(t))
-               for t in [math.pi * i / 24 for i in range(25)]]
-    left = [(cx - bw(y), y) for y in reversed(ys)]
-    body = right + hem_arc + left
-    poly(body, coat)
-    for s in (-1, 1):
-        ell(cx + s * shoulder_w / 2 - head_w * 0.20, shoulder_y - head_h * 0.12,
-            cx + s * shoulder_w / 2 + head_w * 0.20, shoulder_y + head_h * 0.24, coat)
-    if not flat:
-        grad_poly(body, lighten(coat, 0.10), darken(coat, 0.86), 70)
-    sh_pts = [(cx + bw(y) * 0.14, y) for y in ys] + [(cx + bw(y), y) for y in reversed(ys)]
-    poly(sh_pts, coat_sh)
-    # curved collar neckline
-    rpoly([(cx - head_w * 0.36, shoulder_y + head_h * 0.01),
-           (cx, shoulder_y + head_h * 0.42),
-           (cx + head_w * 0.36, shoulder_y + head_h * 0.01)], trim)
-    # curved sash / belt following the waist
-    rpoly([(cx - bw(waist_y) * 1.03, waist_y - head_h * 0.11),
-           (cx, waist_y - head_h * 0.13),
-           (cx + bw(waist_y) * 1.03, waist_y - head_h * 0.11),
-           (cx + bw(waist_y) * 1.03, waist_y + head_h * 0.09),
-           (cx, waist_y + head_h * 0.11),
-           (cx - bw(waist_y) * 1.03, waist_y + head_h * 0.09)], accent)
-    if spec.get("leaf") and not flat:
-        rpoly(almond(cx - head_w * 0.13, shoulder_y + head_h * 0.34, cx, shoulder_y + head_h * 0.18, head_w * 0.06), accent)
-        rpoly(almond(cx, shoulder_y + head_h * 0.18, cx + head_w * 0.13, shoulder_y + head_h * 0.34, head_w * 0.06), accent)
-        # curved hem band following the hem arc
-        rpoly([(cx - hem_w * 0.50, coat_hem - head_h * 0.02),
-               (cx, coat_hem + head_h * 0.06),
-               (cx + hem_w * 0.50, coat_hem - head_h * 0.02),
-               (cx + hem_w * 0.50, coat_hem + head_h * 0.05),
-               (cx, coat_hem + head_h * 0.12),
-               (cx - hem_w * 0.50, coat_hem + head_h * 0.05)], accent)
-
-    # ---- arms + hands (rounded sleeves) ----
-    for s in (-1, 1):
-        sx = cx + s * shoulder_w * 0.44
-        ex = cx + s * (shoulder_w * 0.50 + head_w * 0.14)
-        ey = shoulder_y + (coat_hem - shoulder_y) * 0.80
-        limb(sx, shoulder_y + head_h * 0.04, ex, ey, head_w * 0.17, head_w * 0.19, coat)
-        if not flat:
-            limb(sx + s * head_w * 0.06, shoulder_y + head_h * 0.14, ex, ey - head_h * 0.06,
-                 head_w * 0.045, head_w * 0.045, coat_sh)
-        hx0 = cx + s * (shoulder_w * 0.48 + head_w * 0.10)
-        hy0 = ey + head_h * 0.15
-        ell(hx0 - head_w * 0.10, hy0 - head_h * 0.09, hx0 + head_w * 0.10, hy0 + head_h * 0.11, skin)
-
-    # ---- neck ----
-    limb(cx, chin - head_h * 0.16, cx, shoulder_y + head_h * 0.08, neck_w * 0.55, neck_w * 0.62, skin)
-    if not flat:
-        soft_ell(cx - neck_w * 0.66, chin - head_h * 0.12, cx + neck_w * 0.66, chin + head_h * 0.08,
-                 skin_sh, 150)
-
-    # ---- back hair ----
-    if style == "long":
-        back_bot = shoulder_y + head_h * 1.15
-        back_w = hw * 1.55
-    elif style == "bob":
-        back_bot = chin + head_h * 0.24
-        back_w = hw * 1.34
-    else:
-        back_bot = chin + head_h * 0.08
-        back_w = hw * 1.18
-    bp = head_pts(back_w, back_bot - head_top + head_h * 0.28)
-    back = [(cx + wx, head_top - head_h * 0.16 + wy) for wx, wy in bp]
-    back += [(cx - wx, head_top - head_h * 0.16 + wy) for wx, wy in reversed(bp)]
-    poly(back, hair)
-    if not flat and spec.get("hair2") and back_bot > chin:
-        cut = chin + head_h * 0.02
-        h2 = [(cx + wx, head_top - head_h * 0.16 + wy) for wx, wy in bp
-              if head_top - head_h * 0.16 + wy >= cut]
-        h2 += [(cx - wx, head_top - head_h * 0.16 + wy) for wx, wy in reversed(bp)
-               if head_top - head_h * 0.16 + wy >= cut]
-        if len(h2) > 3:
-            poly(h2, hair2)
-
-    # ---- head ----
-    hp = head_pts(hw, head_h)
-    head_poly = ([(cx + wx, head_top + wy) for wx, wy in hp] +
-                 [(cx - wx, head_top + wy) for wx, wy in reversed(hp)])
-    poly(head_poly, skin)
-    if not flat:
-        soft_ell(cx - hw * 0.62, chin - head_h * 0.34, cx + hw * 0.62, chin + head_h * 0.02,
-                 skin_sh, 110)
-
-    # human ears
-    if not spec.get("ears"):
-        for s in (-1, 1):
-            ell(cx + s * hw * 0.84, head_top + head_h * 0.44,
-                cx + s * hw * 1.08, head_top + head_h * 0.64, skin)
-
-    # ---- front hair (smooth wavy fringe) ----
-    if not flat:
-        ell(cx - hw * 1.12, head_top - head_h * 0.22, cx + hw * 1.12, head_top + head_h * 0.40, hair)
-        n = 44
-        xs = [cx + (i / n - 0.5) * head_w * 2.12 for i in range(n + 1)]
-        fr = [(x, head_top - head_h * 0.06) for x in xs]
-        for x in reversed(xs):
-            tt = (x - cx) / (head_w * 1.06)
-            yy = head_top + head_h * (0.40 + 0.09 * math.cos(tt * math.pi * 3.0) + 0.05 * tt * tt)
-            fr.append((x, yy))
-        poly(fr, hair)
-        fsh = [(x, head_top + head_h * 0.30) for x in xs]
-        for x in reversed(xs):
-            tt = (x - cx) / (head_w * 1.00)
-            fsh.append((x, head_top + head_h * (0.415 + 0.07 * math.cos(tt * math.pi * 3.0))))
-        soft(fsh, darken(skin, 0.87), 90)
-        for i in range(-2, 3):
-            ox = i * hw * 0.36
-            line([(cx + ox * 0.85, head_top + head_h * 0.02),
-                  (cx + ox * 1.02, head_top + head_h * 0.24),
-                  (cx + ox * 1.08, head_top + head_h * 0.44)], hair_sh, 2)
-        if style == "spiky":
-            for i in range(-2, 3):
-                bx = cx + i * hw * 0.6
-                rpoly([(bx - head_w * 0.11, head_top + head_h * 0.04),
-                       (bx - head_w * 0.05, head_top - head_h * 0.28),
-                       (bx, head_top - head_h * 0.46),
-                       (bx + head_w * 0.05, head_top - head_h * 0.28),
-                       (bx + head_w * 0.11, head_top + head_h * 0.04)], hair)
-        sl_bot = chin + head_h * (0.55 if style == "long" else 0.06)
-        for s in (-1, 1):
-            limb(cx + s * hw * 0.88, head_top + head_h * 0.24, cx + s * hw * 1.16,
-                 sl_bot, head_w * 0.11, head_w * 0.07, hair)
-            if spec.get("hair2"):
-                limb(cx + s * hw * 0.96, chin - head_h * 0.10, cx + s * hw * 1.14,
-                     sl_bot, head_w * 0.09, head_w * 0.06, hair2)
-        d.arc([P(cx - hw * 0.98, head_top - head_h * 0.04), P(cx + hw * 0.98, head_top + head_h * 0.40)],
-              205, 335, fill=hair_hi, width=max(1, int(head_h * 0.05)))
-
-    # ---- face ----
-    eye_y = head_top + head_h * 0.60
-    eye_dx = hw * 0.42
-    ew = hw * 0.30 * eye_scale
-    eh = head_h * 0.115 * eye_scale
-    brow_y = eye_y - head_h * 0.155
-    mouth_y = head_top + head_h * 0.83
-
-    def draw_eye(ex0, s):
-        if eye == "closed":
-            d.arc([P(ex0 - ew, eye_y - eh * 0.6), P(ex0 + ew, eye_y + eh * 0.6)],
-                  200, 340, fill=ink_c, width=int(2.0 * FS))
-            return
-        if eye == "droop":
-            top, bot = eye_y - eh * 0.15, eye_y + eh * 1.05
-        elif eye == "narrow":
-            top, bot = eye_y - eh * 0.42, eye_y + eh * 0.34
-        elif eye == "wide":
-            top, bot = eye_y - eh * 1.18, eye_y + eh * 1.05
-        else:
-            top, bot = eye_y - eh * 0.86, eye_y + eh * 0.74
-        ex0 = ex0 + (s * ew * 0.28 if eye == "side" else 0)
-        d.ellipse([P(ex0 - ew, top), P(ex0 + ew, bot)], fill=(250, 247, 242))
-        ir = min(ew * 0.92, (bot - top) * 0.60)
-        icy = (top + bot) / 2
-        d.ellipse([P(ex0 - ir, icy - ir * 1.06), P(ex0 + ir, icy + ir * 1.06)], fill=iris_col)
-        d.ellipse([P(ex0 - ir, icy - ir * 1.06), P(ex0 + ir, icy + ir * 1.06)],
-                  outline=darken(iris_col, 0.6), width=max(1, int(FS)))
-        d.ellipse([P(ex0 - ir * 0.44, icy - ir * 0.48), P(ex0 + ir * 0.44, icy + ir * 0.48)],
-                  fill=(18, 16, 24))
-        d.ellipse([P(ex0 - ir * 0.60, icy - ir * 0.92), P(ex0 - ir * 0.02, icy - ir * 0.30)],
-                  fill=(255, 255, 255))
-        d.arc([P(ex0 - ew * 1.02, top - eh * 0.10), P(ex0 + ew * 1.02, top + (bot - top) * 0.9)],
-              180, 360, fill=ink_c, width=int(2.1 * FS))
-        d.ellipse([P(ex0 - ew, top), P(ex0 + ew, bot)], outline=ink_c, width=max(1, int(FS)))
-
-    if spec.get("mask"):
-        rpoly([(cx - hw * 0.90, head_top + head_h * 0.42),
-               (cx + hw * 0.90, head_top + head_h * 0.42),
-               (cx + hw * 0.80, chin - head_h * 0.02),
-               (cx - hw * 0.80, chin - head_h * 0.02)], (222, 226, 232))
-        for s in (-1, 1):
-            ell(cx + s * eye_dx - ew * 1.05, eye_y - eh * 1.25,
-                cx + s * eye_dx + ew * 1.05, eye_y + eh * 1.25, (10, 12, 16))
-    else:
-        for s in (-1, 1):
-            draw_eye(cx + s * eye_dx, s)
-        for s in (-1, 1):
-            ex0 = cx + s * eye_dx
-            inner = ex0 - s * ew * 1.02
-            outer = ex0 + s * ew * 1.12
-            midx = (inner + outer) / 2
-            dy = {"flat": 0, "up": -head_h * 0.06, "down": head_h * 0.05,
-                  "inner": -head_h * 0.05, "angry": head_h * 0.05}.get(b, 0)
-            if b == "oneup":
-                dy = -head_h * 0.085 if s > 0 else head_h * 0.02
-            if b == "angry":
-                line([(inner, brow_y + abs(dy)), (midx, brow_y + dy * 0.4), (outer, brow_y - dy * 0.3)], ink_c, 3)
-            elif b == "inner":
-                line([(inner, brow_y + abs(dy)), (midx, brow_y + dy * 0.5), (outer, brow_y - dy)], ink_c, 3)
-            else:
-                line([(inner, brow_y + dy), (midx, brow_y + dy - head_h * 0.014), (outer, brow_y + dy - head_h * 0.012)], ink_c, 3)
-        mw = head_w * 0.20
-        if mouth == "smile":
-            d.arc([P(cx - mw, mouth_y - mw * 0.7), P(cx + mw, mouth_y + mw * 0.7)],
-                  20, 160, fill=ink_c, width=int(2.0 * FS))
-        elif mouth == "grin":
-            d.chord([P(cx - mw, mouth_y - mw * 0.3), P(cx + mw, mouth_y + mw * 1.1)],
-                    10, 170, fill=(158, 74, 82))
-            d.arc([P(cx - mw, mouth_y - mw * 0.3), P(cx + mw, mouth_y + mw * 1.1)],
-                  10, 170, fill=ink_c, width=max(1, int(FS)))
-        elif mouth == "frown":
-            d.arc([P(cx - mw, mouth_y + mw * 0.1), P(cx + mw, mouth_y + mw * 1.4)],
-                  200, 340, fill=ink_c, width=int(2.0 * FS))
-        elif mouth == "smirk":
-            d.arc([P(cx - mw * 0.9, mouth_y - mw * 0.5), P(cx + mw * 1.15, mouth_y + mw * 0.9)],
-                  20, 120, fill=ink_c, width=int(2.0 * FS))
-        elif mouth == "open":
-            ell(cx - mw * 0.48, mouth_y - mw * 0.30, cx + mw * 0.48, mouth_y + mw * 0.62, (150, 68, 78))
-        elif mouth == "small":
-            line([(cx - mw * 0.32, mouth_y + head_h * 0.004), (cx, mouth_y), (cx + mw * 0.32, mouth_y + head_h * 0.004)], ink_c, 3)
-        else:
-            line([(cx - mw * 0.46, mouth_y + head_h * 0.006), (cx, mouth_y), (cx + mw * 0.46, mouth_y + head_h * 0.006)], ink_c, 3)
-        if blush:
-            for s in (-1, 1):
-                soft_ell(cx + s * hw * 0.62 - hw * 0.16, eye_y + head_h * 0.04,
-                         cx + s * hw * 0.62 + hw * 0.16, eye_y + head_h * 0.20,
-                         (226, 122, 132), 120)
-        if tear:
-            for s in (-1, 1):
-                ex0 = cx + s * eye_dx
-                ell(ex0 - head_w * 0.025, eye_y + eh * 1.15, ex0 + head_w * 0.025,
-                    eye_y + eh * 2.7, (150, 200, 235))
-
-    # ---- fabric folds (curved) ----
-    if not flat:
-        fold = darken(coat, 0.79)
-        for s in (-1, 1):
-            line([(cx + s * bw(waist_y) * 0.30, waist_y + head_h * 0.24),
-                  (cx + s * bw(waist_y) * 0.42, waist_y + (coat_hem - waist_y) * 0.55),
-                  (cx + s * bw(hip_y) * 0.46, coat_hem - head_h * 0.10)], fold, 2)
-        line([(cx, waist_y + head_h * 0.28),
-              (cx + head_h * 0.02, waist_y + (coat_hem - waist_y) * 0.5),
-              (cx, coat_hem - head_h * 0.14)], fold, 2)
-
-    # ---- animal ears (rounded) ----
-    if spec.get("ears"):
-        for s in (-1, 1):
-            bx = cx + s * hw * 0.80
-            rpoly([(bx - head_w * 0.15, head_top + head_h * 0.06),
-                   (bx - head_w * 0.06, head_top - head_h * 0.24),
-                   (bx + s * head_w * 0.05, head_top - head_h * 0.54),
-                   (bx + head_w * 0.10, head_top - head_h * 0.20),
-                   (bx + head_w * 0.15, head_top + head_h * 0.06)], hair)
-            if not flat and spec["ears"] == "fox":
-                rpoly([(bx - head_w * 0.08, head_top - head_h * 0.10),
-                       (bx, head_top - head_h * 0.38),
-                       (bx + head_w * 0.08, head_top - head_h * 0.10)], accent)
-
-    # ---- hat ----
-    if spec.get("hat") in ("kasa", "veiled"):
-        hcol = dark
-        ell(cx - head_w * 1.42, head_top + head_h * 0.02, cx + head_w * 1.42,
-            head_top + head_h * 0.30, hcol)
-        rpoly([(cx - head_w * 0.60, head_top + head_h * 0.14),
-               (cx - head_w * 0.40, head_top - head_h * 0.18),
-               (cx, head_top - head_h * 0.46),
-               (cx + head_w * 0.40, head_top - head_h * 0.18),
-               (cx + head_w * 0.60, head_top + head_h * 0.14)], hcol)
-        rpoly([(cx - head_w * 0.56, head_top - head_h * 0.01),
-               (cx, head_top + head_h * 0.03),
-               (cx + head_w * 0.56, head_top - head_h * 0.01),
-               (cx + head_w * 0.56, head_top + head_h * 0.05),
-               (cx, head_top + head_h * 0.09),
-               (cx - head_w * 0.56, head_top + head_h * 0.05)], accent)
-        if spec["hat"] == "veiled" and not flat:
-            veil = Image.new("RGBA", img.size, (0, 0, 0, 0))
-            ImageDraw.Draw(veil).polygon(
-                [P(*p) for p in _catmull_closed([
-                    (cx - head_w * 1.42, head_top + head_h * 0.20),
-                    (cx - head_w * 1.30, head_top + head_h * 0.95),
-                    (cx + head_w * 1.30, head_top + head_h * 0.95),
-                    (cx + head_w * 1.42, head_top + head_h * 0.20)], 6)],
-                fill=(30, 20, 45, 110))
-            img = Image.alpha_composite(img, veil)
-            d = ImageDraw.Draw(img)
-
-    # ---- leaf (Nahida) ----
-    if spec.get("leaf"):
-        rpoly(almond(cx + head_w * 0.30, head_top - head_h * 0.04, cx + head_w * 0.58, head_top - head_h * 0.30, head_w * 0.07), accent)
-        rpoly(almond(cx + head_w * 0.20, head_top - head_h * 0.12, cx + head_w * 0.44, head_top - head_h * 0.42, head_w * 0.06), accent)
-
-    if flat:
-        return img
-
-    return ink_outline(img, width=2, scale=FS)
-
-
-def sprite_figure(tag, expr):
-    W_s, H_s = 700, 1120
-    lay = render_figure(tag, expr).resize((W_s, H_s), Image.LANCZOS)
-    spec = SPRITE_SPECS.get(tag, SPRITE_SPECS["wanderer"])
-    accent = hx(spec["accent"])
-    aura = Image.new("RGBA", (W_s, H_s), (0, 0, 0, 0))
-    ad = ImageDraw.Draw(aura)
-    ad.ellipse([W_s // 2 - 190, H_s - 90, W_s // 2 + 190, H_s - 10], fill=accent + (40,))
-    aura = aura.filter(ImageFilter.GaussianBlur(28))
-    return Image.alpha_composite(aura, lay)
+        solid = Image.new("RGBA", im.size, hx(flat) + (255,))
+        solid.putalpha(im.getchannel("A"))
+        im = solid
+    return im
 
 
 def paste_figure(arr, tag, cx_frac, base_frac, h_frac, flat=None, expr="neutral", rotate=0):
@@ -909,7 +288,7 @@ def paste_figure(arr, tag, cx_frac, base_frac, h_frac, flat=None, expr="neutral"
     Normally `base_frac` is where the feet rest. When `rotate` is non-zero the
     figure is turned (e.g. 90 for a body lying down) and `base_frac` becomes the
     figure's centre instead."""
-    fig = render_figure(tag, expr, flat=flat)
+    fig = load_figure(tag, expr, flat=flat)
     target_h = int(H * h_frac)
     target_w = max(1, int(fig.width * target_h / fig.height))
     fig = fig.resize((target_w, target_h), Image.LANCZOS)
@@ -923,6 +302,7 @@ def paste_figure(arr, tag, cx_frac, base_frac, h_frac, flat=None, expr="neutral"
     layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     layer.alpha_composite(fig, (max(0, x), max(0, y)))
     return composite(arr, layer)
+
 
 
 # ----------------------------------------------------------------------------
@@ -1304,9 +684,7 @@ def cg_scene(scene_fn, *args, crash=0.30):
 
 
 def cg_frame(arr, seed=1):
-    arr = vignette(arr, 0.5)
     arr = paper_finish(arr, 0.12, seed)
-    arr = grain(arr, 4, seed + 1)
     arr = ink_frame(np.clip(arr, 0, 255), 24, (18, 16, 24), 130)
     return arr
 
@@ -1549,11 +927,8 @@ SPRITES = {
     "yae": ["neutral", "amused", "smug", "serious"],
 }
 
-## Characters whose sprites come from hand-supplied expression sheets (sliced by
-## tools/import_sheets.py) rather than this generator.  gen_sprites skips them so
-## it cannot overwrite the imported art.  Pass `--only <tag>` to force-regenerate.
-SHEET_CHARS = {"wanderer", "echo", "nahida", "dottore", "tighnari", "cyno",
-               "ei", "yae"}
+## Every character sprite is sliced from hand-supplied expression sheets by
+## tools/import_sheets.py; SPRITES is the registry used to emit game/images.rpy.
 
 
 # ----------------------------------------------------------------------------
@@ -1590,22 +965,6 @@ def gen_cgs(only):
         random.seed("cg:" + key)
         save_webp(cg_plate(key), os.path.join(out, key + ".webp"))
         print("cg   ", key)
-
-
-def gen_sprites(only):
-    out = os.path.join(IMAGES, "sprites")
-    for tag, exps in SPRITES.items():
-        if tag in SHEET_CHARS and not (only and tag in only):
-            print("spr   (skip, sheet-based)", tag)
-            continue
-        for exp in exps:
-            if only and ("%s_%s" % (tag, exp)) not in only and tag not in only:
-                continue
-            random.seed("sp:%s:%s" % (tag, exp))
-            img = sprite_figure(tag, exp)
-            os.makedirs(out, exist_ok=True)
-            img.save(os.path.join(out, "%s_%s.png" % (tag, exp)), optimize=True)
-            print("spr  ", tag, exp)
 
 
 def montage():
@@ -1662,7 +1021,8 @@ def emit_rpy():
     lines += ["", "## ---- Character sprites -----------------------------------------------------", ""]
     for tag, exps in SPRITES.items():
         for exp in exps:
-            lines.append('image %s %s = "images/sprites/%s_%s.png"' % (tag, exp, tag, exp))
+            base = "images/sprites/%s_%s.png" % (tag, exp)
+            lines.append('image %s %s = "%s"' % (tag, exp, base))
     lines.append("")
     path = os.path.join(ROOT, "game", "images.rpy")
     with open(path, "w") as f:
@@ -1676,18 +1036,15 @@ def main():
     ap.add_argument("--montage", action="store_true")
     ap.add_argument("--bg", action="store_true")
     ap.add_argument("--cg", action="store_true")
-    ap.add_argument("--sprites", action="store_true")
     ap.add_argument("--rpy", action="store_true")
     args = ap.parse_args()
 
     only = set(args.only) if args.only else None
-    do_all = not (args.bg or args.cg or args.sprites)
+    do_all = not (args.bg or args.cg)
     if do_all or args.bg:
         gen_backgrounds(only)
     if do_all or args.cg:
         gen_cgs(only)
-    if do_all or args.sprites:
-        gen_sprites(only)
     if args.rpy or do_all:
         emit_rpy()
     if args.montage:

@@ -65,11 +65,12 @@ game/
   testcases.rpy         automated tests (see below)
   scenes/               the script, split per act
     prologue.rpy  act1.rpy  act2.rpy  act3.rpy  act4.rpy  endings.rpy
-  images/               backgrounds, CGs, sprites (generated, CC0)
+  images/               backgrounds, CGs, sprites (see ASSETS.md)
   audio/                music + sfx (CC0) and CREDITS.md
   fonts/
 tools/
-  make_art.py           deterministic procedural art generator
+  make_art.py           deterministic procedural plate generator (bg + CG)
+  import_sheets.py      slices character expression sheets into sprites
   fetch_music.sh        downloads + normalizes the CC0 score
   fetch_sfx.sh          downloads + normalizes CC0 sound effects
   script_to_rpy.py      converts the source script into scenes/*.rpy
@@ -78,14 +79,16 @@ ASSETS.md               art + audio manifest and replacement guide
 
 ## Regenerating assets
 
-All art is procedurally generated (no third-party images) and the generation is
-**deterministic** — re-running reproduces byte-identical files.
+Backgrounds and CG plates are procedurally generated (no third-party images) and
+the generation is **deterministic** — re-running reproduces byte-identical files.
+Character sprites are sliced from hand-supplied expression sheets.
 
 ```sh
-python3 tools/make_art.py            # everything (bg + cg + sprites + images.rpy)
+python3 tools/make_art.py            # backgrounds + CG plates + images.rpy
 python3 tools/make_art.py --cg       # only the CG illustrations
 python3 tools/make_art.py --only sleeping_puppet raiden_yae
 python3 tools/make_art.py --montage  # write tools/out/montage.png contact sheet
+python3 tools/import_sheets.py --install   # slice the expression sheets into sprites
 ```
 
 Audio is fetched from OpenGameArt (all CC0) and normalized to Ogg Vorbis:

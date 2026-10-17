@@ -20,7 +20,7 @@ label prologue_0_1:
 
     # [CG: Close on the page. The line reads "...and he reached out his hand,
     #  and the whole tree held its breath, and" and then a torn edge.]
-    scene cg folio_page with soft_dissolve
+    scene cg folio_page with iris_open
 
     mc "A sentence shouldn\u2019t end like that. Nobody should."
 
@@ -39,6 +39,7 @@ label prologue_0_1:
 
     # [MUSIC: The ticking stops. A single low string.]
 
+    with quake
     n "The lamp flares and the shelves shiver. The first thing to climb out of the page is a hat brim, wide and conical, rising like a sunrise."
 
     # [CG: A figure steps out of the ink. A red and purple jacket, a veil
@@ -83,6 +84,7 @@ label prologue_0_1:
 
     # [SFX: A soft chime. The ink around the doorframe flickers gold.]
     play sound audio.sfx_chime
+    with shake
 
     echo "...No."
 

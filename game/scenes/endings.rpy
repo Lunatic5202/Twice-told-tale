@@ -253,6 +253,7 @@ label ending_burn_it_down:
     scene bg white_page_burn
     with scene_fade
     play music audio.tatarasuna fadein 1.0
+    with quake
     # You pull the Folio apart. The paper screams.
     wanderer "(from inside the fire) What have you done?"
     echo "(laughing, high and cracked) You broke it. You broke the only place we were both real."

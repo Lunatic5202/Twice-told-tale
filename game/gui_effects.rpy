@@ -8,7 +8,6 @@
 ##   * an animated ink-nib mouse cursor
 ##   * a blinking ink-drop "click to continue" marker
 ##   * a splash / loading screen shown before the main menu
-##   * a drifting vignette + grain overlay used in-game
 ##   * motion transforms reused by the choice menu and main menu
 ##
 ## Nothing here is required for the story to run; it can all be removed and the
@@ -97,20 +96,8 @@ screen ctc(ctc=None):
 ## ----------------------------------------------------------------------------
 ## In-game atmosphere overlay
 ## ----------------------------------------------------------------------------
-## A soft vignette, a very slow ink bloom, and drifting film grain. Registered
-## as an overlay screen so it sits above the scene but below the dialogue HUD.
-
-image film_grain = Tile("gui/overlay/grain.png")
-
-transform grain_drift:
-    subpixel True
-    xoffset 0
-    yoffset 0
-    linear 1.3 xoffset 14 yoffset 9
-    linear 1.3 xoffset -9 yoffset -11
-    linear 1.3 xoffset 7 yoffset 5
-    linear 1.3 xoffset 0 yoffset 0
-    repeat
+## A very slow ink bloom, registered as an overlay screen so it sits above the
+## scene but below the dialogue HUD.
 
 transform ink_bloom:
     subpixel True
@@ -137,9 +124,7 @@ transform ink_bloom:
 screen atmosphere():
     zorder 5
     if not main_menu:
-        add "gui/overlay/vignette.png"
         add "gui/overlay/ink_blot.png" at ink_bloom
-        add "film_grain" at grain_drift
 
 init python:
     if "atmosphere" not in config.overlay_screens:

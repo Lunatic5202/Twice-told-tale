@@ -17,7 +17,7 @@ label act3_3_1:
     echo "He wants to be found. He doesn’t do anything he doesn’t want observed."
     # A courier in a gray coat crosses the plaza and presses a small flat case into your hands before you can step away. He is gone into the crowd by the time you look up.
     scene cg black_case
-    with scene_fade
+    with iris_open
     wanderer "Don’t."
     echo "(softly) Open it."
 
@@ -47,7 +47,7 @@ label act3_3_1:
         wanderer "That’s ours."
         echo "(a sound that is almost a laugh) Don’t. Don’t make it ours now."
         scene cg gnosis_violet
-        with scene_fade
+        with iris_open
         # A note lies folded beneath it.
         note "Archivist. You stole my half-written book and left me the ledger. Come to the Hall of Science tonight. Come alone, or the Gnosis stays in my drawer. I only want to talk. —D."
 
@@ -93,7 +93,7 @@ label act3_3_3:
     $ set_page(7, 24)
     $ show_title("DAY 24 · SCENE 3.3\nThe Hall of Science · Night")
     scene bg lab_white
-    with scene_fade
+    with squares_wipe
     show dottore pleasant at at_center
     with soft_dissolve
     play music audio.the_doctor_s_hour fadein 2.0  # “The Doctor’s Hour”: a clean harpsichord line, played perfectly and with no warmth.
@@ -158,9 +158,10 @@ label act3_3_4:
     play sound audio.sfx_glass  # Glass, rotating. A hiss. A door sealing.
     scene bg lab_glasscube
     with scene_fade
+    with shake
     dottore "(over a speaker, cheerful) I did say I only wanted to talk. I never promised you’d leave while we did."
     scene cg glass_cell
-    with scene_fade
+    with iris_open
     wanderer "(muffled) Let her out!"
     dottore "The Folio, please. The remaining pages are the only thing I need. Slide it through the slot. After that, the Gnosis and the draught are yours."
     echo "(barely audible, behind the glass) Don’t. Please don’t. He’ll tear the last three pages out and burn the rest."
@@ -207,8 +208,9 @@ label act3_3_5:
     echo "You’ve never offered before."
     wanderer "I’ve never needed to."
     scene cg two_palms
-    with scene_fade
+    with iris_open
     play sound audio.sfx_glass  # Glass shattering. A thunderclap, not from the sky. A roar of violet light, followed by silence.
+    with quake
     # The glass cube falls in a cascade of bright dust.
     # And in the dust, for the first time, the two of them are standing side by side in the same room: the Wanderer’s body, and the Echo, visible and solid, to every eye in the laboratory. It lasts four seconds. It looks like both of them are about to fall over.
     dottore "(delighted, whispering) Oh. You can do that. You can do that."

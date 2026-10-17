@@ -27,7 +27,7 @@ label act4_4_1:
     echo "Again."
     wanderer "I’m sorry. I’m sorry I left you in there."
     scene cg echo_bowed
-    with scene_fade
+    with iris_open
 
     # CHOICE: The silence that follows.
     menu:
@@ -117,7 +117,7 @@ label act4_4_3:
     # You stand at the door. The Folio is under your arm. Behind you, the Wanderer and the Echo stand shoulder to shoulder, in the same weak light.
     # The street is empty. Then it isn’t.
     scene cg doctor_lane
-    with scene_fade
+    with door_blinds
     dottore "Good morning. You kept your promise. How quaint."
     dottore "I’ll make this brief. The Folio, the last page, and the Echo’s seal. In return, the Wanderer lives. The Echo is... filed."
     wanderer "(stepping forward) Try it."
@@ -125,6 +125,7 @@ label act4_4_3:
     # They look at each other. A flicker of something almost comic crosses both their faces. Then it’s gone.
     # The air splits. Green light rolls across the street. The Folio flares in your arms, and the three white pages turn themselves, one by one.
     play sound audio.sfx_page  # Pages, turning. A choir, far off.
+    with quake
     nahida "(arriving at the end of the lane, small and very serious) The Doctor has forced the final page open. The book will be written now whether we choose or not."
     nahida "Who writes it is up to you."
     # The pen appears in your hand. It was never a pen. It is the quill you mended page eleven with.

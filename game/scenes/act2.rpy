@@ -13,7 +13,7 @@ label act2_2_1:
     nahida "When the ink cracks, someone has been hurt. Be careful what you stand in."
     # Ahead, a wooden veranda emerges from the mist. A hidden mansion, half swallowed by moss and ferns. A single lantern burns inside.
     scene bg shakkei_pavilion
-    with scene_fade
+    with slide_left
     echo "I know this place."
     mc "You do?"
     echo "I know the ceiling. I counted the cracks in it. There are three hundred and eleven."
@@ -26,9 +26,9 @@ label act2_2_2:
     # SCENE 2.2 · The Sleeping Room
     $ show_title("SCENE 2.2\nThe Sleeping Room")
     scene bg tatami_room
-    with scene_fade
+    with slide_left
     scene cg sleeping_puppet
-    with scene_fade
+    with iris_open
     play music audio.slumber fadein 2.0  # “Slumber”: solo shamisen, then silence.
     echo "(very quiet) Hm. They made me smaller than I remember."
     # Footsteps. The screens slide open. Two women enter. One in purple and silver, her expression a grief held very still. The other in white and red, ears forward, a small curve to her mouth.
@@ -141,7 +141,7 @@ label act2_2_4:
         n "Act 2, Page-Walk Two: Tatarasuna Betrayal of family. The Wanderer steps two paces inside."
         n "DAY 12 · INTERLUDE · The Akademiya Corridor (18 pages left)"
         scene bg green_corridor
-        with scene_fade
+        with slide_left
         play music audio.rumors fadein 2.0  # “Rumors”: a clarinet, thin and wary.
         # Two students whisper at a window.
         student "...a Fatui doctor. Asking about old Irminsul records. Nobody’s seen his face."
@@ -153,7 +153,7 @@ label act2_2_5:
     $ set_page(17, 13)
     $ show_title("DAY 13 · SCENE 2.5\nThe Margin Door, Second Page")
     scene bg cinders_path
-    with scene_fade
+    with door_blinds
     play music audio.tatarasuna fadein 2.0  # “Tatarasuna”: low taiko pulse, a hammer keeping time.
     nahida "(voice only) This is the second room."
     # The Wanderer, behind them, takes one step across the doorway. Then a second. Then stops.
@@ -178,6 +178,7 @@ label act2_2_6:
     mc "You knew him."
     echo "He was the loudest man in the yard. He was never quiet. He taught me how to hold a hammer. He yelled at me when I held it wrong. He yelled when I held it right, because he was proud of me."
     play sound audio.sfx_hammer
+    with shake
 
 label act2_2_7:
     # SCENE 2.7 · The Night of the Blade
@@ -226,6 +227,7 @@ label act2_2_8:
     wanderer "Look at his hands. Watch how he takes notes."
     # Escher smiles at a worker. The smile is the exact shape of a man examining a specimen.
     play sound audio.sfx_roar
+    with jolt
 
 label act2_2_9:
     # DAY 14 · SCENE 2.9 · The Plague of Tatarasuna
@@ -256,14 +258,15 @@ label act2_2_10:
     # SCENE 2.10 · The Page as He Remembers It
     $ show_title("SCENE 2.10\nThe Page as He Remembers It")
     scene bg furnace_yard_warped
-    with scene_fade
+    with soft_wipe
     play music audio.what_i_remember fadein 2.0  # “What I Remember”: the Escher motif, played slowly and wrongly.
     escher "(smooth, sad) I’m very sorry. Niwa has fled. He took his family in the night and left you all to this."
     # A wooden box is pressed into the puppet’s hands.
     escher "The furnace needs purging. Take this to the heart of it. You’re the only one who can survive it."
     scene cg puppet_furnace
-    with scene_fade
+    with iris_open
     play sound audio.sfx_roar
+    with quake
     # He comes out. He is alive. The box is open. Inside lies a small, withered, human heart.
     escher "(softly) From a man Niwa killed. For you. He knew what you wanted."
     # The puppet drops the box. He throws the heart as far as he can. Then he runs.
@@ -282,9 +285,10 @@ label act2_2_11:
     escher "That is a very generous plan, Niwa. Unfortunately I need your heart more than your courage."
     # The light goes out of the room. The camera pulls back before anything is shown.
     play sound audio.sfx_roar
+    with quake
     # Later. Niwa’s workbench, the hammer still on it. A scrap of paper under the hammer.
     scene cg niwa_note
-    with scene_fade
+    with iris_open
     echo "..."
     # He doesn’t move. He doesn’t speak. The ink at his feet begins to crack.
     echo "He did not leave."
@@ -369,7 +373,7 @@ label act2_2_13:
     $ set_page(12, 18)
     $ show_title("DAY 18 · SCENE 2.13\nThe Margin Door, Third Page")
     scene bg corridor_mist_snow
-    with scene_fade
+    with door_blinds
     play music audio.the_boy fadein 2.0  # “The Boy”: a lullaby on a thin flute, almost too slow to follow.
     nahida "(voice only) The third room is the smallest. I’m sorry for that."
     # This time the Wanderer does not stop at the door. He walks through and falls into step beside the Echo, not touching him, close enough to.
@@ -396,7 +400,7 @@ label act2_2_14:
     # Inside, the boy has stopped coughing. He pulls a crumpled paper from under his pillow and holds it up.
     boy "I drew it. For when the sickness is gone."
     scene cg child_drawing
-    with scene_fade
+    with iris_open
     boy "You’ll live there. With me. As family."
     puppet "I’m a puppet."
     boy "I know."

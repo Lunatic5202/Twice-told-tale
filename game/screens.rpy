@@ -462,15 +462,6 @@ screen main_menu():
     ## A slow-drifting ink bloom behind the interface.
     add "gui/overlay/ink_blot.png" at ink_bloom
 
-    ## Atmosphere, so the title screen breathes the same air as the story:
-    ## a vignette, drifting film grain, and a few motes of dust.
-    add "gui/overlay/vignette.png"
-    add "film_grain" at grain_drift
-
-    if not persistent.reduce_motion:
-        for _xp, _ys, _dur, _delay, _z, _drift, _img in AMBIENT_MOTES[:8]:
-            add _img at mote_drift(_xp, _ys, _dur, _delay, _z, _drift)
-
     ## Cinematic letterbox edges and a thin gold page-edge frame.
     add "gui/overlay/bar_top.png" at menu_bar_top
     add "gui/overlay/bar_bottom.png" at menu_bar_bottom

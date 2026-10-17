@@ -10,8 +10,6 @@ This writes (all paths relative to game/gui/):
     cursor/pen_N.png          animated ink-nib pointer (N = 0..3)
     cursor/pen_hover_N.png    glowing variant for hover states
     mask/ink_dissolve.png     256-grey mask (1280x720) for the ink-dissolve transition
-    overlay/vignette.png      soft dark vignette, 1280x720
-    overlay/grain.png         tileable film grain, 256x256
     overlay/ink_blot.png      soft ink splotches for menu decoration
     overlay/bar_top.png       cinematic letterbox bar, 1280x130 (bar_bottom mirrors it)
     overlay/rule_gold.png     gold flourish rule that fades out at both ends
@@ -106,34 +104,6 @@ def make_cursors():
             cur = finalize_cursor(pen)
             cur.save(ensure("cursor", "pen%s_%d.png" % (suffix, frame)))
     print("cursors: %d frames x2 states" % CURSOR_FRAMES)
-
-
-def make_vignette():
-    w, h = RES
-    yy, xx = np.mgrid[0:h, 0:w]
-    nx = (xx - w / 2) / (w / 2)
-    ny = (yy - h / 2) / (h / 2)
-    dist = np.sqrt(nx * nx + ny * ny)
-    alpha = np.clip((dist - 0.55) / 0.85, 0, 1) ** 1.6
-    alpha = (alpha * 205).astype(np.uint8)
-
-    out = np.zeros((h, w, 4), dtype=np.uint8)
-    out[..., 3] = alpha
-    Image.fromarray(out, "RGBA").save(ensure("overlay", "vignette.png"))
-    print("vignette: %dx%d" % RES)
-
-
-def make_grain():
-    rng = np.random.default_rng(7)
-    n = 256
-    gray = rng.integers(0, 256, (n, n), dtype=np.uint8)
-    out = np.zeros((n, n, 4), dtype=np.uint8)
-    out[..., 0] = gray
-    out[..., 1] = gray
-    out[..., 2] = gray
-    out[..., 3] = 18
-    Image.fromarray(out, "RGBA").save(ensure("overlay", "grain.png"))
-    print("grain: %dx%d" % (n, n))
 
 
 def make_ink_mask():
@@ -329,8 +299,6 @@ def make_particles():
 
 def main():
     make_cursors()
-    make_vignette()
-    make_grain()
     make_ink_mask()
     make_ctc_drop()
     make_ink_blot()

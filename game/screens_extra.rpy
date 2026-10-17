@@ -21,6 +21,15 @@ transform at_far_left:
     subpixel True
     transform_anchor True
     zoom SPRITE_ZOOM
+    on show:
+        xoffset -360
+        alpha 0.0
+        parallel:
+            easeout 0.5 xoffset 0
+        parallel:
+            linear 0.35 alpha 1.0
+    on hide:
+        easein 0.4 xoffset -360 alpha 0.0
     block:
         easein 3.6 zoom (SPRITE_ZOOM * (1.0 + BREATHE_ZOOM)) yoffset -BREATHE_LIFT
         easeout 3.6 zoom SPRITE_ZOOM yoffset 0
@@ -32,6 +41,15 @@ transform at_left:
     subpixel True
     transform_anchor True
     zoom SPRITE_ZOOM
+    on show:
+        xoffset -360
+        alpha 0.0
+        parallel:
+            easeout 0.5 xoffset 0
+        parallel:
+            linear 0.35 alpha 1.0
+    on hide:
+        easein 0.4 xoffset -360 alpha 0.0
     block:
         easein 3.0 zoom (SPRITE_ZOOM * (1.0 + BREATHE_ZOOM)) yoffset -(BREATHE_LIFT - 1)
         easeout 3.0 zoom SPRITE_ZOOM yoffset 0
@@ -43,20 +61,42 @@ transform at_center:
     subpixel True
     transform_anchor True
     zoom SPRITE_ZOOM
+    on show:
+        yoffset 44
+        alpha 0.0
+        parallel:
+            easeout 0.5 yoffset 0
+        parallel:
+            linear 0.35 alpha 1.0
+    on hide:
+        easein 0.35 yoffset 44 alpha 0.0
     block:
         easein 3.4 zoom (SPRITE_ZOOM * (1.0 + BREATHE_ZOOM)) yoffset -BREATHE_LIFT
         easeout 3.4 zoom SPRITE_ZOOM yoffset 0
         repeat
 
+## Right-side characters are mirrored (negative xzoom) so they face left,
+## toward the centre of the frame; at_left / at_center / at_far_left are
+## untouched and face right.
 transform at_right:
     xalign 0.78
     yalign 1.0
     subpixel True
     transform_anchor True
-    zoom SPRITE_ZOOM
+    xzoom -SPRITE_ZOOM
+    yzoom SPRITE_ZOOM
+    on show:
+        xoffset 360
+        alpha 0.0
+        parallel:
+            easeout 0.5 xoffset 0
+        parallel:
+            linear 0.35 alpha 1.0
+    on hide:
+        easein 0.4 xoffset 360 alpha 0.0
     block:
-        easein 3.2 zoom (SPRITE_ZOOM * (1.0 + BREATHE_ZOOM)) yoffset -(BREATHE_LIFT - 1)
-        easeout 3.2 zoom SPRITE_ZOOM yoffset 0
+        easein 3.2 xzoom -(SPRITE_ZOOM * (1.0 + BREATHE_ZOOM)) yzoom (SPRITE_ZOOM * (1.0 + BREATHE_ZOOM)) yoffset -(BREATHE_LIFT - 1)
+        easeout 3.2 xzoom -SPRITE_ZOOM yzoom SPRITE_ZOOM yoffset 0
         repeat
 
 transform at_far_right:
@@ -64,10 +104,20 @@ transform at_far_right:
     yalign 1.0
     subpixel True
     transform_anchor True
-    zoom SPRITE_ZOOM
+    xzoom -SPRITE_ZOOM
+    yzoom SPRITE_ZOOM
+    on show:
+        xoffset 360
+        alpha 0.0
+        parallel:
+            easeout 0.5 xoffset 0
+        parallel:
+            linear 0.35 alpha 1.0
+    on hide:
+        easein 0.4 xoffset 360 alpha 0.0
     block:
-        easein 2.8 zoom (SPRITE_ZOOM * (1.0 + BREATHE_ZOOM)) yoffset -BREATHE_LIFT
-        easeout 2.8 zoom SPRITE_ZOOM yoffset 0
+        easein 2.8 xzoom -(SPRITE_ZOOM * (1.0 + BREATHE_ZOOM)) yzoom (SPRITE_ZOOM * (1.0 + BREATHE_ZOOM)) yoffset -BREATHE_LIFT
+        easeout 2.8 xzoom -SPRITE_ZOOM yzoom SPRITE_ZOOM yoffset 0
         repeat
 
 

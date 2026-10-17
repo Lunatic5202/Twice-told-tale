@@ -423,8 +423,8 @@ label act1_1_7:
 
     play music audio.the_margin_door fadein 2.0
     show nahida serious at at_center with soft_dissolve
-    show wanderer guarded at at_left with soft_dissolve
-    show echo cold at at_right with soft_dissolve
+    show wanderer guarded at at_right with soft_dissolve
+    show echo cold at at_left with soft_dissolve
 
     nahida "The Doctor has been asking after a \u201clightning-boned prototype.\u201d He doesn\u2019t know who. He is near enough to guess."
 
@@ -439,11 +439,11 @@ label act1_1_7:
 
     # [CG: A door in the margin, edged in gold ink. Beyond it, mist and the
     #  smell of wet stone.]
-    scene cg margin_door with soft_dissolve
+    scene cg margin_door with door_blinds
     scene bg annex_dawn with soft_dissolve
     show nahida serious at at_center
-    show wanderer guarded at at_left
-    show echo cold at at_right
+    show wanderer guarded at at_right
+    show echo cold at at_left
 
     echo "Show me."
 
