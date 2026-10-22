@@ -74,51 +74,88 @@ define jolt = Move((-22, 0), (22, 0), 0.05, bounce=True, repeat=True, delay=0.42
 
 ## Motion amounts. These are store variables (not constants) so the "Reduce
 ## Motion" preference can flatten them at runtime; see _apply_motion() below.
-define KEN_ZOOM = 1.06
-define KEN_ZOOM2 = 1.13
-define KEN_OX = 20
-define KEN_OY = 12
-define CG_ZOOM = 1.06
+##
+## The zooms sit a little above 1.0 on purpose: the camera drifts a few pixels
+## sideways, and the extra margin keeps the frame edge covered while it moves.
+define KEN_ZOOM = 1.03
+define KEN_ZOOM2 = 1.05
+define KEN_OX = 8
+define KEN_OY = 6
+define CG_ZOOM = 1.0
+define CG_ZOOM2 = 1.03
 define BREATHE_ZOOM = 0.009
 define BREATHE_LIFT = 3
-define TITLE_ZOOM = 1.06
-define TITLE_ZOOM2 = 1.13
-define TITLE_OX = 16
+define TITLE_ZOOM = 1.02
+define TITLE_ZOOM2 = 1.03
+define TITLE_OX = 8
 
 ## Character sprites are drawn on a 700x1120 canvas - taller than the 720px
 ## screen - so they must be scaled down to stand fully on the bottom edge.
 ## This is a fit constant, not a motion amount, so Reduce Motion leaves it alone.
 define SPRITE_ZOOM = 0.63
 
-## A gentle endless pan-and-breathe for backgrounds. The base zoom keeps the
-## slightly-larger-than-screen plate covering the frame at all times.
+init python:
+
+    ## A plate always fills the frame.
+    ##
+    ## The picture is fitted inside the frame; behind it sits a heavily blurred
+    ## copy of the same picture, blown up to cover. A plate that is not 16:9
+    ## therefore shows blurred margins instead of bare black, and a plate that
+    ## *is* 16:9 is unchanged - the copy is hidden completely behind it.
+    def _plate(img):
+        w = 48
+        h = max(2, int(round(w * renpy.config.screen_height / float(renpy.config.screen_width))))
+
+        tiny = renpy.display.transform.Transform(img, xysize=(w, h))
+        blur = renpy.display.transform.Transform(
+            tiny,
+            zoom=renpy.config.screen_width / float(w),
+            xalign=0.5,
+            yalign=0.5,
+        )
+        front = renpy.display.transform.Transform(
+            img,
+            xalign=0.5,
+            yalign=0.5,
+            fit="contain",
+        )
+
+        box = renpy.display.layout.MultiBox(layout="fixed")
+        box.add(blur)
+        box.add(front)
+        return box
+
+transform bg_fit:
+    subpixel True
+    xalign 0.5
+    yalign 0.5
+
+transform cg_fit:
+    subpixel True
+    xalign 0.5
+    yalign 0.5
+
+## A gentle endless pan-and-breathe for backgrounds.
 transform ken_burns:
     subpixel True
-    zoom KEN_ZOOM
     xalign 0.5
     yalign 0.5
+    zoom KEN_ZOOM
     parallel:
         block:
-            easein 24.0 zoom KEN_ZOOM2
-            easeout 24.0 zoom KEN_ZOOM
-            repeat
-    parallel:
-        block:
-            easein 32.0 xoffset KEN_OX yoffset -KEN_OY
-            easeout 32.0 xoffset -KEN_OX yoffset KEN_OY
+            easein 24.0 xoffset KEN_OX yoffset -KEN_OY
+            easeout 24.0 xoffset -KEN_OX yoffset KEN_OY
             repeat
 
-## CGs hold, then push in slowly and settle back, like a held breath.
+## CGs hold, then push in slowly and settle back.
 transform cg_push:
     subpixel True
-    zoom 1.0
     xalign 0.5
     yalign 0.5
+    zoom CG_ZOOM
     block:
-        easein 7.0 zoom CG_ZOOM
-        pause 3.5
-        easeout 7.0 zoom 1.0
-        pause 2.5
+        easein 20.0 zoom CG_ZOOM2
+        easeout 20.0 zoom CG_ZOOM
         repeat
 
 
@@ -134,14 +171,16 @@ default persistent.reduce_motion = False
 
 init python:
     _MOTION_FULL = dict(
-        KEN_ZOOM=1.06, KEN_ZOOM2=1.13, KEN_OX=20, KEN_OY=12, CG_ZOOM=1.06,
+        KEN_ZOOM=1.03, KEN_ZOOM2=1.05, KEN_OX=8, KEN_OY=6,
+        CG_ZOOM=1.0, CG_ZOOM2=1.03,
         BREATHE_ZOOM=0.009, BREATHE_LIFT=3,
-        TITLE_ZOOM=1.06, TITLE_ZOOM2=1.13, TITLE_OX=16,
+        TITLE_ZOOM=1.02, TITLE_ZOOM2=1.03, TITLE_OX=8,
     )
     _MOTION_NONE = dict(
-        KEN_ZOOM=1.0, KEN_ZOOM2=1.0, KEN_OX=0, KEN_OY=0, CG_ZOOM=1.0,
+        KEN_ZOOM=1.0, KEN_ZOOM2=1.0, KEN_OX=0, KEN_OY=0,
+        CG_ZOOM=1.0, CG_ZOOM2=1.0,
         BREATHE_ZOOM=0.0, BREATHE_LIFT=0,
-        TITLE_ZOOM=1.06, TITLE_ZOOM2=1.06, TITLE_OX=0,
+        TITLE_ZOOM=1.0, TITLE_ZOOM2=1.0, TITLE_OX=0,
     )
 
     def _apply_motion(interactive=False):
@@ -151,11 +190,11 @@ init python:
             setattr(store, _k, _v)
 
         if rm:
-            config.tag_transform.pop("bg", None)
-            config.tag_transform.pop("cg", None)
+            config.tag_transform["bg"] = [_plate, bg_fit]
+            config.tag_transform["cg"] = [_plate, cg_fit]
         else:
-            config.tag_transform["bg"] = ken_burns
-            config.tag_transform["cg"] = cg_push
+            config.tag_transform["bg"] = [_plate, ken_burns]
+            config.tag_transform["cg"] = [_plate, cg_push]
 
     def set_reduce_motion(flag):
         persistent.reduce_motion = bool(flag)

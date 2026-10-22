@@ -59,7 +59,8 @@ game/
   screens.rpy           Ren'Py GUI (main menu, say/choice, save/load ...)
   screens_extra.rpy     custom HUD, toasts, scene-title cards
   gallery.rpy           endings/CG/music collection + unlock tracking
-  credits.rpy           credits roll
+  credits.rpy           credits roll (menu + in-game)
+  endings_ui.rpy        ending name card + the closing sequence
   images.rpy            generated image definitions
   audio.rpy             named music/SFX cues
   testcases.rpy         automated tests (see below)

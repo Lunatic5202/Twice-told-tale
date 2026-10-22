@@ -37,6 +37,13 @@ label ending_wanderer:
     n "A Tale Told Once, and Well."
     # END · Wanderer Ending · Warm
 
+    # The closing ritual: the name of the ending fades up, then the
+    # ending plate, then the credits.
+    call ending_title_card("wanderer")
+    scene cg ending_wanderer with Dissolve(2.2)
+    pause 4.5
+    call ending_credits()
+
     return
 
 label ending_scaramouche:
@@ -61,6 +68,13 @@ label ending_scaramouche:
     margin "Tea’s getting cold. Come to bed."
     # He smiles at it, as if he’d written it himself. Maybe he did.
     # END · Scaramouche Ending · Bittersweet
+
+    # The closing ritual: the name of the ending fades up, then the
+    # ending plate, then the credits.
+    call ending_title_card("scaramouche")
+    scene cg ending_scaramouche with Dissolve(2.2)
+    pause 4.5
+    call ending_credits()
 
     return
 
@@ -107,6 +121,13 @@ label ending_true:
     n "The story is never finished. It is only handed on."
     # END · True Ending · Golden
 
+    # The closing ritual: the name of the ending fades up, then the
+    # ending plate, then the credits.
+    call ending_title_card("true")
+    scene cg ending_true with Dissolve(2.2)
+    pause 4.5
+    call ending_credits()
+
     return
 
 label ending_gnosis_box:
@@ -139,6 +160,13 @@ label ending_gnosis_box:
     n "END CARD: THE GNOSIS BOX"
     n "END CARD: You wanted to know what was inside. You never asked what opening it would make of you."
     # END · The Gnosis Box
+
+    # The closing ritual: the name of the ending fades up, then the
+    # ending plate, then the credits.
+    call ending_title_card("gnosis_box")
+    scene cg gnosis_violet with Dissolve(2.2)
+    pause 4.5
+    call ending_credits()
 
     return
 
@@ -175,6 +203,13 @@ label ending_burned_pages:
     n "END CARD: Some promises are broken by the people who make them. Others are broken by the moment we choose to leave. The page is gone. The promise is not."
     # END · Burned Pages
 
+    # The closing ritual: the name of the ending fades up, then the
+    # ending plate, then the credits.
+    call ending_title_card("burned_pages")
+    scene cg first_page_burn with Dissolve(2.2)
+    pause 4.5
+    call ending_credits()
+
     return
 
 label ending_blank_page:
@@ -210,6 +245,13 @@ label ending_blank_page:
     # END · Blank Page
     n "Neutral and Bad Endings, and the Epilogue"
 
+    # The closing ritual: the name of the ending fades up, then the
+    # ending plate, then the credits.
+    call ending_title_card("blank_page")
+    scene cg blank_dot with Dissolve(2.2)
+    pause 4.5
+    call ending_credits()
+
     return
 
 label ending_neutral:
@@ -224,6 +266,13 @@ label ending_neutral:
     # He writes one line, and the ink holds. The Doctor withdraws. The Wanderer and the Echo remain, uneasy, sharing a body and a bed of unresolved sentences.
     # Epilogue card:] They go on. They argue. They make tea. Neither forgives the other, and neither leaves. It isn’t a happy ending. It is an open one.
     # END · Neutral Ending · Unfinished
+
+    # The closing ritual: the name of the ending fades up, then the
+    # ending plate, then the credits.
+    call ending_title_card("neutral")
+    scene cg folio_page with Dissolve(2.2)
+    pause 4.5
+    call ending_credits()
 
     return
 
@@ -245,6 +294,13 @@ label ending_archivist:
     # The street is empty. The lamp outside the archive is out.
     # END · Bad Ending 1 · The Archivist’s Fee
 
+    # The closing ritual: the name of the ending fades up, then the
+    # ending plate, then the credits.
+    call ending_title_card("archivist")
+    scene cg folio_black with Dissolve(2.2)
+    pause 4.5
+    call ending_credits()
+
     return
 
 label ending_burn_it_down:
@@ -262,6 +318,13 @@ label ending_burn_it_down:
     with scene_fade
     # END · Bad Ending 2 · Burn It Down
 
+    # The closing ritual: the name of the ending fades up, then the
+    # ending plate, then the credits.
+    call ending_title_card("burn_it_down")
+    scene cg margin_door_shut with Dissolve(2.2)
+    pause 4.5
+    call ending_credits()
+
     return
 
 label ending_quiet_page:
@@ -278,6 +341,13 @@ label ending_quiet_page:
     with scene_fade
     # END · Bad Ending 3 · The Quiet Page
 
+    # The closing ritual: the name of the ending fades up, then the
+    # ending plate, then the credits.
+    call ending_title_card("quiet_page")
+    scene cg empty_bed with Dissolve(2.2)
+    pause 4.5
+    call ending_credits()
+
     return
 
 label ending_epilogue:
@@ -290,5 +360,6 @@ label ending_epilogue:
     # The hand closes the cover. The title fades in:
     n "TWICE-TOLD TALE"
     # CREDITS ROLL.
+    call ending_credits()
 
     return

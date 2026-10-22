@@ -61,24 +61,34 @@ init python:
 
     ENDINGS = [
         dict(id="wanderer", code="A", title="Her Name", tone="Warm",
+             cg="ending_wanderer",
              line="You wrote the Wanderer's name, and the ink held."),
         dict(id="scaramouche", code="B", title="The Lamp-Keeper", tone="Bittersweet",
+             cg="ending_scaramouche",
              line="You wrote the Echo's true name, and gave the hat away."),
         dict(id="true", code="C", title="The Passenger", tone="Golden",
+             cg="ending_true",
              line="You set the pen down and let them write it together."),
         dict(id="gnosis_box", code="F", title="The Gnosis Box", tone="Horror",
+             cg="gnosis_violet",
              line="You wanted to know what was inside."),
         dict(id="burned_pages", code="G", title="Burned Pages", tone="Tragedy",
+             cg="first_page_burn",
              line="You reached for the door and left them to finish the page."),
         dict(id="blank_page", code="H", title="Blank Page", tone="Existential",
+             cg="blank_dot",
              line="Nothing was written. The page remains."),
         dict(id="neutral", code="N", title="Margins", tone="Unfinished",
+             cg="folio_page",
              line="The Echo finished it, in his own hand."),
         dict(id="archivist", code="1", title="The Archivist's Fee", tone="Cold",
+             cg="folio_black",
              line="The Doctor kept a very small fee: one page."),
         dict(id="burn_it_down", code="2", title="Burn It Down", tone="Violent",
+             cg="margin_door_shut",
              line="You pulled the Folio apart. The paper screamed."),
         dict(id="quiet_page", code="3", title="The Quiet Page", tone="Still",
+             cg="empty_bed",
              line="The Echo waited at the door. You were not there."),
     ]
 
@@ -116,7 +126,7 @@ init python:
 
     CG_BY_NAME = set(c["name"] for c in CGS)
     for _c in CGS:
-        _c["path"] = "images/cg/%s.webp" % _c["name"]
+        _c["path"] = "images/cg/%s.png" % _c["name"]
 
     _MUSIC_ORDER = [
         "marginalia", "marginalia_dawn", "double_trouble", "hat_guy",
@@ -138,6 +148,13 @@ init python:
 
 
 init python:
+
+    def ending_info(eid):
+        """The ENDINGS row for an ending id, or a blank stand-in."""
+        for e in ENDINGS:
+            if e["id"] == eid:
+                return e
+        return dict(id=eid, code="", title="", tone="", cg=None, line="")
 
     def endings_found():
         return sum(1 for e in ENDINGS if e["id"] in persistent.endings_seen)
@@ -251,7 +268,7 @@ screen cg_viewer(name=None):
     modal True
     zorder 150
 
-    add "images/cg/%s.webp" % name
+    add "images/cg/%s.png" % name
 
     key "dismiss" action Hide("cg_viewer")
     key "game_menu" action Hide("cg_viewer")

@@ -36,7 +36,11 @@ Twice-Told Tale
 
 A 30-day otome visual novel in which Scaramouche and the Wanderer exist at the same time.
 
-Second-pass revised script by the author. Built with Ren'Py.
+Author, story and script by Lunatic.
+
+Genshin Impact and its characters are © HoYoverse / miHoYo. This is an unaffiliated, non-commercial fan work.
+
+Built with Ren'Py.
 """)
 
 

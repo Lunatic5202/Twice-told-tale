@@ -109,8 +109,8 @@ label act1_1_2:
     $ show_title("DAY 2 \u00b7 SCENE 1.2\nAkademiya Courtyard \u00b7 Noon")
 
     play music audio.hat_guy fadein 2.0
-    show echo amused at at_left with soft_dissolve
-    show wanderer guarded at at_far_right with soft_dissolve
+    show echo amused at at_far_left_crowd with soft_dissolve
+    show wanderer guarded at at_far_right_crowd with soft_dissolve
 
     n "The Echo cannot go more than forty paces from the Folio. The Wanderer will not let the Echo out of his sight. So the Folio goes to lunch, and everyone goes with it."
 
@@ -120,8 +120,8 @@ label act1_1_2:
 
     # [Two familiar silhouettes cross the courtyard. Tighnari first, ears up.
     #  Cyno behind him with a card deck.]
-    show tighnari neutral at at_center with soft_dissolve
-    show cyno neutral at at_right with soft_dissolve
+    show tighnari neutral at at_left_crowd with soft_dissolve
+    show cyno neutral at at_right_crowd with soft_dissolve
 
     tighnari "Hat Guy. Why are there two of you?"
 

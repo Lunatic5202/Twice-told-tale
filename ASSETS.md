@@ -48,9 +48,11 @@ python3 tools/make_art.py --montage  # contact sheet at tools/out/montage.png
 python3 tools/import_sheets.py --install   # re-slice the expression sheets
 ```
 
-- Backgrounds/CGs: `game/images/bg/*.webp`, `game/images/cg/*.webp` (1280×720 WebP)
-- Sprites: `game/images/sprites/<tag>_<expr>.png` (700×1120, transparent), cut by
-  `tools/import_sheets.py`
+- Backgrounds/CGs: `game/images/bg/*.png`, `game/images/cg/*.png` (1920×1080 PNG,
+  full-bleed; the engine scales them to the 1280×720 virtual frame)
+- Sprites: `game/images/sprites/<tag>_<expr>.png` (700×1120 sheet canvas,
+  transparent), cut by `tools/import_sheets.py`; standing figures are ~950 px of
+  opaque content so every character shares one eye line
 - Image registry: `game/images.rpy` (do not hand-edit; re-run `make_art.py --rpy`)
 - In-scene figures on the CG plates are dark silhouettes cut from the installed
   sprites, so they always match the character art.

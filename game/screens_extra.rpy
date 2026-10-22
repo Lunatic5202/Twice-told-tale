@@ -16,7 +16,8 @@
 ## two characters on screen never fall into step.
 
 transform at_far_left:
-    xalign 0.02
+    xpos 0.02
+    xanchor 0.5
     yalign 1.0
     subpixel True
     transform_anchor True
@@ -36,7 +37,8 @@ transform at_far_left:
         repeat
 
 transform at_left:
-    xalign 0.22
+    xpos 0.22
+    xanchor 0.5
     yalign 1.0
     subpixel True
     transform_anchor True
@@ -56,7 +58,8 @@ transform at_left:
         repeat
 
 transform at_center:
-    xalign 0.5
+    xpos 0.5
+    xanchor 0.5
     yalign 1.0
     subpixel True
     transform_anchor True
@@ -76,10 +79,10 @@ transform at_center:
         repeat
 
 ## Right-side characters are mirrored (negative xzoom) so they face left,
-## toward the centre of the frame; at_left / at_center / at_far_left are
-## untouched and face right.
+## toward the centre of the frame.
 transform at_right:
-    xalign 0.78
+    xpos 0.78
+    xanchor 0.5
     yalign 1.0
     subpixel True
     transform_anchor True
@@ -100,7 +103,8 @@ transform at_right:
         repeat
 
 transform at_far_right:
-    xalign 0.98
+    xpos 0.98
+    xanchor 0.5
     yalign 1.0
     subpixel True
     transform_anchor True
@@ -118,6 +122,93 @@ transform at_far_right:
     block:
         easein 2.8 xzoom -(SPRITE_ZOOM * (1.0 + BREATHE_ZOOM)) yzoom (SPRITE_ZOOM * (1.0 + BREATHE_ZOOM)) yoffset -BREATHE_LIFT
         easeout 2.8 xzoom -SPRITE_ZOOM yzoom SPRITE_ZOOM yoffset 0
+        repeat
+
+# Dedicated marks for crowded 4-figure line-up (echo/tighnari/cyno/wanderer)
+transform at_far_left_crowd:
+    xpos 0.143
+    xanchor 0.5
+    yalign 1.0
+    subpixel True
+    transform_anchor True
+    zoom SPRITE_ZOOM
+    on show:
+        xoffset -360
+        alpha 0.0
+        parallel:
+            easeout 0.5 xoffset 0
+        parallel:
+            linear 0.35 alpha 1.0
+    on hide:
+        easein 0.4 xoffset -360 alpha 0.0
+    block:
+        easein 3.0 zoom (SPRITE_ZOOM * (1.0 + BREATHE_ZOOM)) yoffset -(BREATHE_LIFT - 1)
+        easeout 3.0 zoom SPRITE_ZOOM yoffset 0
+        repeat
+
+transform at_left_crowd:
+    xpos 0.400
+    xanchor 0.5
+    yalign 1.0
+    subpixel True
+    transform_anchor True
+    zoom SPRITE_ZOOM
+    on show:
+        xoffset -360
+        alpha 0.0
+        parallel:
+            easeout 0.5 xoffset 0
+        parallel:
+            linear 0.35 alpha 1.0
+    on hide:
+        easein 0.4 xoffset -360 alpha 0.0
+    block:
+        easein 3.2 zoom (SPRITE_ZOOM * (1.0 + BREATHE_ZOOM)) yoffset -(BREATHE_LIFT - 1)
+        easeout 3.2 zoom SPRITE_ZOOM yoffset 0
+        repeat
+
+transform at_right_crowd:
+    xpos 0.623
+    xanchor 0.5
+    yalign 1.0
+    subpixel True
+    transform_anchor True
+    xzoom -SPRITE_ZOOM
+    yzoom SPRITE_ZOOM
+    on show:
+        xoffset 360
+        alpha 0.0
+        parallel:
+            easeout 0.5 xoffset 0
+        parallel:
+            linear 0.35 alpha 1.0
+    on hide:
+        easein 0.4 xoffset 360 alpha 0.0
+    block:
+        easein 3.4 xzoom -(SPRITE_ZOOM * (1.0 + BREATHE_ZOOM)) yzoom (SPRITE_ZOOM * (1.0 + BREATHE_ZOOM)) yoffset -(BREATHE_LIFT - 1)
+        easeout 3.4 xzoom -SPRITE_ZOOM yzoom SPRITE_ZOOM yoffset 0
+        repeat
+
+transform at_far_right_crowd:
+    xpos 0.865
+    xanchor 0.5
+    yalign 1.0
+    subpixel True
+    transform_anchor True
+    xzoom -SPRITE_ZOOM
+    yzoom SPRITE_ZOOM
+    on show:
+        xoffset 360
+        alpha 0.0
+        parallel:
+            easeout 0.5 xoffset 0
+        parallel:
+            linear 0.35 alpha 1.0
+    on hide:
+        easein 0.4 xoffset 360 alpha 0.0
+    block:
+        easein 3.6 xzoom -(SPRITE_ZOOM * (1.0 + BREATHE_ZOOM)) yzoom (SPRITE_ZOOM * (1.0 + BREATHE_ZOOM)) yoffset -BREATHE_LIFT
+        easeout 3.6 xzoom -SPRITE_ZOOM yzoom SPRITE_ZOOM yoffset 0
         repeat
 
 
