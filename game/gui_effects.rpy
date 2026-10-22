@@ -77,13 +77,13 @@ init python:
 ## every speaking character the same animated ink-drop prompt.
 
 image ctc_ink:
-    "gui/overlay/ctc_drop.png"
+    "gui/overlay/ctc_emblem.png"
     subpixel True
-    zoom 0.9
+    zoom 0.28
     alpha 0.0
     block:
-        linear 0.45 alpha 0.85 yoffset -4
-        linear 0.45 alpha 0.25 yoffset 0
+        linear 0.75 alpha 0.82 yoffset -2
+        linear 0.75 alpha 0.18 yoffset 0
         repeat
 
 screen ctc(ctc=None):

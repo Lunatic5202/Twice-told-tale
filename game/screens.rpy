@@ -207,11 +207,36 @@ style input:
 screen choice(items):
     style_prefix "choice"
 
-    vbox:
-        for idx, i in enumerate(items):
-            textbutton i.caption:
-                action i.action
-                at choice_in(idx * 0.06), focus_lift
+    frame:
+        background None
+        padding (0, 0)
+        xalign 0.5
+        ypos gui.scale(270)
+        yanchor 0.5
+        xmaximum gui.choice_button_width + gui.scale(30)
+        ymaximum int(config.screen_height * 0.76)
+
+        viewport:
+            id "choice_viewport"
+            yinitial 0.0
+            ymaximum int(config.screen_height * 0.76)
+            yfill False
+            mousewheel True
+            arrowkeys True
+            pagekeys True
+            draggable True
+            scrollbars "vertical"
+            side_yfill True
+
+            vbox:
+                for idx, i in enumerate(items):
+                    if persistent.reduce_motion:
+                        textbutton i.caption:
+                            action i.action
+                    else:
+                        textbutton i.caption:
+                            action i.action
+                            at choice_in(idx * 0.06), focus_lift
 
 
 style choice_vbox is vbox
@@ -220,8 +245,8 @@ style choice_button_text is button_text
 
 style choice_vbox:
     xalign 0.5
-    ypos gui.scale(270)
-    yanchor 0.5
+    ypos 0
+    yanchor 0
 
     spacing gui.choice_spacing
 

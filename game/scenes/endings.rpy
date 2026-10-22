@@ -10,14 +10,24 @@ label ending_shared_beat:
     play music audio.reprise_clean_instruments fadein 2.0  # “Reprise: Clean Instruments”: the sterile piano, cracking.
     dottore "(for the first time, not smiling) That isn’t possible. The seal was mine."
     nahida "(quietly) You wrote a book without the one thing a book needs, Doctor. A reader."
-    # He looks at the Gnosis. He looks at the Folio. He looks, finally, at the two of them, and understands, perhaps for the first time, that what he has been trying to measure is the one thing that doesn’t hold still long enough to be measured.
+    # The Wanderer and Echo press their palms to the open page. The Folio answers with their joined mark; Dottore's ink peels away from the margin.
+    scene cg two_palms
+    with ink_dissolve
+    play sound audio.sfx_page
+    scene bg white_page_street
+    with page_wipe
+    show dottore cold at at_center
+    with soft_dissolve
+    dottore "The seal is coming apart."
+    nahida "It was never yours to keep."
     dottore "(softly) Fascinating."
-    # He steps back into a door that no longer opens. The gray masks vanish. The street is only a street.
+    # His false door folds shut. The gray masks scatter into the morning, leaving the street and the Folio in the characters' hands.
 
     return
 
 label ending_wanderer:
     $ record_ending("wanderer")
+    call ending_shared_beat
     # ENDING A · THE WANDERER ENDING · “Her Name”
     scene bg annex_day
     with scene_fade
@@ -42,12 +52,13 @@ label ending_wanderer:
     call ending_title_card("wanderer")
     scene cg ending_wanderer with Dissolve(2.2)
     pause 4.5
-    call ending_credits()
+    call ending_epilogue()
 
     return
 
 label ending_scaramouche:
     $ record_ending("scaramouche")
+    call ending_shared_beat
     # ENDING B · THE SCARAMOUCHE ENDING · “The Lamp-Keeper”
     scene bg annex_day
     with scene_fade
@@ -74,12 +85,13 @@ label ending_scaramouche:
     call ending_title_card("scaramouche")
     scene cg ending_scaramouche with Dissolve(2.2)
     pause 4.5
-    call ending_credits()
+    call ending_epilogue()
 
     return
 
 label ending_true:
     $ record_ending("true")
+    call ending_shared_beat
     # ENDING C · THE TRUE ENDING · “The Passenger”
     scene bg white_page
     with scene_fade
@@ -126,7 +138,7 @@ label ending_true:
     call ending_title_card("true")
     scene cg ending_true with Dissolve(2.2)
     pause 4.5
-    call ending_credits()
+    call ending_epilogue()
 
     return
 
@@ -173,7 +185,7 @@ label ending_gnosis_box:
 label ending_burned_pages:
     $ record_ending("burned_pages")
     # ENDING G · BURNED PAGES
-    # Gate: PROMISE_MADE = TRUE and PEN ≥ 3. On selection, set PROMISE_BROKEN = TRUE. Tone: tragedy; the promise is broken by the moment the player chooses to abandon, not by a random failure of navigation.
+    # Gate: PROMISE_MADE = TRUE and PEN ≥ 3. Entering this ending marks the promise broken.
     scene bg white_page
     with scene_fade
     play music audio.a_smaller_promise fadein 2.0  # “A Smaller Promise”: the flute line returns, interrupted by the sound of paper catching fire.
@@ -256,6 +268,7 @@ label ending_blank_page:
 
 label ending_neutral:
     $ record_ending("neutral")
+    call ending_shared_beat
     # NEUTRAL ENDING · “Margins”
     scene bg white_page_street
     with scene_fade
@@ -263,16 +276,27 @@ label ending_neutral:
     # The Echo steps forward and takes the pen from your hand, gently. It’s the first time he has ever touched something of yours without being asked.
     echo "You weren’t ready. That isn’t a failing. Most people never are."
     echo "I’ll finish it. Badly, probably. But in my own hand."
-    # He writes one line, and the ink holds. The Doctor withdraws. The Wanderer and the Echo remain, uneasy, sharing a body and a bed of unresolved sentences.
-    # Epilogue card:] They go on. They argue. They make tea. Neither forgives the other, and neither leaves. It isn’t a happy ending. It is an open one.
-    # END · Neutral Ending · Unfinished
+    play sound audio.sfx_pen
+    echo "There was once a boy who couldn’t decide whether he wanted to be remembered."
+    wanderer "That’s a terrible beginning."
+    echo "It’s an honest one. You can improve it tomorrow."
+    # Weeks later, their arguments still fill the annex. This time, neither mistakes an argument for a goodbye.
+    scene bg annex_day
+    with scene_fade
+    play music audio.warm_table fadein 2.0
+    wanderer "Tea?"
+    echo "You know I don’t like it sweet."
+    wanderer "I know. I asked anyway."
+    echo "...Then leave the cup there. I’ll decide when I’m ready."
+    n "They do not forgive each other today. They do not leave, either. The page stays open."
+    # END · Neutral Ending · Open
 
     # The closing ritual: the name of the ending fades up, then the
     # ending plate, then the credits.
     call ending_title_card("neutral")
     scene cg folio_page with Dissolve(2.2)
     pause 4.5
-    call ending_credits()
+    call ending_epilogue()
 
     return
 
@@ -329,10 +353,16 @@ label ending_burn_it_down:
 
 label ending_quiet_page:
     $ record_ending("quiet_page")
-    # BAD ENDING 3 · “The Quiet Page” — LEGACY SCENE, NOT CURRENTLY
+    # BAD ENDING 3 · “The Quiet Page”
     scene bg annex_dawn
     with scene_fade
     play music audio.a_smaller_promise fadein 4.0
+    if promise_broken:
+        mc "I said I’d be here. I’m sorry."
+        echo "You came to the door. You still chose to leave."
+    else:
+        mc "I don’t know what to write."
+        echo "Then don’t write. Just stay with us."
     # The Echo waits at the door. The street fills with light. You are not there.
     # The Wanderer is the one who finally comes to find you, hat in his hand and eyes red.
     wanderer "He said you’d come. He kept saying it. Right up to the end."

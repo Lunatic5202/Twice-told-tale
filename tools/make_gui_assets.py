@@ -297,7 +297,88 @@ def make_particles():
     make_leaf()
 
 
+def make_ctc_emblem():
+    """Create a small transparent floral-heart marker for dialogue CTC."""
+    s = 160
+    img = Image.new("RGBA", (s, s), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    ivory = (246, 240, 222, 238)
+    gold = (210, 177, 111, 225)
+    muted = (142, 174, 164, 220)
+
+    # Fine circular frame and central heart keep the detailed source motif legible at UI size.
+    d.ellipse((17, 17, 143, 143), outline=ivory, width=3)
+    d.ellipse((24, 24, 136, 136), outline=(ivory[0], ivory[1], ivory[2], 110), width=1)
+    heart = [(80, 105), (46, 75), (44, 62), (51, 52), (63, 52), (80, 66),
+             (97, 52), (109, 52), (116, 62), (114, 75)]
+    d.line(heart + [heart[0]], fill=ivory, width=4, joint="curve")
+
+    # Mirrored leaf scrolls and a small crown reference the supplied emblem's silhouette.
+    for sign in (-1, 1):
+        pts = [(80, 124), (80 + sign * 18, 116), (80 + sign * 35, 99),
+               (80 + sign * 48, 78), (80 + sign * 47, 62), (80 + sign * 36, 54)]
+        d.line(pts, fill=ivory, width=3, joint="curve")
+        d.ellipse((80 + sign * 49 - 5, 47, 80 + sign * 49 + 5, 57), outline=muted, width=2)
+        d.line([(80 + sign * 13, 121), (80 + sign * 9, 139)], fill=gold, width=2)
+    d.polygon([(80, 12), (69, 28), (80, 24), (91, 28)], outline=ivory)
+    d.line([(80, 25), (80, 43)], fill=gold, width=2)
+
+    img = img.filter(ImageFilter.GaussianBlur(0.35))
+    img.save(ensure("overlay", "ctc_emblem.png"))
+    print("CTC emblem: %dx%d" % (s, s))
+
+
+def make_phone_variants():
+    """Populate all small-variant GUI assets referenced by screens.rpy."""
+    phone = os.path.join(GUI, "phone")
+
+    def copy_variant(source, *target_parts, scale=0.76):
+        source_path = os.path.join(GUI, source)
+        target_path = ensure("phone", *target_parts)
+        im = Image.open(source_path).convert("RGBA")
+        size = (max(1, round(im.width * scale)), max(1, round(im.height * scale)))
+        im.resize(size, Image.Resampling.LANCZOS).save(target_path)
+
+    for control in ("radio", "check"):
+        base = Image.open(os.path.join(GUI, "button", control + "_foreground.png")).convert("RGBA")
+        selected = Image.open(os.path.join(GUI, "button", control + "_selected_foreground.png")).convert("RGBA")
+        states = {
+            "foreground": base,
+            "hover_foreground": selected,
+            "selected_foreground": selected,
+            "insensitive_foreground": base,
+        }
+        for suffix, im in states.items():
+            size = (max(1, round(im.width * 0.82)), max(1, round(im.height * 0.82)))
+            im.resize(size, Image.Resampling.LANCZOS).save(
+                ensure("phone", "button", "%s_%s.png" % (control, suffix)))
+
+    for axis in ("horizontal", "vertical"):
+        for state in ("idle", "hover"):
+            for part in ("bar", "thumb"):
+                copy_variant(os.path.join("scrollbar", "%s_%s_%s.png" % (axis, state, part)),
+                             "scrollbar", "%s_%s_%s.png" % (axis, state, part))
+                copy_variant(os.path.join("slider", "%s_%s_%s.png" % (axis, state, part)),
+                             "slider", "%s_%s_%s.png" % (axis, state, part))
+
+    for part in ("left", "right", "top", "bottom"):
+        copy_variant(os.path.join("bar", part + ".png"), "bar", part + ".png")
+
+    print("phone GUI variants: radio/check states, bars, scrollbars, sliders")
+
+
 def main():
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--phone-only", action="store_true")
+    args = parser.parse_args()
+
+    if args.phone_only:
+        make_phone_variants()
+        make_ctc_emblem()
+        return
+
     make_cursors()
     make_ink_mask()
     make_ctc_drop()
@@ -306,6 +387,8 @@ def main():
     make_gold_rule()
     make_page_border()
     make_particles()
+    make_ctc_emblem()
+    make_phone_variants()
 
 
 if __name__ == "__main__":

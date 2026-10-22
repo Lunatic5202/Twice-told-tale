@@ -9,9 +9,11 @@ label act4_4_1:
     $ show_act("IV", "The Doctor's Hour")
     $ show_title("DAY 28 · SCENE 4.1\nThe Archive Annex · Evening")
     play music audio.what_i_never_said fadein 2.0  # “What I Never Said”: solo piano, slow, one hand.
-    n "If PEN ≥ 3 (Bad Route Warning): [[The margins of the Folio smolder, a thin orange line eating inward. The ink obeys a clean, cold hand that isn’t yours. The Wanderer sees it before you do.]"
-    wanderer "(low) Quill, the page is burning."
-    wanderer "Whatever you’ve done... stop. [[Reduce all remaining pages by 1. The Doctor’s pen is writing the book now. Proceed to the Day 28 scene as normal, but every choice that adds W or B adds 1 less.]"
+    if pen >= 3:
+        # The Folio's warning is part of the story; no unimplemented stat penalty is implied.
+        n "The margins of the Folio smolder, a thin orange line eating inward. The ink moves in a clean, cold hand that isn’t yours."
+        wanderer "(low) Quill, the page is burning."
+        wanderer "Whatever you’ve done... he’s writing through it now."
     wanderer "I owe you an account."
     wanderer "The Echo has waited five centuries for it. I’m not sure he’ll want to hear it from me. But he has to hear it from someone."
     # The air beside him thickens into the Echo. He sits on the arm of the sofa, arms folded, listening with the full attention of someone pretending he isn’t.
@@ -136,6 +138,7 @@ label act4_4_4:
     scene bg white_page_street
     with scene_fade
     play music audio.the_old_dawn fadein 2.0
+    play sound audio.sfx_bell  # A distant bell. The first light, spilling.
     # Several lines wait on the page, unsigned. They are the ways the tale can end.
     # THE LAST CHOICE. Gate checks are hidden and applied automatically, unless noted.
 
@@ -167,9 +170,12 @@ label act4_4_4:
         "“Leave the page blank.”" if (pen >= 3):
             $ _sel_15 = "H"
             jump ending_blank_page
+        "Leave before the last page is written." if (promise_made and pen < 3):
+            $ _sel_15 = "I"
+            $ promise_broken = True
+            jump ending_quiet_page
 
     # Every option routes explicitly; the page-decision choice uses the automatic gate order.
-    play sound audio.sfx_bell  # A distant bell. The first light, spilling.
     # END OF ACT 4
     # The Endings Every main ending (Wanderer, Scaramouche, True, and Neutral) shares the same first beat: the Doctor’s defeat. What differs is what is left standing afterward. The Gnosis Box, Burned Pages, Blank Page, and the two bad endings have their own scenes.
 

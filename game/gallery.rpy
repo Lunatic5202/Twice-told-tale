@@ -78,7 +78,7 @@ init python:
         dict(id="blank_page", code="H", title="Blank Page", tone="Existential",
              cg="blank_dot",
              line="Nothing was written. The page remains."),
-        dict(id="neutral", code="N", title="Margins", tone="Unfinished",
+        dict(id="neutral", code="N", title="Margins", tone="Open",
              cg="folio_page",
              line="The Echo finished it, in his own hand."),
         dict(id="archivist", code="1", title="The Archivist's Fee", tone="Cold",

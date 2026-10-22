@@ -232,7 +232,7 @@ init python:
 
     ## Name the built distributions.
     build.name = "Twice-Told-Tale"
-    build.directory_name = "Twice-Told-Tale-{version}"
+    build.directory_name = "Twice-Told-Tale-" + config.version
     build.executable_name = "TwiceToldTale"
 
     ## Files matching documentation patterns are duplicated in a mac app

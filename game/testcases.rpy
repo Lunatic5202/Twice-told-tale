@@ -160,6 +160,7 @@ testcase progress:
 ################################################################################
 ##
 ## Run with:  renpy.sh . test route      (plays Act 2 through the last choice)
+##             renpy.sh . test gnosis_route (opens the case alone and takes its ending)
 ##            renpy.sh . test endings    (jumps through every ending label)
 ##            renpy.sh . test gates      (unit-checks the ending gate functions)
 
@@ -195,11 +196,20 @@ init python:
         actual = ending_destination()
         assert actual == expected, "expected %r, got %r" % (expected, actual)
 
+    def _set_story_flags(promise, opened_alone):
+        store.promise_made = promise
+        store.box = opened_alone
+
+    def _assert_story_flags(promise, opened_alone):
+        assert store.promise_made is promise, "promise_made was %r" % store.promise_made
+        assert store.box is opened_alone, "box was %r" % store.box
+
 testcase route:
     $ _test.transition_timeout = 0.02
     $ _test.timeout = 45.0
 
     run Function(_reset_progress)
+    run Function(_set_story_flags, False, False)
     run Jump("act2_2_1")
 
     advance until screen "choice"
@@ -216,8 +226,10 @@ testcase route:
     click expression 'Stay beside him. Say nothing at all.'
     advance until screen "choice"
     click expression 'Say it plainly, nothing else.'
+    run Function(_assert_story_flags, True, False)
     advance until screen "choice"
     click expression 'Open it in the open, together.'
+    run Function(_assert_story_flags, True, False)
     advance until screen "choice"
     click expression 'Go yourself, with Cyno at the door.'
     advance until screen "choice"
@@ -268,9 +280,39 @@ testcase endings:
     run Jump("ending_burn_it_down")
     advance
     run Function(_assert_ending_seen, "burn_it_down")
+    $ promise_made = True
+    $ promise_broken = True
     run Jump("ending_quiet_page")
     advance
     run Function(_assert_ending_seen, "quiet_page")
+    exit
+
+
+testcase gnosis_route:
+    $ _test.transition_timeout = 0.02
+    $ _test.timeout = 40.0
+
+    run Function(_set_story_flags, False, False)
+    run Jump("act3_3_1")
+    advance until screen "choice"
+    click expression "Open it alone, behind the pillar, quickly."
+    run Function(_assert_story_flags, False, True)
+    advance until screen "choice"
+    click expression "Go yourself, with Cyno at the door."
+    advance until screen "choice"
+    click expression '“No.” Push the vial back across the glass.'
+    advance until screen "choice"
+    click expression "Hold the Folio and refuse."
+    advance until screen "choice"
+    click expression "Sit down between them. Say nothing."
+    advance until screen "choice"
+    click expression "Stay still. Let them have it."
+    advance until screen "choice"
+    click expression '“Don’t hide behind it. Own what you did, and I’ll stand beside you while you do.”'
+    advance until screen "choice"
+    click expression '“Look into the case.”'
+    pause 0.4
+    run Function(_assert_ending_seen, "gnosis_box")
     exit
 
 

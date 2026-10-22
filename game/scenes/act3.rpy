@@ -36,10 +36,23 @@ label act3_3_1:
 
     if _sel_8 == 'A':
         # You hold it between the three of you. The brass clicks.
-        pass
+        scene cg gnosis_violet
+        with iris_open
+        play sound audio.sfx_chime
+        echo "That’s mine."
+        wanderer "Then we don’t leave it in his hands."
+        note "Archivist. You stole my half-written book and left me the ledger. Come to the Hall of Science tonight. Come alone, or the Gnosis stays in my drawer. I only want to talk. —D."
     elif _sel_8 == 'B':
-        wanderer "(taking it, surprised) ...Thank you. [[He opens it with two fingers, as one handles something dead.]"
+        wanderer "(taking it, surprised) ...Thank you."
+        # He opens it with two fingers, as one handles something dead.
+        scene cg gnosis_violet
+        with iris_open
+        play sound audio.sfx_chime
+        echo "That’s mine."
+        wanderer "I know. I’m not taking it from you."
+        note "Archivist. You stole my half-written book and left me the ledger. Come to the Hall of Science tonight. Come alone, or the Gnosis stays in my drawer. I only want to talk. —D."
     elif _sel_8 == 'C':
+        $ box = True
         # Behind the pillar the latch pops easily. You’re alone with it for four seconds. It is
         # Inside the case, on black velvet, lies a glass lens the size of a coin. It is cold, and in the middle of it hangs a tiny captive electric glow.
         play sound audio.sfx_chime
@@ -86,7 +99,20 @@ label act3_3_2:
             $ _sel_9 = "D"
             $ bump('pen', 1)
 
-    # Whichever you choose, the Doctor has already planned for it. That is the point of him.
+    if _sel_9 == 'A':
+        cyno "I’ll be outside the door. If anything changes, say my name."
+        mc "You’ll hear it."
+    elif _sel_9 == 'B':
+        wanderer "I’ll stand beside you. No speaking for you, unless you ask."
+        mc "That’s all I need."
+    elif _sel_9 == 'C':
+        echo "You chose me. Don’t make me regret trusting that."
+        mc "I won’t ask you to be anyone else."
+    elif _sel_9 == 'D':
+        wanderer "You came without telling us. I can see that."
+        echo "And you still brought the book. That’s enough for him."
+
+    # Whichever approach you choose, the Doctor has already planned for it.
 
 label act3_3_3:
     # DAY 24 · SCENE 3.3 · The Hall of Science · Night
@@ -152,6 +178,10 @@ label act3_3_3:
         with soft_dissolve
         dottore "(softly) Good. Hold it. Hold it and think."
 
+    if fixer:
+        echo "You’ve tried to smooth a hurt away before. Did it become less real?"
+        mc "No. I remember that now."
+
 label act3_3_4:
     # SCENE 3.4 · The Locked Room
     $ show_title("SCENE 3.4\nThe Locked Room")
@@ -192,11 +222,16 @@ label act3_3_4:
         # Dottore examines the page against the light for four full seconds.
         dottore "(with something like admiration) ...Clever. Not enough. But clever."
     elif _sel_11 == 'C':
-        # You write: open. The word flares. Hairline cracks run across the glass cell, hard to see,
-        pass
+        # The word flares; hairline cracks race across the glass, then stop at the frame.
+        play sound audio.sfx_glass
+        scene bg lab_flicker
+        with quake
+        dottore "A lovely attempt. The glass is still stronger than one word. For now."
     elif _sel_11 == 'D':
-        # The Folio slides through the slot like a letter dropped in a mailbox. It makes no sound
-        pass
+        # The Folio slides through the slot. The Doctor takes it, but keeps it within sight.
+        play sound audio.sfx_page
+        dottore "Thank you. I’ll keep it safe until we’re finished."
+        echo "He has the book. Don’t let him keep it."
 
 label act3_3_5:
     # SCENE 3.5 · The Echo Breaks the Glass
@@ -218,8 +253,16 @@ label act3_3_5:
     # He steps back through a door that wasn’t there a moment ago. It closes. A lock turns.
     cyno "(kicking at the door, snarling) He’s gone."
     tighnari "He had it planned. The whole thing was a test of whether they could do it."
+    # The Echo pulls the Folio back through the broken slot before Dottore escapes.
+    if _sel_11 == 'D':
+        echo "The book!"
+        # The Wanderer catches it as it skids across the floor.
+        wanderer "Got it."
     # On the floor, in the glittering dust, lies a small velvet case. It is open. The Gnosis is gone.
     # Beside it lie a torn corner of the Folio and a single line of the Doctor’s handwriting.
+    # The Wanderer picks up the empty case and carries it back to the annex.
+    wanderer "He left us the case."
+    echo "No. He left us the question."
     note "Day 30. The old dawn. I’ll collect the rest then. —D."
 
 label act3_3_6:
@@ -283,7 +326,9 @@ label act3_3_7:
     # She looks at the sky.
     nahida "One of them, or neither, or both. I won’t tell you which is right. I’m the God of Wisdom; I know that’s a lie that people mostly want to be told."
     # She smiles, small and tired, and goes back down.
-    n "SCORE CHECK (hidden): If PEN ≥ 3, the Folio begins to glow on its own, and the Echo knows it. Proceed to Act 4 · Bad Route Warning (the book starts burning from the margins; the ink answers to the Doctor’s pen, not yours). Otherwise, proceed to Act 4 · Day 28."
+    if pen >= 3:
+        n "As Nahida disappears down the stair, a thin orange line wakes along the Folio’s margin. The Echo sees it. His expression closes."
+        echo "He’s already writing."
     # END OF ACT 3
     n "Act 4: The Fourth Page Two confessions and one dawn. The Rule of Three says a thing changes on the fourth."
 

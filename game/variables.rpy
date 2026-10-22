@@ -17,10 +17,10 @@ default m = 0                # Mend (hidden)
 default pen = 0
 
 ## Story flags.
-default fixer = False        # Set in Scenes 1.1, 1.4, and 3.4.
+default fixer = False        # Set when the player uses the Pen to "fix" a hurt.
 default box = False          # Set only when MC opens the black case alone (3.1).
 default promise_made = False # Set by every option in Scene 2.16.
-default promise_broken = False  # Ending-result flag; set by option G at 4.4.
+default promise_broken = False  # Set by the high-Pen and Quiet Page choices at 4.4.
 
 ## Diegetic page counter. Thirty days, thirty pages.
 default pages_left = 30

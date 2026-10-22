@@ -136,17 +136,17 @@ label act2_2_4:
         mc "I thought you might want it honest tonight."
     elif _sel_2 == 'C':
         echo "(a very small laugh) It counts. It does. I’d like it to count more."
-        # He tucks the feather back into his collar.
-        # END OF PAGE-WALK ONE
-        n "Act 2, Page-Walk Two: Tatarasuna Betrayal of family. The Wanderer steps two paces inside."
-        n "DAY 12 · INTERLUDE · The Akademiya Corridor (18 pages left)"
-        scene bg green_corridor
-        with slide_left
-        play music audio.rumors fadein 2.0  # “Rumors”: a clarinet, thin and wary.
-        # Two students whisper at a window.
-        student "...a Fatui doctor. Asking about old Irminsul records. Nobody’s seen his face."
-        # The Wanderer, walking a few steps ahead, goes completely still. His cup does not spill. He puts it down very, very carefully on the windowsill.
-        wanderer "(to no one) Of course he is."
+
+    # END OF PAGE-WALK ONE
+    n "Act 2, Page-Walk Two: Tatarasuna Betrayal of family. The Wanderer steps two paces inside."
+    n "DAY 12 · INTERLUDE · The Akademiya Corridor (18 pages left)"
+    scene bg green_corridor
+    with slide_left
+    play music audio.rumors fadein 2.0  # “Rumors”: a clarinet, thin and wary.
+    # Two students whisper at a window.
+    student "...a Fatui doctor. Asking about old Irminsul records. Nobody’s seen his face."
+    # The Wanderer, walking a few steps ahead, goes completely still. His cup does not spill. He puts it down very, very carefully on the windowsill.
+    wanderer "(to no one) Of course he is."
 
 label act2_2_5:
     # DAY 13 · SCENE 2.5 · The Margin Door, Second Page
@@ -482,6 +482,8 @@ label act2_2_16:
         "“Both of us.” Look at the Wanderer.":
             $ _sel_7 = "C"
             $ bump('w', 1)
+
+    $ promise_made = True
 
     if _sel_7 == 'A':
         echo "(a pause) ...Plain. Fine. Plain I can believe."
