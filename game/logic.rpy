@@ -74,6 +74,16 @@ init python:
     def gate_scaramouche():
         return b >= 5 and b > w
 
+    def ending_destination():
+        """Return the automatic ending selected by the canonical gate order."""
+        if gate_true():
+            return "ending_true"
+        elif gate_wanderer():
+            return "ending_wanderer"
+        elif gate_scaramouche():
+            return "ending_scaramouche"
+        return "ending_neutral"
+
 
 ## ----------------------------------------------------------------------------
 ## Ending router
@@ -84,11 +94,4 @@ init python:
 ## ending, then Neutral.
 
 label ending_router:
-    if gate_true():
-        jump ending_true
-    elif gate_wanderer():
-        jump ending_wanderer
-    elif gate_scaramouche():
-        jump ending_scaramouche
-    else:
-        jump ending_neutral
+    jump expression ending_destination()

@@ -940,12 +940,6 @@ def save(arr, path):
     Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8), "RGB").save(path, optimize=True)
 
 
-def save_webp(arr, path, quality=87):
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8), "RGB").save(
-        path, format="WEBP", quality=quality, method=5)
-
-
 def gen_backgrounds(only):
     out = os.path.join(IMAGES, "bg")
     for key, fn in BACKGROUNDS.items():
@@ -953,7 +947,7 @@ def gen_backgrounds(only):
             continue
         random.seed("bg:" + key)
         arr = fn()
-        save_webp(arr, os.path.join(out, key + ".webp"))
+        save(arr, os.path.join(out, key + ".png"))
         print("bg   ", key)
 
 
@@ -963,7 +957,7 @@ def gen_cgs(only):
         if only and key not in only and ("cg_" + key) not in only:
             continue
         random.seed("cg:" + key)
-        save_webp(cg_plate(key), os.path.join(out, key + ".webp"))
+        save(cg_plate(key), os.path.join(out, key + ".png"))
         print("cg   ", key)
 
 
@@ -973,11 +967,11 @@ def montage():
     os.makedirs(out, exist_ok=True)
     items = []
     for key in BACKGROUNDS:
-        p = os.path.join(IMAGES, "bg", key + ".webp")
+        p = os.path.join(IMAGES, "bg", key + ".png")
         if os.path.exists(p):
             items.append(("BG " + key, Image.open(p)))
     for key in sorted(CGS):
-        p = os.path.join(IMAGES, "cg", key + ".webp")
+        p = os.path.join(IMAGES, "cg", key + ".png")
         if os.path.exists(p):
             items.append(("CG " + key, Image.open(p)))
     cols = 5
@@ -1014,10 +1008,10 @@ def emit_rpy():
         "",
     ]
     for key in BACKGROUNDS:
-        lines.append('image bg %s = "images/bg/%s.webp"' % (key, key))
+        lines.append('image bg %s = "images/bg/%s.png"' % (key, key))
     lines += ["", "## ---- CG illustrations ------------------------------------------------------", ""]
     for key in sorted(CGS):
-        lines.append('image cg %s = "images/cg/%s.webp"' % (key, key))
+        lines.append('image cg %s = "images/cg/%s.png"' % (key, key))
     lines += ["", "## ---- Character sprites -----------------------------------------------------", ""]
     for tag, exps in SPRITES.items():
         for exp in exps:

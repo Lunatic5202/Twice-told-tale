@@ -1,17 +1,19 @@
 #!/usr/bin/env bash
 # Download CC0 music from OpenGameArt and normalize to .ogg cue files.
 # Every source is CC0 (public domain). See game/audio/CREDITS.md.
-set -u
+set -euo pipefail
 cd "$(dirname "$0")/.."
 MUS=game/audio/music
 TMP="$(mktemp -d)"
+trap 'rm -rf "$TMP"' EXIT
 mkdir -p "$MUS"
 
 fetch() { # url out
   if [ -s "$2" ]; then echo "skip $2"; return; fi
-  curl -sL --max-time 90 "$1" -o "$TMP/raw"
-  ffmpeg -nostdin -loglevel error -y -i "$TMP/raw" -c:a libvorbis -q:a 4 "$2" \
-    && echo "ok   $(basename "$2")" || echo "FAIL $1"
+  curl -fsSL --max-time 90 "$1" -o "$TMP/raw"
+  ffmpeg -nostdin -loglevel error -y -i "$TMP/raw" -c:a libvorbis -q:a 4 "$2"
+  test -s "$2"
+  echo "ok   $(basename "$2")"
 }
 
 # --- source tracks ---------------------------------------------------------
@@ -54,14 +56,19 @@ fetch "$B/calm_track-loop.ogg"                          "$TMP/src_calm.ogg"
 fetch "$B/forest_2.ogg"                                 "$TMP/src_cathedral.ogg"
 
 # --- cue mapping: cue=source -------------------------------------------------
-copy() { [ -s "$TMP/src_$2.ogg" ] && cp "$TMP/src_$2.ogg" "$MUS/$1.ogg" && echo "cue  $1 <- $2"; }
+copy() {
+  test -s "$TMP/src_$2.ogg"
+  cp "$TMP/src_$2.ogg" "$MUS/$1.ogg"
+  echo "cue  $1 <- $2"
+}
 
 # vary: like copy, but re-encodes the source through an ffmpeg filter chain so a
 # "reprise" cue is a recognisable variation of its theme rather than a byte copy.
 vary() { # src out filter
-  [ -s "$TMP/src_$1.ogg" ] || { echo "MISS src_$1"; return; }
-  ffmpeg -nostdin -loglevel error -y -i "$TMP/src_$1.ogg" -filter:a "$3" -c:a libvorbis -q:a 4 "$MUS/$2.ogg" \
-    && echo "vary $2 <- $1  [$3]"
+  test -s "$TMP/src_$1.ogg"
+  ffmpeg -nostdin -loglevel error -y -i "$TMP/src_$1.ogg" -filter:a "$3" -c:a libvorbis -q:a 4 "$MUS/$2.ogg"
+  test -s "$MUS/$2.ogg"
+  echo "vary $2 <- $1  [$3]"
 }
 
 copy marginalia                    musicbox
@@ -103,5 +110,4 @@ copy what_i_remember               rain
 copy what_was_written              next
 copy which_of_us                   forest
 
-rm -rf "$TMP"
 echo "done"

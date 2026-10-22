@@ -1,16 +1,17 @@
 #!/usr/bin/env bash
 # Download CC0 sound effects (OpenGameArt) into game/audio/sfx.
 # All sources are CC0. See game/audio/CREDITS.md.
-set -u
+set -euo pipefail
 cd "$(dirname "$0")/.."
 SFX=game/audio/sfx
 TMP="$(mktemp -d)"
+trap 'rm -rf "$TMP"' EXIT
 mkdir -p "$SFX"
 B="https://opengameart.org/sites/default/files"
 
 # Packs (extract individual .ogg from each).
-curl -sL --max-time 120 "$B/100-CC0-SFX_0.zip"          -o "$TMP/pack.zip"
-curl -sL --max-time 120 "$B/book_flips_-_starninjas.zip" -o "$TMP/book.zip"
+curl -fsSL --max-time 120 "$B/100-CC0-SFX_0.zip"          -o "$TMP/pack.zip"
+curl -fsSL --max-time 120 "$B/book_flips_-_starninjas.zip" -o "$TMP/book.zip"
 unzip -qo "$TMP/pack.zip" -d "$TMP/pack"
 unzip -qo "$TMP/book.zip" -d "$TMP/book"
 
@@ -26,14 +27,14 @@ cp "$TMP/pack/pot_01.ogg"       "$SFX/sfx_kettle.ogg"
 cp "$TMP/pack/slam_02.ogg"      "$SFX/sfx_slam.ogg"
 
 fetch_convert() { # url out
-  curl -sL --max-time 90 "$1" -o "$TMP/raw"
-  ffmpeg -nostdin -loglevel error -y -i "$TMP/raw" -c:a libvorbis -q:a 4 "$2" \
-    && echo "ok   $(basename "$2")" || echo "FAIL $1"
+  curl -fsSL --max-time 90 "$1" -o "$TMP/raw"
+  ffmpeg -nostdin -loglevel error -y -i "$TMP/raw" -c:a libvorbis -q:a 4 "$2"
+  test -s "$2"
+  echo "ok   $(basename "$2")"
 }
 fetch_convert "$B/amb_rain_loop_1.ogg" "$SFX/sfx_rain.ogg"
 fetch_convert "$B/rain-thunder.ogg"    "$SFX/sfx_thunder.ogg"
 fetch_convert "$B/fire-1.ogg"          "$SFX/sfx_fire.ogg"
 fetch_convert "$B/01-footstep.ogg"     "$SFX/sfx_footsteps.ogg"
 
-rm -rf "$TMP"
 ls -la "$SFX"

@@ -191,6 +191,10 @@ init python:
         else:
             raise Exception("bad expectation: %r" % (expected,))
 
+    def _assert_ending_target(expected):
+        actual = ending_destination()
+        assert actual == expected, "expected %r, got %r" % (expected, actual)
+
 testcase route:
     $ _test.transition_timeout = 0.02
     $ _test.timeout = 45.0
@@ -274,12 +278,24 @@ testcase gates:
     $ _test.timeout = 20.0
     run Function(_set_stats, 0, 0, 0, 0, False)
     run Function(_assert_gate, "none")
+    run Function(_assert_ending_target, "ending_neutral")
     run Function(_set_stats, 6, 1, 0, 0, False)
     run Function(_assert_gate, "wanderer")
+    run Function(_assert_ending_target, "ending_wanderer")
     run Function(_set_stats, 1, 6, 0, 0, False)
     run Function(_assert_gate, "scaramouche")
-    run Function(_set_stats, 9, 9, 9, 0, True)
+    run Function(_assert_ending_target, "ending_scaramouche")
+    run Function(_set_stats, 4, 4, 7, 1, True)
     run Function(_assert_gate, "true")
+    run Function(_assert_ending_target, "ending_true")
+    run Function(_set_stats, 9, 8, 9, 1, True)
+    run Function(_assert_ending_target, "ending_true")
+    run Function(_set_stats, 9, 9, 9, 2, True)
+    run Function(_assert_ending_target, "ending_neutral")
+    run Function(_set_stats, 4, 4, 6, 1, True)
+    run Function(_assert_ending_target, "ending_neutral")
+    run Function(_set_stats, 4, 4, 7, 1, False)
+    run Function(_assert_ending_target, "ending_neutral")
     run Function(_set_stats, 4, 4, 6, 0, True)
     run Function(_assert_gate, "none")
     exit

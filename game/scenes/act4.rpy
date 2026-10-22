@@ -149,6 +149,8 @@ label act4_4_4:
         "Put the pen down and write nothing. “The book is theirs. Both of theirs.”" if (m >= 7 and w >= 4 and b >= 4 and pen <= 1 and promise_made):
             $ _sel_15 = "C"
             jump ending_true
+        "Let the page decide. Follow the ending you have earned.":
+            jump ending_router
         "Hand the pen to the Doctor. Always available.":
             $ _sel_15 = "D"
             jump ending_archivist
@@ -166,8 +168,7 @@ label act4_4_4:
             $ _sel_15 = "H"
             jump ending_blank_page
 
-    # every option routes explicitly; nothing falls through
-    # Explicit ending choices resolve first. If the player makes no explicit choice, the automatic order applies: True, then the eligible bond ending, then Neutral. If neither is available, the Echo steps forward and takes the pen, and the game proceeds to the Neutral Ending, “Margins.”
+    # Every option routes explicitly; the page-decision choice uses the automatic gate order.
     play sound audio.sfx_bell  # A distant bell. The first light, spilling.
     # END OF ACT 4
     # The Endings Every main ending (Wanderer, Scaramouche, True, and Neutral) shares the same first beat: the Doctor’s defeat. What differs is what is left standing afterward. The Gnosis Box, Burned Pages, Blank Page, and the two bad endings have their own scenes.

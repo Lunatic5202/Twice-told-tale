@@ -18,13 +18,14 @@ others.
 """
 import argparse
 import os
+import tempfile
 from collections import deque
 from PIL import Image, ImageDraw, ImageFilter
 import numpy as np
 
 SRC_DIR = os.path.expanduser("~/Downloads/sprite_clean/sprite")
 OUT_DIR = "game/images/sprites"
-STAGE_DIR = "/tmp/opencode/sheet_staging"
+STAGE_DIR = os.path.join(tempfile.gettempdir(), "opencode", "sheet_staging")
 
 CANVAS = (700, 1120)
 
@@ -308,7 +309,8 @@ def main():
         mont.alpha_composite(im, (ox, oy))
         name = os.path.splitext(os.path.basename(f))[0]
         draw.text((ox + 4, oy + 356), name, fill=(255, 235, 120, 255))
-    mont_path = "/tmp/opencode/sheet_montage.png"
+    mont_path = os.path.join(tempfile.gettempdir(), "opencode", "sheet_montage.png")
+    os.makedirs(os.path.dirname(mont_path), exist_ok=True)
     mont.save(mont_path)
     print("wrote", len(written), "sprites ->", out_dir)
     print("montage ->", mont_path)
