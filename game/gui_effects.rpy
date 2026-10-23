@@ -49,10 +49,11 @@ define config.say_attribute_transition_layer = "master"
 
 
 ## ----------------------------------------------------------------------------
-## Animated ink-nib cursor
+## Animated quill cursor
 ## ----------------------------------------------------------------------------
-## Replaces the OS pointer with an animated fountain-pen nib. Re-run
-## tools/make_gui_assets.py to regenerate the frames.
+## Replaces the OS pointer with an animated quill. The frames live in
+## gui/cursor/ and are drawn with the nib's tip (bottom-left of the art) at the
+## hotspot, so clicking feels like touching the page with the tip.
 
 init python:
     ## config.mouse cycles one cursor per frame, so frames are repeated to
@@ -60,13 +61,21 @@ init python:
     _CURSOR_FRAMES = 4
     _CURSOR_HOLD = 7
 
+    ## Click point: the nib's tip, not the middle of the image.
+    _CURSOR_HOTSPOT = (3, 66)
+
     def _cursor_list(prefix):
-        return [("gui/cursor/%s_%d.png" % (prefix, i // _CURSOR_HOLD), 1, 1)
+        return [("gui/cursor/%s_%d.png" % (prefix, i // _CURSOR_HOLD),
+                 _CURSOR_HOTSPOT[0], _CURSOR_HOTSPOT[1])
                 for i in range(_CURSOR_FRAMES * _CURSOR_HOLD)]
 
+    ## The quill is the only pointer: hovering never swaps it for another
+    ## cursor. Ren'Py automatically looks up a "pressed_" variant while the
+    ## mouse button is held, and that is when the pen digs in.
     config.mouse = {
         "default": _cursor_list("pen"),
-        "hover": _cursor_list("pen_hover"),
+        "pressed_default": _cursor_list("pen_hover"),
+        "pressed_hover": _cursor_list("pen_hover"),
     }
 
 

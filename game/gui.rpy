@@ -461,7 +461,9 @@ init python:
         ## Change the size and spacing of various things.
         gui.slider_size = gui.scale(36)
 
-        gui.choice_button_width = gui.scale(1240)
+        ## Keep the choices centred on phones instead of stretching them
+        ## edge to edge, so they line up the same way they do on desktop.
+        gui.choice_button_width = gui.scale(950)
         gui.choice_button_text_size = gui.scale(30)
 
         gui.navigation_spacing = gui.scale(20)
