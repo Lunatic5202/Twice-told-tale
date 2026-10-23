@@ -224,7 +224,7 @@ screen choice(items):
             arrowkeys True
             pagekeys True
             draggable True
-            scrollbars "vertical"
+            scrollbars None
             side_yfill True
 
             vbox:
