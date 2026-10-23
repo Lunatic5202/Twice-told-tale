@@ -34,6 +34,7 @@ label act2_2_2:
     # Footsteps. The screens slide open. Two women enter. One in purple and silver, her expression a grief held very still. The other in white and red, ears forward, a small curve to her mouth.
     scene cg raiden_yae
     with scene_fade
+    pause
     miko "Here it is. The prototype."
     scene bg tatami_room
     with soft_dissolve
