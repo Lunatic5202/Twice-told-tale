@@ -171,6 +171,11 @@ label act2_2_6:
     # He is lying. He leans in and speaks under his breath.
     katsuragi "(low) Keep that gold feather out of sight. Don’t tell anyone where you really came from. Understand?"
     # The puppet nods. He does not understand. He holds the feather close to his chest.
+    # [CG: The gold feather turning in the Echo's fingers.]
+    show cg gold_feather with soft_dissolve
+    pause
+    hide cg with soft_dissolve
+
     worker "A wandering eccentric, is he? A kabukimono."
     worker2 "Look at the hat. Look at the feet."
     # A broad-shouldered smith with a scarred forearm shoves a hammer into the puppet’s hands.
