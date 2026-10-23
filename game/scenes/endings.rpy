@@ -13,6 +13,7 @@ label ending_shared_beat:
     # The Wanderer and Echo press their palms to the open page. The Folio answers with their joined mark; Dottore's ink peels away from the margin.
     scene cg two_palms
     with ink_dissolve
+    pause
     play sound audio.sfx_page
     scene bg white_page_street
     with page_wipe
