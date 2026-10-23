@@ -149,6 +149,11 @@ label prologue_0_2:
     stop music fadeout 0.5
     show wanderer neutral at at_right with soft_dissolve
 
+    # [CG: The Wanderer in the doorway, cup halfway to his mouth.]
+    show cg prologue_tea with soft_dissolve
+    pause
+    hide cg with soft_dissolve
+
     wanderer "..."
 
     # [The cup stops halfway to his mouth.]
