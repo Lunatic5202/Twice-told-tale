@@ -211,8 +211,7 @@ screen choice(items):
         background None
         padding (0, 0)
         xalign 0.5
-        ypos gui.scale(270)
-        yanchor 0.5
+        yalign 0.5
         xmaximum gui.choice_button_width + gui.scale(30)
         ymaximum int(config.screen_height * 0.76)
 
