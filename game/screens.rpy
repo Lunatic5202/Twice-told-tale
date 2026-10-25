@@ -257,9 +257,9 @@ style choice_button is default:
     xminimum 420
     yminimum 48
     padding (24, 12)
-    background Solid("#17191fcf")
-    hover_background Solid("#34363dcc")
-    insensitive_background Solid("#17191f88")
+    background Solid("#17191ff2")
+    hover_background Solid("#34363cf5")
+    insensitive_background Solid("#17191fcf")
 
 style choice_button_text is default:
     properties gui.text_properties("choice_button")
