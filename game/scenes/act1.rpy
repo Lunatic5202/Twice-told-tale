@@ -130,12 +130,10 @@ label act1_1_2:
 
     n "The Echo can’t get more than forty paces from the Folio. The Wanderer insists on keeping him in sight. By noon, this means the book has been carried to the courtyard, along with everyone who has made the mistake of getting involved."
 
-    echo "Is that a duck?" 
-    wanderer "Student." 
-    echo "It has a beak." 
+    echo "Is that a duck?"
+    wanderer "Student."
+    echo "It has a beak."
     wanderer "So do some students, if you ask the wrong professor."
-
-    wanderer "The duck is a student."
 
     # [Two familiar silhouettes cross the courtyard. Tighnari first, ears up.
     #  Cyno behind him with a card deck.]
@@ -289,6 +287,7 @@ label act1_1_4:
     wanderer "Your ears need maintenance. Mine did, a few weeks ago. You\u2019re a draft. Nobody ever serviced you."
 
     echo "I do not need a seamstress."
+    wanderer "Good. I’m terrible at sewing."
 
     wanderer "You need a very small screwdriver and someone patient. I\u2019m neither. So."
 
@@ -341,6 +340,9 @@ label act1_1_5:
     wanderer "Not yet."
 
     echo "You have the keys and you hide the doors."
+    wanderer "Because you keep trying every handle."
+    echo "One of them might open."
+    wanderer "That’s what I’m worried about."
 
     wanderer "I hide them because I know what\u2019s behind them."
 
@@ -463,6 +465,8 @@ label act1_1_6:
     show wanderer soft at at_center with soft_dissolve
 
     wanderer "I tried to erase myself, once. From Irminsul. From history. To undo what had happened."
+    wanderer "I thought if I could make it so I’d never existed, then none of it would have happened."
+    wanderer "It was a stupid idea. I know that now."
 
     wanderer "It didn\u2019t work. The history rewrote itself the same way without me. Everyone I\u2019d hurt was still hurt. Everyone who died was still dead. Only I disappeared. And then I came back."
 
