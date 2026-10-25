@@ -265,7 +265,6 @@ label act3_3_4:
     elif _sel_9 == "C":
         echo "(from the other side of the glass, voice thin) You chose me. Don't make me regret trusting that."
         mc "I don't."
-        echo "Then don't give him the book."
     else:
         n "Footsteps stop beyond the glass. The Wanderer and Echo must have followed after all; neither looks pleased to have been right about the trap."
         wanderer "(muffled) You came alone. You still brought the book."
