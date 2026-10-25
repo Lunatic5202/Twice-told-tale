@@ -20,7 +20,7 @@ label act1_1_1:
     wanderer "It’s not your hat."
 
     echo "It is plainly based on my hat. The colors, though. Teal?" 
-echo "Did someone lose a bet, or is this meant to be funny?"
+    echo "Did someone lose a bet, or is this meant to be funny?"
 
     wanderer "Hmph. I\u2019m leaving."
 
@@ -41,7 +41,7 @@ echo "Did someone lose a bet, or is this meant to be funny?"
     nahida "Good morning, both of you. Please don\u2019t kill each other before I\u2019ve finished explaining. It\u2019s rude to the carpets."
 
     nahida "Wanderer, the Folio contains the record I kept of you. Not your memories exactly. More like the shape they left behind." 
-nahida "It was sealed because it wasn’t safe to read. And it was never meant to contain two versions of the same person."
+    nahida "It was sealed because it wasn’t safe to read. And it was never meant to contain two versions of the same person."
 
     wanderer "Two."
 
@@ -50,26 +50,26 @@ nahida "It was sealed because it wasn’t safe to read. And it was never meant t
     # [She looks at MC. Both men look at MC.]
 
     mc "I changed one word. I didn’t know it could—" 
-wanderer "You keep saying that." 
-mc "Because it’s true." 
-wanderer "I know. That doesn’t make it better."
+    wanderer "You keep saying that." 
+    mc "Because it’s true." 
+    wanderer "I know. That doesn’t make it better."
 
     nahida "Which one?"
 
     mc "\u201cStayed.\u201d"
 
     nahida "That explains why the ink hasn’t settled." 
-nahida "It doesn’t explain why it made a person."
+    nahida "It doesn’t explain why it made a person."
 
     echo "Can we skip the part where you talk around it? What am I?"
 
     nahida "You’re him as he was before Irminsul. You have his memories up to that point." 
-nahida "The Wanderer remembers what happened after. You don’t."
+    nahida "The Wanderer remembers what happened after. You don’t."
 
     echo "So I’m the original." 
-wanderer "You’re earlier." 
-echo "That’s what original means." 
-wanderer "Not when you’re talking about people."
+    wanderer "You’re earlier." 
+    echo "That’s what original means." 
+    wanderer "Not when you’re talking about people."
 
     wanderer "You\u2019re the draft."
 
@@ -79,7 +79,7 @@ wanderer "Not when you’re talking about people."
     #  that talks back.]
 
     nahida "There are thirty pages. One burns at dawn, whether we touch the book or not." 
-nahida "When the last page is gone, the Folio will keep one name. I’ve tried to find another way. I haven’t."
+    nahida "When the last page is gone, the Folio will keep one name. I’ve tried to find another way. I haven’t."
 
     wanderer "Then burn it now."
 
@@ -88,10 +88,10 @@ nahida "When the last page is gone, the Folio will keep one name. I’ve tried t
     # [The Wanderer's jaw tightens. He says nothing.]
 
     nahida "The Pen can change the text. Each change costs a page." 
-mc "You could have mentioned that before I used it." 
-nahida "I didn’t know you would." 
-mc "Neither did I." 
-nahida "I know."
+    mc "You could have mentioned that before I used it." 
+    nahida "I didn’t know you would." 
+    mc "Neither did I." 
+    nahida "I know."
 
     nahida "And no one outside this room learns that there are two. Not yet. The Doctor reads Irminsul the way you read menus."
 
@@ -131,9 +131,9 @@ label act1_1_2:
     n "The Echo can’t get more than forty paces from the Folio. The Wanderer insists on keeping him in sight. By noon, this means the book has been carried to the courtyard, along with everyone who has made the mistake of getting involved."
 
     echo "Is that a duck?" 
-wanderer "Student." 
-echo "It has a beak." 
-wanderer "So do some students, if you ask the wrong professor."
+    wanderer "Student." 
+    echo "It has a beak." 
+    wanderer "So do some students, if you ask the wrong professor."
 
     wanderer "The duck is a student."
 
@@ -231,15 +231,15 @@ label act1_1_3:
     # [SFX: A teapot, a poured cup. Steam.]
 
     wanderer "You’re holding the cup wrong." 
-echo "I’m holding it by the handle." 
-wanderer "You’re holding it like you expect it to insult you."
+    echo "I’m holding it by the handle." 
+    wanderer "You’re holding it like you expect it to insult you."
 
     echo "It\u2019s bitter."
 
     wanderer "That\u2019s the point."
 
     echo "It tastes like the water the tea was boiled in." 
-wanderer "That is, in fact, how tea is made."
+    wanderer "That is, in fact, how tea is made."
 
     wanderer "It\u2019s the true flavor of life. It takes a while."
 
