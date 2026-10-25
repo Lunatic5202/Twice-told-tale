@@ -103,8 +103,7 @@ label act4_4_2:
             $ bump('m', 2)
         "“Leave the record. You don’t owe the dead your suffering.”":
             $ _sel_14 = "C"
-            $ bump('b', 1)
-            $ bump('pen', 1)
+            $ bump('b', -1)
         "“I don’t care what the book says. I know who you are now.”":
             $ _sel_14 = "D"
             $ bump('b', 2)
