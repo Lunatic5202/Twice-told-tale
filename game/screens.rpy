@@ -135,7 +135,7 @@ style window:
     yalign gui.textbox_yalign
     ysize gui.textbox_height
     padding (0, 0)
-    background Solid("#090b10d9")
+    background Solid("#090b10f2")
 
 style namebox:
     xpos gui.name_xpos
@@ -143,8 +143,8 @@ style namebox:
     xsize gui.namebox_width
     ypos gui.name_ypos
     ysize gui.namebox_height
-    background None
-    padding (0, 0)
+    background Frame("gui/namebox.png", gui.namebox_borders, tile=gui.namebox_tile)
+    padding (12, 4)
 
 style say_label:
     properties gui.text_properties("name", accent=True)
