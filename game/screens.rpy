@@ -402,7 +402,7 @@ style navigation_button_text:
     selected_idle_color "#eed7a2"
     selected_hover_color "#f6e6bc"
     outlines [(1, "#0a0a14aa", 0, 0)]
-    kerning gui.scale(0.6)
+    kerning 0.6
 
 
 ## Main Menu screen ############################################################
@@ -559,7 +559,7 @@ style main_menu_tagline:
     size 21
     color "#c9b789"
     outlines [(1, "#0a0a14aa", 0, 0)]
-    kerning gui.scale(1.5)
+    kerning 1.5
 
 
 ## Game Menu screen ############################################################
