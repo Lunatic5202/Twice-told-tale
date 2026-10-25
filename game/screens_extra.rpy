@@ -424,6 +424,96 @@ screen act_title(roman="I", title="", kicker="ACT"):
 
 
 ## ----------------------------------------------------------------------------
+## Page-recorded banner
+## ----------------------------------------------------------------------------
+## A compact, Inazuma-inspired Folio notice. This is intentionally separate
+## from Ren'Py's generic notify screen so quicksaves and screenshots keep their
+## familiar feedback. Notices are queued by logic.rpy and shown one at a time.
+
+transform page_recorded_appear:
+    subpixel True
+    on show:
+        xoffset 420
+        alpha 0.0
+        parallel:
+            easeout 0.38 xoffset 0
+        parallel:
+            easeout 0.30 alpha 1.0
+    on hide:
+        parallel:
+            easein 0.28 xoffset 280
+        parallel:
+            easein 0.28 alpha 0.0
+
+screen page_recorded_notify(message="A page has been preserved in the Folio."):
+    zorder 180
+
+    if preferences.transitions:
+        frame:
+            at page_recorded_appear
+            xalign 0.985
+            yalign 0.105
+            xmaximum 560
+            background Solid("#101018e8")
+            padding (18, 12)
+
+            hbox:
+                spacing 14
+
+                text "❧":
+                    font gui.display_font
+                    size 38
+                    color "#d9bd7b"
+                    yalign 0.5
+
+                vbox:
+                    spacing 3
+
+                    text "PAGE RECORDED":
+                        font gui.title_font
+                        size 20
+                        color "#e4ca8b"
+
+                    text "[message]":
+                        font gui.interface_text_font
+                        size 16
+                        color "#eee8da"
+                        xmaximum 465
+    else:
+        frame:
+            xalign 0.985
+            yalign 0.105
+            xmaximum 560
+            background Solid("#101018e8")
+            padding (18, 12)
+
+            hbox:
+                spacing 14
+
+                text "❧":
+                    font gui.display_font
+                    size 38
+                    color "#d9bd7b"
+                    yalign 0.5
+
+                vbox:
+                    spacing 3
+
+                    text "PAGE RECORDED":
+                        font gui.title_font
+                        size 20
+                        color "#e4ca8b"
+
+                    text "[message]":
+                        font gui.interface_text_font
+                        size 16
+                        color "#eee8da"
+                        xmaximum 465
+
+    timer 3.4 action Function(advance_page_recorded)
+
+
+## ----------------------------------------------------------------------------
 ## Page counter
 ## ----------------------------------------------------------------------------
 ## "Thirty days, thirty pages." A small diegetic counter in the corner.
