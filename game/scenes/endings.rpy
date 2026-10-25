@@ -9,7 +9,9 @@ label ending_shared_beat:
     with soft_dissolve
     play music audio.reprise_clean_instruments fadein 2.0  # “Reprise: Clean Instruments”: the sterile piano, cracking.
     dottore "(for the first time, not smiling) That isn’t possible. The seal was mine."
-    nahida "(quietly) You wrote a book without the one thing a book needs, Doctor. A reader."
+    nahida "You made the seal answer only to you."
+    dottore "Yes."
+    nahida "And you never thought anyone else might answer back."
     # The Wanderer and Echo press their palms to the open page. The Folio answers with their joined mark; Dottore's ink peels away from the margin.
     scene cg two_palms
     with ink_dissolve
@@ -35,10 +37,15 @@ label ending_wanderer:
     play music audio.a_name_is_a_small_thing fadein 2.0  # “A Name Is a Small Thing”: warm woodwinds, a light step.
     # You write the Wanderer’s name on the last line, in full. The ink holds.
     # The air goes quiet. Beside the Wanderer, the shimmer of the Echo thins to a breath, then to a light, then to a mark on the page, and the Echo steps back, not erased but settled. He smiles. It isn’t unkind.
-    echo "(gently) Go on. He’s the one who gets to walk out the door. I’ll keep the book."
-    wanderer "(quickly) I don’t want you in a book. I want you with me."
-    echo "I’ll be there. I’m in the sleeve of your coat. In the way you hold your tea. In the thing you think at three in the morning that you won’t say out loud."
-    echo "That’s more of a home than I ever had."
+    echo "(quietly) Go on. You’re the one who gets to walk out."
+    wanderer "I don’t want to leave you here."
+    echo "You’re not leaving me here. I’ll keep the book."
+    wanderer "That’s not what I meant."
+    n "The Echo looks down at the last line. For once, he has no quick answer ready."
+    echo "I know."
+    echo "I’ll be with you. Not every minute. I think we’ve both had enough of that."
+    wanderer "(a breath that might be a laugh) You’ll complain about the tea."
+    echo "Constantly."
     scene cg ending_wanderer
     with scene_fade
     # Weeks later, the Wanderer sits alone at the annex table. He has made two cups of tea. He drinks one. He leaves the other, steaming, on the other side.
@@ -66,14 +73,20 @@ label ending_scaramouche:
     play music audio.what_he_built_from_nothing fadein 2.0  # “What He Built From Nothing”: a solo cello, gradually joined by a guitar.
     # You write the Echo’s name. His real one. The one he gave you in the dark, in the first week, and told you to forget.
     # The Wanderer’s shoulders drop. For a heartbeat he looks frightened, as someone does before a door they chose to walk through. Then he exhales.
-    wanderer "(smiling, small) You were always the louder one."
-    echo "(startled) I was?"
-    wanderer "I just let you carry the volume. I’m tired. I’d like to rest. It’s... all right to rest, now."
+    wanderer "(a small smile) You always did talk more."
+    echo "I was making up for your terrible conversation."
+    wanderer "Probably."
+    n "The Wanderer’s smile fades. He rubs his eyes with the heel of his hand."
+    wanderer "I’m tired. I don’t think I can keep doing this the way we’ve been doing it."
+    echo "You don’t have to."
+    wanderer "I know. I just needed to hear you say it."
     scene cg ending_scaramouche
     with scene_fade
     # The Wanderer passes the hat to him. It is the only goodbye he knows how to give.
-    echo "(thickly) I won’t wear this."
-    wanderer "You will. You’ll hate how it fits."
+    echo "(thickly) I’m not wearing this."
+    wanderer "You can put it on the shelf, then."
+    echo "That’s worse."
+    wanderer "I know."
     play sound audio.sfx_door
     # Time passes. The Echo, now whole, keeps the archive. He lights the lamps. He labels the shelves in an angry, beautiful hand. He is not kind to scholars. He is very kind to the ones who forget their umbrellas.
     # On the first day of each month, the Folio opens on the table, and a new line appears in the margin, in a hand like his own, but softer.
@@ -98,23 +111,25 @@ label ending_true:
     with scene_fade
     play music audio.the_last_evening fadein 3.0
     # You set the pen down on the page.
-    mc "I’m not going to write it."
-    mc "It isn’t mine. It was never mine. I’m the one who mended the spine, that’s all. The story’s theirs."
+    mc "I’m not writing the ending for them."
+    mc "I can mend the book. I can’t decide what they should become."
     nahida "(very quietly) You understand what that means? If you leave the last page empty, the two of them will have to write it between themselves."
     mc "Yes."
-    wanderer "(startled) She means... us?"
-    echo "(grimly) She means we’re going to have to talk."
+    wanderer "(startled) Us?"
+    echo "Apparently."
     wanderer "We’ve been talking for thirty days."
-    echo "We’ve been shouting for thirty days. That’s a different thing."
+    echo "You’ve been explaining. I’ve been shouting. You keep calling that a conversation."
     # A pause. Then both of them, at the same time, begin to laugh, helplessly, the way two people do at the end of a very long funeral.
     scene cg wanderer_echo_on_page
     with scene_fade
     # They pick it up together. Two hands on one pen. They write.
     play sound audio.sfx_pen  # A pen, scratching. Slow. Sure.
-    wanderer "(reading, aloud) There was once a boy who was split in two."
-    echo "(reading) And for five hundred years, neither half could forgive the other."
-    wanderer "And then, one rainy week, a stranger mended a book."
-    echo "And in the ink, they found they were the same."
+    wanderer "(reading, slowly) There was once a boy who thought leaving would make the hurt stop."
+    echo "It didn’t."
+    wanderer "No. It didn’t."
+    echo "Then what happened?"
+    n "The Wanderer glances at him. The Echo waits, no longer trying to write the answer first."
+    wanderer "He came back. And he had to learn what to do next."
     # The page fills itself. The words rise from white into gold. When it is done, the Folio snaps shut with a sound like a door closing in a house that is, at last, warm.
     scene bg annex_day
     with scene_fade
@@ -123,11 +138,15 @@ label ending_true:
     echo "You made a promise. You said you’d be at the door when the last page burned."
     mc "And I was."
     echo "(looking down at his cup) ...You were."
-    echo "I’m going to say something and I’m going to say it exactly once. If you tell anyone I said it, I’ll deny it in front of the Seven."
-    wanderer "(lazily) He’s blushing."
-    echo "I’m not."
-    # He puts down his cup. He doesn’t look at you. His voice is very small and very clear.
-    echo "Thank you for mending me."
+    echo "I need to say something. Don’t make a fuss."
+    wanderer "I haven’t said anything."
+    echo "You’re about to."
+    wanderer "I was breathing."
+    echo "Loudly."
+    n "The Echo turns the cup between his hands. He does not look at you."
+    echo "Thank you. For staying when I made it difficult."
+    mc "You did make it difficult."
+    echo "I know. That’s why I’m thanking you."
     scene cg ending_true
     with scene_fade
     # A last line of text fades in across the picture.
@@ -210,7 +229,7 @@ label ending_burned_pages:
     echo "I believed her."
     # The page folds inward. The two names remain legible for one last second, side by side. Then the ink goes gray.
     # Later, MC reaches for the Pen to rewrite the page. The nib will not touch the paper. The Wanderer, appearing in the doorway, gently closes the Folio.
-    wanderer "Don’t. You don’t get to make it hurt less by pretending it didn’t happen."
+    wanderer "Don’t. You don’t get to take it back just because you regret it."
     # He leaves the book with you. No one writes on the page again.
     n "END CARD: BURNED PAGES"
     n "END CARD: Some promises are broken by the people who make them. Others are broken by the moment we choose to leave. The page is gone. The promise is not."
@@ -275,8 +294,10 @@ label ending_neutral:
     with scene_fade
     play music audio.the_boy fadein 2.0
     # The Echo steps forward and takes the pen from your hand, gently. It’s the first time he has ever touched something of yours without being asked.
-    echo "You weren’t ready. That isn’t a failing. Most people never are."
-    echo "I’ll finish it. Badly, probably. But in my own hand."
+    echo "You weren’t ready."
+    n "He waits, as if he expects you to argue."
+    echo "That doesn’t mean I’m going to let the Doctor finish it for me."
+    echo "I’ll write something. It may be terrible. You can complain about it tomorrow."
     play sound audio.sfx_pen
     echo "There was once a boy who couldn’t decide whether he wanted to be remembered."
     wanderer "That’s a terrible beginning."
@@ -287,8 +308,10 @@ label ending_neutral:
     play music audio.warm_table fadein 2.0
     wanderer "Tea?"
     echo "You know I don’t like it sweet."
-    wanderer "I know. I asked anyway."
-    echo "...Then leave the cup there. I’ll decide when I’m ready."
+    wanderer "I know."
+    echo "Then why ask?"
+    wanderer "Because sometimes you say yes."
+    n "The Echo looks at the cup for a while. He takes it eventually, without thanking him."
     n "They do not forgive each other today. They do not leave, either. The page stays open."
     # END · Neutral Ending · Open
 
