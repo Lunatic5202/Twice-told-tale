@@ -181,6 +181,9 @@ label act3_3_3:
     echo "(from the air) Stop staring at it."
     dottore "I’m looking at the room. You happen to be the most interesting thing missing from it."
     # He smiles. The smile goes nowhere near his eyes.
+    if _sel_9 == "D":
+        n "You came alone. The corridor behind you is empty. Somewhere beyond the wall, a second lock turns."
+        n "The Doctor notices you listening and says nothing."
     dottore "I have the Gnosis you came for. You have the book I want. We could save ourselves a great deal of time."
     wanderer "No."
     dottore "You haven’t heard the offer."
@@ -251,7 +254,24 @@ label act3_3_4:
     dottore "(over a speaker, cheerful) I said I wanted to talk. I never said you could leave whenever you liked."
     scene cg glass_cell
     with iris_open
-    wanderer "(muffled) Let her out!"
+    if _sel_9 == "A":
+        cyno "(from the corridor, muffled) Quill! Answer me!"
+        mc "I'm here!"
+        cyno "Stay away from the slot. I'm looking for the release."
+    elif _sel_9 == "B":
+        wanderer "(muffled, close to the glass) I told you to stay behind me."
+        mc "You said you wouldn't speak for me unless I asked."
+        wanderer "I know. I'm asking you to stay back."
+    elif _sel_9 == "C":
+        echo "(from the other side of the glass, voice thin) You chose me. Don't make me regret trusting that."
+        mc "I don't."
+        echo "Then don't give him the book."
+    else:
+        n "Footsteps stop beyond the glass. The Wanderer and Echo must have followed after all; neither looks pleased to have been right about the trap."
+        wanderer "(muffled) You came alone. You still brought the book."
+        echo "And you thought we wouldn't notice you were gone?"
+        mc "I didn't want you dragged into this."
+        wanderer "Too late."
     dottore "The Folio, please. The remaining pages are the only thing I need. Slide it through the slot. After that, the Gnosis and the draught are yours."
     echo "(barely audible, behind the glass) Don’t give him the book."
     mc "He’ll hurt you if I don’t."
