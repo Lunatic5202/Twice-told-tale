@@ -222,7 +222,7 @@ label act3_3_3:
             $ bump('b', 1)
         "Take the vial. Pocket it quietly.":
             $ _sel_10 = "D"
-            $ bump('pen', 2)
+            $ bump('m', -1)
 
     if _sel_10 == 'A':
         show dottore delighted at at_center
@@ -294,7 +294,7 @@ label act3_3_4:
             $ bump('m', 1)
         "Slide the Folio through the slot.":
             $ _sel_11 = "D"
-            $ bump('pen', 2)
+            $ bump('m', -2)
 
     if _sel_11 == 'A':
         dottore "Then we wait. I’m very good at waiting. It is, I believe, the one trait the two of us share."
