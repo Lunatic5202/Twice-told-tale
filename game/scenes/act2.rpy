@@ -467,7 +467,7 @@ label act2_2_12:
         echo "(startled) ...You’d follow me."
         mc "Into a furnace, apparently."
         # END OF PAGE-WALK TWO
-        n "Act 2, Page-Walk Three: The Boy and the Promise Betrayal by mortality. All three walk in together."
+    n "Act 2, Page-Walk Three: The Boy. A promise made by a child, and the life that cannot keep it. All three of you enter together."
 
 label act2_2_13:
     # DAY 18 · SCENE 2.13 · The Margin Door, Third Page
@@ -532,7 +532,7 @@ label act2_2_15:
     # The ink around the puppet cracks. Then the ink around the Echo cracks. They are the same crack.
     echo "He promised."
     echo "He was eight. He wasn’t allowed to promise a thing like that. No one is. No one should be allowed to promise a thing like that to someone who won’t die."
-    echo "There was nobody to blame. I looked for someone anyway. I kept looking, even after I knew there was no one."
+    echo "There was nobody to blame. I looked anyway. I kept looking long after I knew there was no one."
 
     # CHOICE: The crack is under all three of you.
     menu:
