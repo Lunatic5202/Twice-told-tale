@@ -316,7 +316,7 @@ screen scene_title(text=""):
                 outlines [(3, "#000000cc", 0, 0)]
 
             add "gui/overlay/rule_gold.png":
-                xysize (gui.scale(300), gui.scale(2))
+                xysize (300, 2)
                 xalign 0.5
                 at scene_title_rule
 
@@ -409,7 +409,7 @@ screen act_title(roman="I", title="", kicker="ACT"):
                 at act_num_in
 
             add "gui/overlay/rule_gold.png":
-                xysize (gui.scale(520), gui.scale(2))
+                xysize (520, 2)
                 xalign 0.5
                 at scene_title_rule
 
@@ -472,10 +472,10 @@ screen auto_indicator():
         frame:
             at mode_badge_pulse
             style "mode_indicator_frame"
-            ypos gui.scale(52)
+            ypos 52
 
             hbox:
-                spacing gui.scale(6)
+                spacing 6
 
                 text _("Auto") style "mode_indicator_text"
                 text "▸" style "skip_triangle"
