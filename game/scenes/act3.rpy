@@ -98,7 +98,7 @@ label act3_3_2:
             $ bump('b', 2)
         "Go alone, without telling anyone.":
             $ _sel_9 = "D"
-            $ bump('pen', 1)
+            $ bump('m', -1)
 
     if _sel_9 == 'A':
         cyno "I’ll be outside the door. If anything changes, say my name."
