@@ -217,15 +217,13 @@ screen choice(items):
         padding (0, 0)
         xpos int(config.screen_width * 0.96)
         xanchor 1.0
-        ypos int(config.screen_height * 0.5)
-        yanchor 0.5
+        yalign 0.5
         xmaximum gui.choice_button_width + 30
-        ysize int(config.screen_height * 0.94)
 
         viewport:
             id "choice_viewport"
             yinitial 0.0
-            ysize int(config.screen_height * 0.94)
+            ymaximum int(config.screen_height * 0.94)
             yfill False
             mousewheel True
             arrowkeys True
@@ -239,11 +237,11 @@ screen choice(items):
                     if persistent.reduce_motion:
                         textbutton i.caption:
                             action i.action
-                            text_size (26 if len(i.caption) > 55 else 30)
+                            text_size (30 if len(i.caption) <= 35 else 26 if len(i.caption) <= 55 else 22 if len(i.caption) <= 75 else 19)
                     else:
                         textbutton i.caption:
                             action i.action
-                            text_size (26 if len(i.caption) > 55 else 30)
+                            text_size (30 if len(i.caption) <= 35 else 26 if len(i.caption) <= 55 else 22 if len(i.caption) <= 75 else 19)
                             at choice_in(idx * 0.06), focus_lift
 
 
