@@ -52,7 +52,7 @@ init python:
                 toast_stat("A seam in the page comes loose.", "#8f8f9f")
         elif stat == "pen":
             store.pen += amount
-            toast_stat("The Editor's Pen leaves a mark.", "#e0c060")
+            toast_stat("The page keeps the mark.", "#e0c060")
         else:
             raise Exception("Unknown stat: %r" % (stat,))
 
