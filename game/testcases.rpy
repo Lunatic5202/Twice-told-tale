@@ -326,6 +326,103 @@ testcase gnosis_route:
     exit
 
 
+testcase ending_menu_routes:
+    # Exercise the actual final menu conditions and jumps, not just ending labels.
+    $ _test.transition_timeout = 0.02
+    $ _test.timeout = 120.0
+
+    run Function(_set_stats, 5, 0, 0, 0, False)
+    $ store.box = False
+    $ store.promise_broken = False
+    run Jump("act4_4_4")
+    advance until screen "choice"
+    click expression '“Let him walk on.” Write the Wanderer’s name on the last line.'
+    advance
+    run Function(_assert_ending_seen, "wanderer")
+
+    run Function(_set_stats, 0, 5, 0, 0, False)
+    $ store.box = False
+    $ store.promise_broken = False
+    run Jump("act4_4_4")
+    advance until screen "choice"
+    click expression '“Let him write himself.” Write the Echo’s name on the last line.'
+    advance
+    run Function(_assert_ending_seen, "scaramouche")
+
+    run Function(_set_stats, 4, 4, 7, 1, True)
+    $ store.box = False
+    $ store.promise_broken = False
+    run Jump("act4_4_4")
+    advance until screen "choice"
+    click expression 'Put the pen down and write nothing. “The book is theirs. Both of theirs.”'
+    advance
+    run Function(_assert_ending_seen, "true")
+
+    run Function(_set_stats, 0, 0, 0, 0, False)
+    $ store.box = False
+    $ store.promise_broken = False
+    run Jump("act4_4_4")
+    advance until screen "choice"
+    click expression 'Let the page decide. Follow the ending you have earned.'
+    advance
+    run Function(_assert_ending_seen, "neutral")
+
+    run Function(_set_stats, 0, 0, 0, 0, False)
+    $ store.box = False
+    $ store.promise_broken = False
+    run Jump("act4_4_4")
+    advance until screen "choice"
+    click expression 'Hand the pen to the Doctor. Always available.'
+    advance
+    run Function(_assert_ending_seen, "archivist")
+
+    run Function(_set_stats, 0, 0, 0, 2, False)
+    $ store.box = False
+    $ store.promise_broken = False
+    run Jump("act4_4_4")
+    advance until screen "choice"
+    click expression 'Tear the Folio in half.'
+    advance
+    run Function(_assert_ending_seen, "burn_it_down")
+
+    run Function(_set_stats, 0, 0, 0, 0, False)
+    $ store.box = True
+    $ store.promise_broken = False
+    run Jump("act4_4_4")
+    advance until screen "choice"
+    click expression '“Look into the case.”'
+    advance
+    run Function(_assert_ending_seen, "gnosis_box")
+
+    run Function(_set_stats, 0, 0, 0, 3, True)
+    $ store.box = False
+    $ store.promise_broken = False
+    run Jump("act4_4_4")
+    advance until screen "choice"
+    click expression '“Follow the burning margin.”'
+    advance
+    run Function(_assert_ending_seen, "burned_pages")
+
+    run Function(_set_stats, 0, 0, 0, 3, False)
+    $ store.box = False
+    $ store.promise_broken = False
+    run Jump("act4_4_4")
+    advance until screen "choice"
+    click expression '“Leave the page blank.”'
+    advance
+    run Function(_assert_ending_seen, "blank_page")
+
+    run Function(_set_stats, 0, 0, 0, 2, True)
+    $ store.box = False
+    $ store.promise_broken = False
+    run Jump("act4_4_4")
+    advance until screen "choice"
+    click expression 'Leave before the last page is written.'
+    advance
+    run Function(_assert_ending_seen, "quiet_page")
+    exit
+
+
 testcase gates:
     $ _test.timeout = 20.0
     run Function(_set_stats, 0, 0, 0, 0, False)
