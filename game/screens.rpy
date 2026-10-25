@@ -225,8 +225,6 @@ screen choice(items):
             yinitial 0.0
             ymaximum int(config.screen_height * 0.88)
             yfill False
-            # Leave a few extra pixels so the final button border isn't clipped.
-            bottom_margin 8
             mousewheel True
             arrowkeys True
             pagekeys True
