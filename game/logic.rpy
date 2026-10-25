@@ -21,24 +21,32 @@ init python:
 
     def bump(stat, amount=1):
         """
-        Change a bond or the Editor's Pen count and surface the change.
+        Change a bond or the Editor's Pen count and surface a brief, diegetic cue.
 
-        stat is one of "w", "b", "m", "pen". M is the hidden Mend stat; its
-        toast is deliberately muted so the player notices that *something*
-        shifted without naming the hidden meter as a game mechanic.
+        Mend stays hidden: its feedback suggests the state of the Folio without
+        exposing the meter or its numerical value.
         """
         if stat == "w":
             store.w += amount
-            toast_stat("Wanderer Bond %s" % _signed(amount), "#6fd3c7")
+            if amount > 0:
+                toast_stat("The Wanderer lets you a little closer.", "#6fd3c7")
+            elif amount < 0:
+                toast_stat("The Wanderer draws back.", "#6fd3c7")
         elif stat == "b":
             store.b += amount
-            toast_stat("Scaramouche Bond %s" % _signed(amount), "#b06bd6")
+            if amount > 0:
+                toast_stat("The Echo lets the silence stand.", "#b06bd6")
+            elif amount < 0:
+                toast_stat("The Echo shuts you out.", "#b06bd6")
         elif stat == "m":
             store.m += amount
-            toast_stat("Mend %s" % _signed(amount), "#8f8f9f")
+            if amount > 0:
+                toast_stat("The page settles beneath your hand.", "#8f8f9f")
+            elif amount < 0:
+                toast_stat("A seam in the page comes loose.", "#8f8f9f")
         elif stat == "pen":
             store.pen += amount
-            toast_stat("Editor's Pen used", "#e0c060")
+            toast_stat("The Editor's Pen leaves a mark.", "#e0c060")
         else:
             raise Exception("Unknown stat: %r" % (stat,))
 
