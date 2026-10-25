@@ -13,6 +13,7 @@ label ending_shared_beat:
     dottore "Yes."
     nahida "And you never thought anyone else might answer back."
     # The Wanderer and Echo press their palms to the open page. The Folio answers with their joined mark; Dottore's ink peels away from the margin.
+    $ show_cg_achievement("two_palms")
     scene cg two_palms
     with ink_dissolve
     pause
@@ -46,6 +47,7 @@ label ending_wanderer:
     echo "I’ll be with you. Not every minute. I think we’ve both had enough of that."
     wanderer "(a breath that might be a laugh) You’ll complain about the tea."
     echo "Constantly."
+    $ show_cg_achievement("ending_wanderer")
     scene cg ending_wanderer
     with scene_fade
     # Weeks later, the Wanderer sits alone at the annex table. He has made two cups of tea. He drinks one. He leaves the other, steaming, on the other side.
@@ -58,6 +60,7 @@ label ending_wanderer:
     # The closing ritual: the name of the ending fades up, then the
     # ending plate, then the credits.
     call ending_title_card("wanderer") from _call_ending_title_card
+    $ show_cg_achievement("ending_wanderer")
     scene cg ending_wanderer with Dissolve(2.2)
     pause 4.5
     call ending_epilogue() from _call_ending_epilogue
@@ -80,6 +83,7 @@ label ending_scaramouche:
     wanderer "I’m tired. I don’t think I can keep doing this the way we’ve been doing it."
     echo "You don’t have to."
     wanderer "I know. I just needed to hear you say it."
+    $ show_cg_achievement("ending_scaramouche")
     scene cg ending_scaramouche
     with scene_fade
     # The Wanderer passes the hat to him. It is the only goodbye he knows how to give.
@@ -97,6 +101,7 @@ label ending_scaramouche:
     # The closing ritual: the name of the ending fades up, then the
     # ending plate, then the credits.
     call ending_title_card("scaramouche") from _call_ending_title_card_1
+    $ show_cg_achievement("ending_scaramouche")
     scene cg ending_scaramouche with Dissolve(2.2)
     pause 4.5
     call ending_epilogue() from _call_ending_epilogue_1
@@ -120,6 +125,7 @@ label ending_true:
     wanderer "We’ve been talking for thirty days."
     echo "You’ve been explaining. I’ve been shouting. You keep calling that a conversation."
     # A pause. Then both of them, at the same time, begin to laugh, helplessly, the way two people do at the end of a very long funeral.
+    $ show_cg_achievement("wanderer_echo_on_page")
     scene cg wanderer_echo_on_page
     with scene_fade
     # They pick it up together. Two hands on one pen. They write.
@@ -147,6 +153,7 @@ label ending_true:
     echo "Thank you. For staying when I made it difficult."
     mc "You did make it difficult."
     echo "I know. That’s why I’m thanking you."
+    $ show_cg_achievement("ending_true")
     scene cg ending_true
     with scene_fade
     # A last line of text fades in across the picture.
@@ -156,6 +163,7 @@ label ending_true:
     # The closing ritual: the name of the ending fades up, then the
     # ending plate, then the credits.
     call ending_title_card("true") from _call_ending_title_card_2
+    $ show_cg_achievement("ending_true")
     scene cg ending_true with Dissolve(2.2)
     pause 4.5
     call ending_epilogue() from _call_ending_epilogue_2
@@ -196,6 +204,7 @@ label ending_gnosis_box:
     # The closing ritual: the name of the ending fades up, then the
     # ending plate, then the credits.
     call ending_title_card("gnosis_box") from _call_ending_title_card_3
+    $ show_cg_achievement("gnosis_violet")
     scene cg gnosis_violet with Dissolve(2.2)
     pause 4.5
     call ending_credits() from _call_ending_credits
@@ -238,6 +247,7 @@ label ending_burned_pages:
     # The closing ritual: the name of the ending fades up, then the
     # ending plate, then the credits.
     call ending_title_card("burned_pages") from _call_ending_title_card_4
+    $ show_cg_achievement("first_page_burn")
     scene cg first_page_burn with Dissolve(2.2)
     pause 4.5
     call ending_credits() from _call_ending_credits_1
@@ -280,6 +290,7 @@ label ending_blank_page:
     # The closing ritual: the name of the ending fades up, then the
     # ending plate, then the credits.
     call ending_title_card("blank_page") from _call_ending_title_card_5
+    $ show_cg_achievement("blank_dot")
     scene cg blank_dot with Dissolve(2.2)
     pause 4.5
     call ending_credits() from _call_ending_credits_2
@@ -318,6 +329,7 @@ label ending_neutral:
     # The closing ritual: the name of the ending fades up, then the
     # ending plate, then the credits.
     call ending_title_card("neutral") from _call_ending_title_card_6
+    $ show_cg_achievement("folio_page")
     scene cg folio_page with Dissolve(2.2)
     pause 4.5
     call ending_epilogue() from _call_ending_epilogue_3
@@ -337,6 +349,7 @@ label ending_archivist:
     # He writes. The Echo’s name goes first, then the Wanderer’s. Then, last, yours.
     wanderer "(a whisper, as the ink crawls) Quill... what did you do?"
     echo "(almost kind) You’re not stupid. You were frightened. That’s different."
+    $ show_cg_achievement("folio_black")
     scene cg folio_black
     with scene_fade
     # The street is empty. The lamp outside the archive is out.
@@ -345,6 +358,7 @@ label ending_archivist:
     # The closing ritual: the name of the ending fades up, then the
     # ending plate, then the credits.
     call ending_title_card("archivist") from _call_ending_title_card_7
+    $ show_cg_achievement("folio_black")
     scene cg folio_black with Dissolve(2.2)
     pause 4.5
     call ending_credits() from _call_ending_credits_3
@@ -362,6 +376,7 @@ label ending_burn_it_down:
     wanderer "(from inside the fire) What have you done?"
     echo "(laughing, high and cracked) You broke it. You broke the only place we were both real."
     # The Echo steps back into the flame. The Wanderer reaches for him. The page between their hands goes gray, and then goes out.
+    $ show_cg_achievement("margin_door_shut")
     scene cg margin_door_shut
     with scene_fade
     # END · Bad Ending 2 · Burn It Down
@@ -369,6 +384,7 @@ label ending_burn_it_down:
     # The closing ritual: the name of the ending fades up, then the
     # ending plate, then the credits.
     call ending_title_card("burn_it_down") from _call_ending_title_card_8
+    $ show_cg_achievement("margin_door_shut")
     scene cg margin_door_shut with Dissolve(2.2)
     pause 4.5
     call ending_credits() from _call_ending_credits_4
@@ -391,6 +407,7 @@ label ending_quiet_page:
     # The Wanderer is the one who finally comes to find you, hat in his hand and eyes red.
     wanderer "He said you’d come. He kept saying it. Right up to the end."
     wanderer "He wasn’t angry. That’s what I can’t forgive."
+    $ show_cg_achievement("blank_dot")
     scene cg blank_dot
     with scene_fade
     # END · Bad Ending 3 · The Quiet Page
@@ -398,6 +415,7 @@ label ending_quiet_page:
     # The closing ritual: the name of the ending fades up, then the
     # ending plate, then the credits.
     call ending_title_card("quiet_page") from _call_ending_title_card_9
+    $ show_cg_achievement("empty_bed")
     scene cg empty_bed with Dissolve(2.2)
     pause 4.5
     call ending_credits() from _call_ending_credits_5
