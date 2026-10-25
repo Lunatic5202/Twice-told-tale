@@ -56,36 +56,72 @@ init python:
         else:
             raise Exception("Unknown stat: %r" % (stat,))
 
+    CG_ACHIEVEMENTS = {
+        "folio_page": ("The First Page", "A blank folio waits for a story to take shape.", "✧"),
+        "prologue_echo": ("A Voice in the Margin", "Something in the page has begun to answer.", "❧"),
+        "first_page_burn": ("What the Fire Kept", "Some stories begin with what survives the flame.", "✦"),
+        "prologue_tea": ("Tea for Two", "For a moment, the silence has company.", "❖"),
+        "nahida_between": ("A Gentle Interruption", "A small kindness makes room for a different answer.", "✿"),
+        "wanderer_soup": ("A Bowl Left Warm", "Care can arrive without asking to be named.", "❖"),
+        "margin_door": ("The Door in the Margin", "There is a way forward, if you choose to look.", "✧"),
+        "sleeping_puppet": ("While the World Sleeps", "Even a puppet can look painfully young at rest.", "❧"),
+        "raiden_yae": ("Those Who Watch Over", "Two old powers pause beside a fragile dream.", "✦"),
+        "gold_feather": ("A Feather Held Close", "A small keepsake turns between careful fingers.", "✧"),
+        "sword_dance": ("Steel in Step", "For one bright instant, the blades move as one.", "✦"),
+        "puppet_furnace": ("Into the Heart of the Furnace", "A choice is made beneath the furnace light.", "✦"),
+        "niwa_note": ("A Promise in Ink", "A familiar hand leaves words meant to be believed.", "❧"),
+        "child_drawing": ("A House by the Sea", "A child's drawing holds more than its simple lines.", "✿"),
+        "hooked_pinkies": ("A Little Finger Promise", "Two little fingers make a promise without words.", "❖"),
+        "empty_bed": ("The Shape of Someone Missing", "A place is kept for the one who is gone.", "❧"),
+        "black_case": ("For the Archivist", "A brass hasp guards whatever waits inside.", "✧"),
+        "gnosis_violet": ("The Violet Answer", "Power glimmers where certainty begins to fracture.", "✦"),
+        "glass_cell": ("Behind the Glass", "Close enough to see. Not close enough to reach.", "❖"),
+        "two_palms": ("Two Open Hands", "What is offered, and what is accepted, are not always the same.", "✧"),
+        "echo_bowed": ("The Echo Bows", "Even an echo can choose what it carries forward.", "❧"),
+        "doctor_lane": ("A Convenient Offer", "The gentlest voice can still ask for too much.", "✦"),
+        "ending_wanderer": ("A Name Chosen Freely", "The road ahead belongs to the one who walks it.", "❖"),
+        "ending_scaramouche": ("No Longer an Echo", "A self can begin where an old name ends.", "✦"),
+        "wanderer_echo_on_page": ("A Story, Rewritten", "The page holds two versions—and room for another.", "❧"),
+        "ending_true": ("The Page We Keep", "Not every wound needs to become the ending.", "✧"),
+        "blank_dot": ("A Blank That Remains", "Not every answer arrives as words.", "○"),
+        "folio_black": ("The Folio Falls Silent", "Even a closed book leaves something behind.", "❧"),
+        "margin_door_shut": ("A Door Left Closed", "Some choices are made by turning away.", "✧"),
+    }
+
+    def show_cg_achievement(cg_key):
+        """Show a named achievement only when its CG is explicitly reached."""
+        achievement = CG_ACHIEVEMENTS.get(cg_key)
+        if not achievement:
+            return
+        title, description, emblem = achievement
+        item = (title, description, emblem)
+        if renpy.get_screen("achievement_unlocked_notify"):
+            store.cg_achievement_queue.append(item)
+        else:
+            renpy.show_screen(
+                "achievement_unlocked_notify",
+                title=title, description=description, emblem=emblem
+            )
+            renpy.restart_interaction()
+
+    def advance_cg_achievement():
+        """Show queued CG achievements in order; never overlap banners."""
+        if store.cg_achievement_queue:
+            title, description, emblem = store.cg_achievement_queue.pop(0)
+            renpy.show_screen(
+                "achievement_unlocked_notify",
+                title=title, description=description, emblem=emblem
+            )
+            renpy.restart_interaction()
+        else:
+            renpy.hide_screen("achievement_unlocked_notify")
+            renpy.restart_interaction()
+
     def set_page(pages, day=None):
-        """Update the diegetic page counter and announce each newly preserved page."""
-        previous_pages = store.pages_left
+        """Update the diegetic page counter without triggering unrelated banners."""
         store.pages_left = pages
         if day is not None:
             store.current_day = day
-
-        # A decrease means the story has preserved the next page. Keep this
-        # separate from Ren'Py's generic notify screen (saves/screenshots).
-        if pages is not None and previous_pages is not None and pages < previous_pages:
-            if day is None:
-                message = "The first page has been preserved in the Folio."
-            else:
-                message = "Day %s — another piece of the story is preserved." % day
-
-            if renpy.get_screen("page_recorded_notify"):
-                store.page_recorded_queue.append(message)
-            else:
-                renpy.show_screen("page_recorded_notify", message=message)
-                renpy.restart_interaction()
-
-    def advance_page_recorded():
-        """Display queued page-recorded notices one at a time."""
-        if store.page_recorded_queue:
-            message = store.page_recorded_queue.pop(0)
-            renpy.show_screen("page_recorded_notify", message=message)
-            renpy.restart_interaction()
-        else:
-            renpy.hide_screen("page_recorded_notify")
-            renpy.restart_interaction()
 
     def show_title(text, delay=2.0):
         """Show a centred scene-title card and wait for it to fade. The wait is
