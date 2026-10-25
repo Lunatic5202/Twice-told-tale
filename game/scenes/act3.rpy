@@ -114,6 +114,58 @@ label act3_3_2:
 
     # Whichever approach you choose, the Doctor has already planned for it.
 
+
+label act3_3_2b:
+    # DAY 23 · SCENE 3.2B · The Annex · Late Afternoon
+    $ set_page(7, 23)
+    $ show_title("DAY 23 · SCENE 3.2B\nThe Archive Annex · Late Afternoon")
+    scene bg annex_day
+    with soft_dissolve
+    stop music fadeout 1.0
+    play music audio.the_table fadein 2.0
+
+    n "The case sits in the middle of the table. Nobody has touched it since the courier left. The room has arranged itself around it: three cups, three chairs, and one thing none of them will name."
+
+    wanderer "We should give it to Nahida."
+    echo "And tell her what? That the Doctor mailed me a piece of myself like a party invitation?"
+    wanderer "I was going to say we should tell her the truth."
+    echo "You always say that as though truth were one object. Something you can put on a table and point at."
+    mc "Then tell me what part you think is missing."
+
+    n "The Echo looks at the Folio, not at you. His outline is clearer than it was yesterday. The light catches the seam of his sleeve; for one impossible second, it looks like cloth instead of a memory of cloth."
+
+    echo "When he changed his name, the world changed around him. People forgot. Records rearranged themselves. But I was left with the before. I remember every version he tried to bury."
+    wanderer "I didn't bury you because I thought you were a lie."
+    echo "No. You buried me because I was true."
+    wanderer "..."
+    echo "That is worse, isn't it?"
+
+    menu:
+        "Ask the Wanderer what he remembers choosing.":
+            $ bump('w', 1)
+            wanderer "I remember wanting the pain to stop. I told myself that if I could stop remembering, I could stop being the person who caused it."
+            wanderer "I never asked who would be left holding the memories."
+            echo "You can start by not looking away when I speak."
+        "Ask the Echo what he wants besides an apology.":
+            $ bump('b', 1)
+            echo "A day that belongs to me. A choice that isn't made for me. A name I can keep without it being a weapon."
+            mc "Those sound like things we can begin with."
+            echo "Begin. Such a hopeful word for a room full of unfinished things."
+        "Move the case away from the Folio.":
+            $ bump('m', 1)
+            n "You slide the case to the far end of the table. It is a small movement. Both of them watch your hand as if you have moved a mountain."
+            mc "We don't have to let him set the terms of every conversation."
+            wanderer "No. We don't."
+            echo "Keep saying that until we believe it."
+
+    play sound audio.sfx_page
+    n "A line appears in the Folio's margin, written in a narrow hand neither of them recognizes: 'A door is not a home.'"
+    mc "Did either of you write that?"
+    wanderer "No."
+    echo "And yet it sounds like something I would have said."
+    n "Outside, the Akademiya bells mark the hour. The case remains closed. For the first time since it arrived, nobody is waiting for it to open."
+
+
 label act3_3_3:
     # DAY 24 · SCENE 3.3 · The Hall of Science · Night
     $ set_page(7, 24)
@@ -309,6 +361,68 @@ label act3_3_6:
     elif _sel_12 == 'D':
         echo "That he’ll say “I’m sorry.”"
         echo "(brittle) I don’t know what to do with sorry. I’ve never been given one."
+
+
+label act3_3_6b:
+    # DAY 26 · SCENE 3.6B · The Akademiya Rooftop · Dusk
+    $ set_page(5, 26)
+    $ show_title("DAY 26 · SCENE 3.6B\nThe Akademiya Rooftop · Dusk")
+    scene bg rooftop_night
+    with scene_fade
+    play music audio.three_pages fadein 2.0
+
+    n "By dusk, the broken glass has become a report, the report has become a rumor, and the rumor has become three different stories. In one, the Doctor was attacked. In another, the lab was empty. In the third, there was never a second figure in the room at all."
+
+    tighnari "The official report says the containment field failed because of a power fluctuation."
+    cyno "That is technically true."
+    tighnari "It is also a lie."
+    cyno "Those are not mutually exclusive."
+
+    mc "Can you prove what happened?"
+    tighnari "I can prove the glass was broken from the inside. I can prove the Doctor removed the case before the guards arrived. I cannot prove what the witnesses saw when the two of them stood together."
+    cyno "I can prove that several witnesses have suddenly remembered appointments elsewhere."
+    wanderer "He'll make sure no one can testify."
+    echo "No. He'll make sure they can testify to anything except what happened."
+
+    n "The Echo stands at the parapet, solid enough to cast a shadow. He keeps his hands tucked into his sleeves, as though he is afraid the evening might take them back."
+
+    mc "Are you frightened of disappearing?"
+    echo "I'm frightened that I'll disappear and he'll call it peace."
+    wanderer "I wouldn't."
+    echo "You have before."
+    wanderer "I know."
+    echo "I don't need you to say you won't do it again. I need you to notice when you start wanting to."
+    wanderer "Then tell me."
+    echo "I just did."
+
+    menu:
+        "Ask them to make a rule for the last four days.":
+            $ bump('m', 1)
+            mc "No decisions about the other one without asking first. Not even decisions meant to help."
+            wanderer "Agreed."
+            echo "I reserve the right to complain about the wording."
+            mc "Granted."
+        "Tell the Echo he doesn't have to prove he is real.":
+            $ bump('b', 1)
+            mc "You don't have to become visible to deserve a place here."
+            echo "I know that."
+            n "He says it too quickly. After a moment, he looks down at his hands."
+            echo "...I am trying to know it."
+        "Tell the Wanderer that guilt cannot be his only way forward.":
+            $ bump('w', 1)
+            mc "You can take responsibility without making yourself a punishment."
+            wanderer "I don't know how to do that yet."
+            mc "Then learn before dawn."
+            wanderer "Bossy."
+            mc "You noticed."
+            n "His smile is brief, but it arrives without being dragged out of him."
+
+    n "Below, the city lights come on one by one. The Folio opens in the wind, but no page turns. Its remaining paper holds still, as if listening."
+    echo "Four days."
+    wanderer "Four days."
+    mc "We don't have to know the ending tonight."
+    echo "No. But we do have to be here when it comes."
+
 
 label act3_3_7:
     # DAY 27 · SCENE 3.7 · The Rooftop of the Annex · Evening
