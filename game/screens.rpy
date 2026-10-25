@@ -134,8 +134,8 @@ style window:
     xfill True
     yalign gui.textbox_yalign
     ysize gui.textbox_height
-
-    background Image("gui/textbox.png", xalign=0.5, yalign=1.0)
+    padding (0, 0)
+    background Solid("#090b10d9")
 
 style namebox:
     xpos gui.name_xpos
@@ -143,22 +143,25 @@ style namebox:
     xsize gui.namebox_width
     ypos gui.name_ypos
     ysize gui.namebox_height
-
-    background Frame("gui/namebox.png", gui.namebox_borders, tile=gui.namebox_tile, xalign=gui.name_xalign)
-    padding gui.namebox_borders.padding
+    background None
+    padding (0, 0)
 
 style say_label:
     properties gui.text_properties("name", accent=True)
+    color "#f4f0e6"
+    size 25
+    bold False
+    outlines [(1, "#111116cc", 0, 1)]
     xalign gui.name_xalign
     yalign 0.5
 
 style say_dialogue:
     properties gui.text_properties("dialogue")
-
+    color "#f4f2ed"
+    outlines [(1, "#08090dcc", 0, 1)]
     xpos gui.dialogue_xpos
     xsize gui.dialogue_width
     ypos gui.dialogue_ypos
-
     adjust_spacing False
 
 ## Input screen ################################################################
@@ -210,8 +213,8 @@ screen choice(items):
     frame:
         background None
         padding (0, 0)
-        xalign 0.5
-        yalign 0.5
+        xalign 0.73
+        yalign 0.53
         xmaximum gui.choice_button_width + 30
         ymaximum int(config.screen_height * 0.76)
 
@@ -246,14 +249,26 @@ style choice_vbox:
     xalign 0.5
     ypos 0
     yanchor 0
-
-    spacing gui.choice_spacing
+    spacing 12
 
 style choice_button is default:
     properties gui.button_properties("choice_button")
+    xsize gui.choice_button_width
+    xminimum 420
+    yminimum 48
+    padding (24, 12)
+    background Solid("#17191fcf")
+    hover_background Solid("#34363dcc")
+    insensitive_background Solid("#17191f88")
 
 style choice_button_text is default:
     properties gui.text_properties("choice_button")
+    color "#e6e3dc"
+    hover_color "#ffffff"
+    insensitive_color "#777777"
+    xalign 0.5
+    text_align 0.5
+    outlines [(1, "#090a0ecc", 0, 1)]
 
 
 ## Quick Menu screen ###########################################################
