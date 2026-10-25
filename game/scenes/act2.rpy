@@ -139,7 +139,54 @@ label act2_2_4:
         echo "(a very small laugh) It counts. It does. I’d like it to count more."
 
     # END OF PAGE-WALK ONE
-    n "Act 2, Page-Walk Two: Tatarasuna Betrayal of family. The Wanderer steps two paces inside."
+
+    # A quiet return to the present before the next memory.
+    scene bg annex_night
+    with scene_fade
+    $ show_title("INTERLUDE · What the Memory Leaves Behind")
+    play music audio.the_table fadein 1.5
+
+    n "When the page releases you, the room seems too ordinary to be trusted. A lamp. A table. Rain tapping the high windows. The Echo has both hands around his cup, though the tea has gone cold."
+
+    mc "You remembered the ceiling before you remembered anything else."
+    echo "It was there. It didn't ask questions."
+    wanderer "I could have come back."
+    echo "You could have done a great many things."
+    wanderer "I know."
+    echo "Stop saying that as if knowing is the same as having carried it."
+
+    n "The Wanderer looks toward the window. He does not leave. It is not an apology, but it is the first time he stays in a room after being told exactly how he failed."
+
+    menu:
+        "Ask what the memory got wrong.":
+            $ bump("m", 1)
+            mc "A memory can be true and still leave things out. What did it leave out?"
+            echo "The part where I waited for footsteps. Every night, I thought I heard them."
+            wanderer "I did come back once."
+            echo "..."
+            wanderer "I stood outside the door. I heard you counting. I thought if I opened it, I'd have to become someone who knew what to say."
+            echo "So you left."
+            wanderer "Yes."
+            n "The confession does not repair anything. It gives the hurt an actual shape."
+        "Ask the Wanderer to stay until the tea is cold.":
+            $ bump("w", 1)
+            mc "No more explanations tonight. Stay until the tea is cold."
+            wanderer "It already is."
+            echo "Then you have a head start."
+            n "The Wanderer sits. The Echo does not thank him. He does, however, stop watching the door."
+        "Ask the Echo whether he wants the next memory now.":
+            $ bump("b", 1)
+            mc "We can stop before the next door."
+            echo "I know."
+            mc "That wasn't an answer."
+            echo "No. I want to see it. I just don't want him to call my wanting it permission to leave me alone in it."
+            wanderer "I won't."
+            echo "You don't get to promise that on my behalf."
+            wanderer "Then I promise I'll ask."
+
+    n "The Folio lies open between you. Its next page smells faintly of iron and salt. Nobody reaches for it until the rain changes direction."
+
+    n "Act 2, Page-Walk Two: Tatarasuna — betrayal, and the people who tried to make a home anyway."
     $ set_page(18, 12)
     n "DAY 12 · INTERLUDE · The Akademiya Corridor (18 pages left)"
     scene bg green_corridor
