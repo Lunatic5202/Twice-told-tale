@@ -423,7 +423,7 @@ label act2_2_14:
 label act2_2_15:
     # SCENE 2.15 · The Long Winter
     $ show_title("SCENE 2.15\nThe Long Winter")
-    scene bg montage
+    scene bg white_page_dark
     with scene_fade
     play music audio.six_days fadein 2.0  # “Six Days”: the lullaby, now with a heartbeat under it, getting faster.
     echo "I ran for six days. I found every herb the village had a name for."
