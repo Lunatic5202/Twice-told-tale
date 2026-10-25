@@ -5,7 +5,7 @@ label act4_4_1:
     # DAY 28 · SCENE 4.1 · The Archive Annex · Evening
     scene bg annex_evening
     with act_wipe
-    $ set_page(3, 28)
+    $ set_page(2, 28)
     $ show_act("IV", "The Doctor's Hour")
     $ show_title("DAY 28 · SCENE 4.1\nThe Archive Annex · Evening")
     play music audio.what_i_never_said fadein 2.0  # “What I Never Said”: solo piano, slow, one hand.
@@ -59,7 +59,7 @@ label act4_4_1:
 
 label act4_4_2:
     # DAY 29 · SCENE 4.2 · The Roof of the Archive · Night
-    $ set_page(2, 29)
+    $ set_page(1, 29)
     $ show_title("DAY 29 · SCENE 4.2\nThe Roof of the Archive · Night")
     scene bg rooftop_night
     with scene_fade
