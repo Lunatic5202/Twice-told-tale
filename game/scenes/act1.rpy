@@ -465,7 +465,7 @@ label act1_1_6:
     show wanderer soft at at_center with soft_dissolve
 
     wanderer "I tried to erase myself from Irminsul. I thought if I was gone, the things I’d done might be gone too."
-    wanderer "I thought if I could make it so I’d never existed, then none of it would have happened."
+    wanderer "I thought if I disappeared, I could make it someone else’s problem. Or no one’s. I didn’t think past that."
     wanderer "It was a stupid idea. I know that now."
 
     wanderer "It didn\u2019t work. The history rewrote itself the same way without me. Everyone I\u2019d hurt was still hurt. Everyone who died was still dead. Only I disappeared. And then I came back."
