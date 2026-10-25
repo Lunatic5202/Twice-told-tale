@@ -29,13 +29,13 @@ init python:
         if stat == "w":
             store.w += amount
             if amount > 0:
-                toast_stat("The Wanderer lets you a little closer.", "#6fd3c7")
+                toast_stat("The Wanderer trusts you a little more.", "#6fd3c7")
             elif amount < 0:
                 toast_stat("The Wanderer draws back.", "#6fd3c7")
         elif stat == "b":
             store.b += amount
             if amount > 0:
-                toast_stat("The Echo lets the silence stand.", "#b06bd6")
+                toast_stat("The Echo lets you closer.", "#b06bd6")
             elif amount < 0:
                 toast_stat("The Echo shuts you out.", "#b06bd6")
         elif stat == "m":
