@@ -383,22 +383,22 @@ label act1_1_5b:
 
     n "You find the Wanderer in the narrow aisle between the shelves. He has taken the Folio from the table but has not opened it. The Echo stands at the far end of the aisle, pretending to inspect a book whose title is upside down."
 
-    mc "You both said something honest. Neither of you said what happens next."
+    mc "You both managed one honest sentence. What am I supposed to do with that?"
 
     wanderer "There isn't a next. There is a list of things we don't touch."
-    echo "His list. He made it years ago. It is very comprehensive. It includes doors, names, and any question with more than one answer."
+    echo "His list. Very thorough. Names, doors, anything he can’t answer in one word."
 
     wanderer "You want the list? Fine. I don't open the pages about Tatarasuna unless I have to. I don't speak about the puppet before the Shogun gave him a name. I don't—"
     echo "You don't say my name."
 
-    n "The Wanderer stops. His fingers press into the cover until the leather bends."
+    n "The Wanderer’s thumb catches on the edge of the cover. He keeps worrying at the same spot until the leather starts to crease."
 
     wanderer "I don't know which name is mine to give you."
-    echo "You could start with the one you used when you wanted me to come back."
-    wanderer "I never asked you to come back."
-    echo "Exactly."
+    echo "You knew what to call me before."
+    wanderer "I didn’t ask you to come back."
+    echo "No. You didn’t."
 
-    n "The word lands harder than a shout. For a moment, even the lamp seems to quiet."
+    n "The Echo looks away first. The Wanderer opens his mouth, then shuts it again. Somewhere outside, a cart rattles over the stones."
 
     menu:
         "Ask the Wanderer to open one page—not the worst one, just one.":
@@ -406,9 +406,9 @@ label act1_1_5b:
             $ bump("m", 1)
             mc "Not the whole story. One page. You can stop whenever you need to."
             wanderer "And if he reads it?"
-            echo "I am standing right here."
-            wanderer "That is what I am afraid of."
-            echo "(after a pause) I know."
+            echo "I’m standing right here."
+            wanderer "I know. That’s the problem."
+            echo "(quietly) I know."
             n "The Wanderer opens the Folio to a page of ordinary handwriting: a list of repairs, a note about rain, a sentence crossed out so thoroughly it has cut the paper."
             wanderer "I remember writing this. I don't remember why I crossed it out."
             mc "Then we don't have to decide tonight."
@@ -418,7 +418,7 @@ label act1_1_5b:
             mc "If you could read every page, what would you be looking for?"
             echo "Proof."
             mc "Of what?"
-            echo "That I was not only the part he regretted."
+            echo "That I wasn’t just the part he wanted gone."
             n "He looks at the Wanderer as if daring him to contradict it."
             wanderer "You were never only that."
             echo "You don't get to make that true by saying it now."
@@ -450,7 +450,7 @@ label act1_montage:
 
     n "The Echo \u201creviews\u201d the Akademiya\u2019s architecture aloud to a lecture hall. A professor takes notes."
 
-    n "The Wanderer teaches MC to brew tea at the correct temperature. The Echo steals the first cup."
+    n "The Wanderer shows you how hot the water should be. The Echo takes the first cup before anyone can stop him, burns his tongue, and blames the kettle."
 
     jump act1_1_6
 
@@ -464,7 +464,7 @@ label act1_1_6:
     play music audio.which_of_us fadein 2.0
     show wanderer soft at at_center with soft_dissolve
 
-    wanderer "I tried to erase myself, once. From Irminsul. From history. To undo what had happened."
+    wanderer "I tried to erase myself from Irminsul. I thought if I was gone, the things I’d done might be gone too."
     wanderer "I thought if I could make it so I’d never existed, then none of it would have happened."
     wanderer "It was a stupid idea. I know that now."
 
