@@ -223,7 +223,7 @@ screen choice(items):
         viewport:
             id "choice_viewport"
             yinitial 0.0
-            ymaximum int(config.screen_height * 0.94)
+            ymaximum int(config.screen_height * 0.88)
             yfill False
             mousewheel True
             arrowkeys True
