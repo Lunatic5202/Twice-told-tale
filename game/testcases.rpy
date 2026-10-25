@@ -34,6 +34,10 @@ testcase smoke:
     advance until screen "choice"
     click "not ready"
 
+    # Act 1.5B adds a menu before the rooftop scene.
+    advance until screen "choice"
+    click "Ask the Wanderer to open one page"
+
     advance until screen "choice"
     click "both real"
 
@@ -146,6 +150,9 @@ testcase progress:
     click "Can I try"
     advance until screen "choice"
     click "not ready"
+    # Act 1.5B adds a menu before the rooftop scene.
+    advance until screen "choice"
+    click "Ask the Wanderer to open one page"
     advance until screen "choice"
     click "both real"
     advance until screen "choice"
