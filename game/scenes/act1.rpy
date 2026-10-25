@@ -31,6 +31,7 @@ label act1_1_1:
 
     # [CG: Nahida between the two of them, a hand raised like a teacher
     #  quieting a classroom.]
+    $ show_cg_achievement("nahida_between")
     scene cg nahida_between with soft_dissolve
     pause
     scene bg annex_day with soft_dissolve
@@ -200,6 +201,7 @@ label act1_1_3:
 
     # [CG: The Wanderer, standing at the end of the table, looking at the soup.
     #  Not at the people. At the soup.]
+    $ show_cg_achievement("wanderer_soup")
     scene cg wanderer_soup with soft_dissolve
     pause
     scene bg dining_evening with soft_dissolve
@@ -534,6 +536,7 @@ label act1_1_7:
 
     # [CG: A door in the margin, edged in gold ink. Beyond it, mist and the
     #  smell of wet stone.]
+    $ show_cg_achievement("margin_door")
     scene cg margin_door with door_blinds
     pause
     scene bg annex_dawn with soft_dissolve
