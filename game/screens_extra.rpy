@@ -492,7 +492,8 @@ screen achievement_unlocked_notify(title="", description="", emblem="✧"):
                     color "#d7d0c2"
                     xmaximum 380
 
-    timer 3.8 action Function(advance_cg_achievement)
+    # Auto-dismiss after a short pause, then advance to the next queued banner.
+    timer 3.8 action [Hide("achievement_unlocked_notify"), Function(advance_cg_achievement)]
 
 
 ## ----------------------------------------------------------------------------
