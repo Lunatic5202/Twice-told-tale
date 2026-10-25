@@ -189,5 +189,5 @@ screen credits_roll():
 
     textbutton _("Return"):
         xalign 0.985
-        yalign 0.02
+        yalign 0.96
         action Return()
