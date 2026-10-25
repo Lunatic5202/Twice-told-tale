@@ -88,6 +88,22 @@ init python:
     def gate_scaramouche():
         return b >= 5 and b > w
 
+    ## Special endings use the same named gates in the last-page menu and tests.
+    def gate_gnosis_box():
+        return box
+
+    def gate_burned_pages():
+        return promise_made and pen >= 3
+
+    def gate_blank_page():
+        return pen >= 3
+
+    def gate_burn_it_down():
+        return pen >= 2
+
+    def gate_quiet_page():
+        return promise_made and pen < 3
+
     def ending_destination():
         """Return the automatic ending selected by the canonical gate order."""
         if gate_true():
