@@ -210,18 +210,21 @@ style input:
 screen choice(items):
     style_prefix "choice"
 
+    # Keep choices on the middle-right with a fixed right margin.
+    # The viewport scrolls when there are more choices than can fit.
     frame:
         background None
         padding (0, 0)
-        xalign 0.73
-        yalign 0.53
+        xpos int(config.screen_width * 0.96)
+        xanchor 1.0
+        yalign 0.5
         xmaximum gui.choice_button_width + 30
-        ymaximum int(config.screen_height * 0.76)
+        ymaximum int(config.screen_height * 0.78)
 
         viewport:
             id "choice_viewport"
             yinitial 0.0
-            ymaximum int(config.screen_height * 0.76)
+            ymaximum int(config.screen_height * 0.78)
             yfill False
             mousewheel True
             arrowkeys True
@@ -254,12 +257,12 @@ style choice_vbox:
 style choice_button is default:
     properties gui.button_properties("choice_button")
     xsize gui.choice_button_width
-    xminimum 420
-    yminimum 48
-    padding (24, 12)
-    background Solid("#111827b8")
+    xminimum 0
+    yminimum 64
+    padding (32, 14)
+    background Transform("gui/choice_genshin.png", xysize=(gui.choice_button_width, 72))
     hover_background Transform("gui/choice_hover_genshin.png", xysize=(gui.choice_button_width, 72))
-    insensitive_background Solid("#11182780")
+    insensitive_background Transform("gui/choice_genshin.png", xysize=(gui.choice_button_width, 72))
 
 style choice_button_text is default:
     properties gui.text_properties("choice_button")
