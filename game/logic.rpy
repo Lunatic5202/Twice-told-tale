@@ -7,13 +7,6 @@
 
 init python:
 
-    def _signed(n):
-        """Format a stat delta as +N / -N using a typographic minus."""
-        if n >= 0:
-            return "+%d" % n
-        else:
-            return "\u2212%d" % (-n)
-
     def toast_stat(text, color="#ffffff"):
         """Show a stat cue, queueing it if another cue is still on screen."""
         if renpy.get_screen("stat_toast"):
@@ -42,7 +35,7 @@ init python:
         if stat == "w":
             store.w += amount
             if amount > 0:
-                toast_stat("The Wanderer trusts you a little more.", "#6fd3c7")
+                toast_stat("The Wanderer is willing to hear you out.", "#6fd3c7")
             elif amount < 0:
                 toast_stat("The Wanderer draws back.", "#6fd3c7")
         elif stat == "b":
