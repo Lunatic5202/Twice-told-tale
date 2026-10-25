@@ -210,22 +210,21 @@ style input:
 screen choice(items):
     style_prefix "choice"
 
-    # Keep choices on the middle-right with a fixed right margin.
+    # Anchor the choice stack at the bottom-center of the screen.
     # The viewport scrolls when there are more choices than can fit.
     frame:
         background None
         padding (0, 0)
-        xpos int(config.screen_width * 0.96)
-        xanchor 1.0
-        yalign 0.5
-        # Tiny upward adjustment to keep the final button's bottom edge visible.
-        yoffset -10
+        xalign 0.5
+        yalign 1.0
+        # Keep a little breathing room from the bottom edge.
+        yoffset -24
         xmaximum gui.choice_button_width + 30
 
         viewport:
             id "choice_viewport"
-            yinitial 0.0
-            ymaximum int(config.screen_height * 0.88)
+            yinitial 1.0
+            ymaximum int(config.screen_height * 0.44)
             yfill False
             mousewheel True
             arrowkeys True
