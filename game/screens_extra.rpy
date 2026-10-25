@@ -424,93 +424,81 @@ screen act_title(roman="I", title="", kicker="ACT"):
 
 
 ## ----------------------------------------------------------------------------
-## Page-recorded banner
+## CG achievement notification
 ## ----------------------------------------------------------------------------
-## A compact, Inazuma-inspired Folio notice. This is intentionally separate
-## from Ren'Py's generic notify screen so quicksaves and screenshots keep their
-## familiar feedback. Notices are queued by logic.rpy and shown one at a time.
+## A compact, Genshin-inspired achievement toast. Each CG calls its own named
+## achievement from the story script; it is not tied to the page counter.
 
-transform page_recorded_appear:
+transform achievement_unlocked_appear:
     subpixel True
     on show:
-        xoffset 420
+        xoffset 520
         alpha 0.0
         parallel:
-            easeout 0.38 xoffset 0
+            easeout 0.42 xoffset 0
         parallel:
-            easeout 0.30 alpha 1.0
+            easeout 0.32 alpha 1.0
     on hide:
         parallel:
-            easein 0.28 xoffset 280
+            easein 0.30 xoffset 420
         parallel:
-            easein 0.28 alpha 0.0
+            easein 0.30 alpha 0.0
 
-screen page_recorded_notify(message="A page has been preserved in the Folio."):
+screen achievement_unlocked_notify(title="", description="", emblem="✧"):
     zorder 180
 
-    if preferences.transitions:
-        frame:
-            at page_recorded_appear
-            xalign 0.985
-            yalign 0.105
-            xmaximum 560
-            background Solid("#101018e8")
-            padding (18, 12)
+    frame:
+        at achievement_unlocked_appear
+        xalign 0.99
+        yalign 0.095
+        xmaximum 620
+        background Solid("#111018ed")
+        padding (18, 14)
 
-            hbox:
-                spacing 14
+        hbox:
+            spacing 16
 
-                text "❧":
+            frame:
+                xysize (68, 68)
+                background Solid("#2b251b")
+                padding (2, 2)
+                xalign 0.5
+                yalign 0.5
+
+                text "[emblem]":
+                    xalign 0.5
+                    yalign 0.5
                     font gui.display_font
                     size 38
-                    color "#d9bd7b"
-                    yalign 0.5
+                    color "#e8c978"
+                    outlines [(1, "#5b4522", 0, 0)]
 
-                vbox:
-                    spacing 3
+            vbox:
+                xmaximum 490
+                spacing 4
+                yalign 0.5
 
-                    text "PAGE RECORDED":
-                        font gui.title_font
-                        size 20
-                        color "#e4ca8b"
+                text "ACHIEVEMENT UNLOCKED":
+                    font gui.title_font
+                    size 17
+                    color "#e7c77e"
+                    kerning 2
 
-                    text "[message]":
-                        font gui.interface_text_font
-                        size 16
-                        color "#eee8da"
-                        xmaximum 465
-    else:
-        frame:
-            xalign 0.985
-            yalign 0.105
-            xmaximum 560
-            background Solid("#101018e8")
-            padding (18, 12)
+                add "gui/overlay/rule_gold.png":
+                    xysize (410, 2)
 
-            hbox:
-                spacing 14
+                text "[title]":
+                    font gui.title_font
+                    size 24
+                    color "#fff6df"
 
-                text "❧":
-                    font gui.display_font
-                    size 38
-                    color "#d9bd7b"
-                    yalign 0.5
+                text "[description]":
+                    font gui.interface_text_font
+                    size 16
+                    color "#d7d0c2"
+                    xmaximum 480
 
-                vbox:
-                    spacing 3
-
-                    text "PAGE RECORDED":
-                        font gui.title_font
-                        size 20
-                        color "#e4ca8b"
-
-                    text "[message]":
-                        font gui.interface_text_font
-                        size 16
-                        color "#eee8da"
-                        xmaximum 465
-
-    timer 3.4 action Function(advance_page_recorded)
+    timer 4.2 action Function(advance_cg_achievement)
 
 
 ## ----------------------------------------------------------------------------
