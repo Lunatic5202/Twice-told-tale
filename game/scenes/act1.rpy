@@ -354,7 +354,7 @@ label act1_1_5:
         "They are both looking at you."
 
         "\u201cHe\u2019s right. You\u2019re not ready.\u201d":
-            $ bump("w", 1)
+            $ bump("m", -1)
             echo "Ah. So you\u2019re his."
             wanderer "(not meeting her eyes) ...That isn\u2019t what she said."
 
