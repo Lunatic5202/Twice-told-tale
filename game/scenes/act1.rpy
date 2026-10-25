@@ -345,6 +345,71 @@ label act1_1_5:
             echo "One honest thing. (Pause) I don\u2019t know who I am if I\u2019m not angry."
             wanderer "(after a long time) I don\u2019t know who I am if I\u2019m not tired."
 
+
+    jump act1_1_5b
+
+
+label act1_1_5b:
+    # DAY 5 · SCENE 1.5B · The Archive Annex · Later That Night
+    $ show_title("DAY 5 · SCENE 1.5B\nAn Unfinished Inventory")
+    scene bg annex_night
+    with scene_fade
+    play music audio.what_he_can_t_read fadein 1.5
+
+    n "The argument should have ended there. Instead, it leaves a shape in the room, like a chair pulled out and nobody willing to sit in it."
+
+    n "You find the Wanderer in the narrow aisle between the shelves. He has taken the Folio from the table but has not opened it. The Echo stands at the far end of the aisle, pretending to inspect a book whose title is upside down."
+
+    mc "You both said something honest. Neither of you said what happens next."
+
+    wanderer "There isn't a next. There is a list of things we don't touch."
+    echo "His list. He made it years ago. It is very comprehensive. It includes doors, names, and any question with more than one answer."
+
+    wanderer "You want the list? Fine. I don't open the pages about Tatarasuna unless I have to. I don't speak about the puppet before the Shogun gave him a name. I don't—"
+    echo "You don't say my name."
+
+    n "The Wanderer stops. His fingers press into the cover until the leather bends."
+
+    wanderer "I don't know which name is mine to give you."
+    echo "You could start with the one you used when you wanted me to come back."
+    wanderer "I never asked you to come back."
+    echo "Exactly."
+
+    n "The word lands harder than a shout. For a moment, even the lamp seems to quiet."
+
+    menu:
+        "Ask the Wanderer to open one page—not the worst one, just one.":
+            $ bump("w", 1)
+            $ bump("m", 1)
+            mc "Not the whole story. One page. You can stop whenever you need to."
+            wanderer "And if he reads it?"
+            echo "I am standing right here."
+            wanderer "That is what I am afraid of."
+            echo "(after a pause) I know."
+            n "The Wanderer opens the Folio to a page of ordinary handwriting: a list of repairs, a note about rain, a sentence crossed out so thoroughly it has cut the paper."
+            wanderer "I remember writing this. I don't remember why I crossed it out."
+            mc "Then we don't have to decide tonight."
+            echo "No. But leave it open."
+        "Ask the Echo what he hopes to find in the pages.":
+            $ bump("b", 1)
+            mc "If you could read every page, what would you be looking for?"
+            echo "Proof."
+            mc "Of what?"
+            echo "That I was not only the part he regretted."
+            n "He looks at the Wanderer as if daring him to contradict it."
+            wanderer "You were never only that."
+            echo "You don't get to make that true by saying it now."
+            wanderer "I know."
+        "Close the Folio and insist they both get some rest.":
+            $ bump("m", 1)
+            mc "You can keep hurting each other tomorrow. Tonight, you can at least stop doing it in the library."
+            echo "A tyrant. At last, someone has brought order to this wretched institution."
+            wanderer "You first."
+            echo "I was here first."
+            n "Neither moves. Eventually, you put the kettle on, and the argument loses its audience."
+
+    n "Later, when the lamp is low, you find a scrap of paper tucked beneath your cup. In a hand almost—but not quite—the Wanderer's, someone has written: 'I remember the door. I don't remember asking it to close.'"
+
     jump act1_montage
 
 
