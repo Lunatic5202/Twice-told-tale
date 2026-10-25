@@ -200,7 +200,7 @@ transform breathe(min_z=1.0, max_z=0.985, period=2.6):
 ## "Made by Lunatic" fades in, holds, then fades out.
 style splash_byline_text is gui_text:
     font gui.display_font
-    size gui.scale(46)
+    size 46
     color "#ece5d3"
     outlines [(3, "#0a0a14cc", 0, 0)]
 
