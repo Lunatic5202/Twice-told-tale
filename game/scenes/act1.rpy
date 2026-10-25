@@ -353,7 +353,7 @@ label act1_1_5b:
     # DAY 5 · SCENE 1.5B · The Archive Annex · Later That Night
     $ show_title("DAY 5 · SCENE 1.5B\nAn Unfinished Inventory")
     scene bg annex_night
-    with scene_fade
+    with soft_dissolve
     play music audio.what_he_can_t_read fadein 1.5
 
     n "The argument should have ended there. Instead, it leaves a shape in the room, like a chair pulled out and nobody willing to sit in it."
