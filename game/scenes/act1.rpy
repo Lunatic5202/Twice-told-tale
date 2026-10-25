@@ -446,7 +446,8 @@ label act1_montage:
     show echo amused at at_left with soft_dissolve
     show wanderer flustered at at_right with soft_dissolve
 
-    n "The Echo and the Wanderer fight over the window seat. The Echo wins by sitting on the Wanderer\u2019s hat."
+    n "The Echo takes the window seat because the light is better. The Wanderer says he was there first. Neither of them was."
+    n "The argument ends when the Echo sits on the Wanderer’s hat by accident. He gets up at once and spends the next five minutes insisting it was deliberate."
 
     n "The Echo \u201creviews\u201d the Akademiya\u2019s architecture aloud to a lecture hall. A professor takes notes."
 
