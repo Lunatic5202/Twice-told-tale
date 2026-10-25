@@ -309,8 +309,9 @@ label act2_2_9:
     echo "She said “immediately.” I believed her for one whole night."
 
 label act2_2_10:
-    # SCENE 2.10 · The Page as He Remembers It
-    $ show_title("SCENE 2.10\nThe Page as He Remembers It")
+    # DAY 15 · SCENE 2.10 · The Page as He Remembers It
+    $ set_page(15, 15)
+    $ show_title("DAY 15 · SCENE 2.10\nThe Page as He Remembers It")
     scene bg furnace_yard_warped
     with soft_wipe
     play music audio.what_i_remember fadein 2.0  # “What I Remember”: the Escher motif, played slowly and wrongly.
@@ -328,8 +329,9 @@ label act2_2_10:
     echo "I have thought about it for five hundred years. He left. He left me a heart in a box and he left."
 
 label act2_2_11:
-    # SCENE 2.11 · The Truth Page
-    $ show_title("SCENE 2.11\nThe Truth Page")
+    # DAY 16 · SCENE 2.11 · The Truth Page
+    $ set_page(14, 16)
+    $ show_title("DAY 16 · SCENE 2.11\nThe Truth Page")
     # The red fades. The ink on the page turns white, then silver. The warping stops. Everything is suddenly, painfully clear.
     play music audio.what_was_written fadein 2.0  # “What Was Written”: solo cello, bare.
     scene bg furnace_room
@@ -437,8 +439,9 @@ label act2_2_13:
     wanderer "...Perhaps."
 
 label act2_2_14:
-    # SCENE 2.14 · A House at the Edge of Tatarasuna
-    $ show_title("SCENE 2.14\nA House at the Edge of Tatarasuna")
+    # DAY 19 · SCENE 2.14 · A House at the Edge of Tatarasuna
+    $ set_page(11, 19)
+    $ show_title("DAY 19 · SCENE 2.14\nA House at the Edge of Tatarasuna")
     scene bg small_house
     with scene_fade
     # A boy of about eight sits propped against pillows, wrapped in a blanket twice his size. A barefoot puppet is trying, and failing, to cook rice.
@@ -468,8 +471,9 @@ label act2_2_14:
     puppet "...Promise."
 
 label act2_2_15:
-    # SCENE 2.15 · The Long Winter
-    $ show_title("SCENE 2.15\nThe Long Winter")
+    # DAY 20 · SCENE 2.15 · The Long Winter
+    $ set_page(10, 20)
+    $ show_title("DAY 20 · SCENE 2.15\nThe Long Winter")
     scene bg montage
     with scene_fade
     play music audio.six_days fadein 2.0  # “Six Days”: the lullaby, now with a heartbeat under it, getting faster.
