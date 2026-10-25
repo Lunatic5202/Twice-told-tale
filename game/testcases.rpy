@@ -196,6 +196,16 @@ init python:
         actual = ending_destination()
         assert actual == expected, "expected %r, got %r" % (expected, actual)
 
+    def _assert_special_gates(expected):
+        actual = (
+            gate_gnosis_box(),
+            gate_burned_pages(),
+            gate_blank_page(),
+            gate_burn_it_down(),
+            gate_quiet_page(),
+        )
+        assert actual == expected, "expected special gates %r, got %r" % (expected, actual)
+
     def _set_story_flags(promise, opened_alone):
         store.promise_made = promise
         store.box = opened_alone
@@ -348,6 +358,22 @@ testcase gates:
     run Function(_set_stats, 5, 5, 7, 1, True)
     run Function(_assert_gate, "true")
     run Function(_assert_ending_target, "ending_true")
+
+    # Special-ending boundaries: case flag, Pen thresholds, and promise state.
+    $ store.box = False
+    run Function(_set_stats, 0, 0, 0, 0, False)
+    run Function(_assert_special_gates, (False, False, False, False, False))
+    $ store.box = True
+    run Function(_assert_special_gates, (True, False, False, False, False))
+    $ store.box = False
+    run Function(_set_stats, 0, 0, 0, 2, False)
+    run Function(_assert_special_gates, (False, False, False, True, False))
+    run Function(_set_stats, 0, 0, 0, 3, False)
+    run Function(_assert_special_gates, (False, False, True, True, False))
+    run Function(_set_stats, 0, 0, 0, 3, True)
+    run Function(_assert_special_gates, (False, True, True, True, False))
+    run Function(_set_stats, 0, 0, 0, 2, True)
+    run Function(_assert_special_gates, (False, False, False, True, True))
     exit
 
 
