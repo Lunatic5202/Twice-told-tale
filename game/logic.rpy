@@ -15,9 +15,22 @@ init python:
             return "\u2212%d" % (-n)
 
     def toast_stat(text, color="#ffffff"):
-        """Show the stat-change toast (screens_extra.rpy)."""
-        renpy.show_screen("stat_toast", text=text, color=color)
-        renpy.restart_interaction()
+        """Show a stat cue, queueing it if another cue is still on screen."""
+        if renpy.get_screen("stat_toast"):
+            store.stat_toast_queue.append((text, color))
+        else:
+            renpy.show_screen("stat_toast", text=text, color=color)
+            renpy.restart_interaction()
+
+    def advance_stat_toast():
+        """Advance to the next queued cue instead of dropping a simultaneous change."""
+        if store.stat_toast_queue:
+            text, color = store.stat_toast_queue.pop(0)
+            renpy.show_screen("stat_toast", text=text, color=color)
+            renpy.restart_interaction()
+        else:
+            renpy.hide_screen("stat_toast")
+            renpy.restart_interaction()
 
     def bump(stat, amount=1):
         """
