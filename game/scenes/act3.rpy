@@ -33,7 +33,6 @@ label act3_3_1:
             $ bump('w', 1)
         "Open it alone, behind the pillar, quickly.":
             $ _sel_8 = "C"
-            $ bump('m', 1)
 
     if _sel_8 == 'A':
         # You hold it between the three of you. The brass clicks.
