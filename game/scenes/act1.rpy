@@ -15,11 +15,12 @@ label act1_1_1:
 
     wanderer "...No. No. I haven\u2019t had enough tea for this."
 
-    echo "Quill. Who is the child in my hat?"
+    echo "Quill. Why is there a smaller, badly colored version of me standing over there?"
 
-    wanderer "It is not your hat."
+    wanderer "It’s not your hat."
 
-    echo "It is plainly based on my hat. And the colors are an insult. Teal. Did you lose a bet?"
+    echo "It is plainly based on my hat. The colors, though. Teal?" 
+echo "Did someone lose a bet, or is this meant to be funny?"
 
     wanderer "Hmph. I\u2019m leaving."
 
@@ -39,27 +40,36 @@ label act1_1_1:
 
     nahida "Good morning, both of you. Please don\u2019t kill each other before I\u2019ve finished explaining. It\u2019s rude to the carpets."
 
-    nahida "Wanderer, that Folio holds the story of what I kept of you. Not the memories themselves, but the tale of them, written in a form nobody else could read. It was never meant to hold two."
+    nahida "Wanderer, the Folio contains the record I kept of you. Not your memories exactly. More like the shape they left behind." 
+nahida "It was sealed because it wasn’t safe to read. And it was never meant to contain two versions of the same person."
 
     wanderer "Two."
 
-    nahida "A tale can be told twice. Someone has told it twice."
+    nahida "I don’t know how it happened. I know the book has been changed, and I know you’re both here."
 
     # [She looks at MC. Both men look at MC.]
 
-    mc "I wrote one word."
+    mc "I changed one word. I didn’t know it could—" 
+wanderer "You keep saying that." 
+mc "Because it’s true." 
+wanderer "I know. That doesn’t make it better."
 
     nahida "Which one?"
 
     mc "\u201cStayed.\u201d"
 
-    nahida "Well. That explains the draft."
+    nahida "That explains why the ink hasn’t settled." 
+nahida "It doesn’t explain why it made a person."
 
-    echo "Spare me the metaphors, little god. What am I?"
+    echo "Can we skip the part where you talk around it? What am I?"
 
-    nahida "You are him, in the instant before he put his hand into Irminsul. Everything he knew then, you know. Everything he learned afterward, you do not."
+    nahida "You’re him as he was before Irminsul. You have his memories up to that point." 
+nahida "The Wanderer remembers what happened after. You don’t."
 
-    echo "Then I am the original. He is the revision."
+    echo "So I’m the original." 
+wanderer "You’re earlier." 
+echo "That’s what original means." 
+wanderer "Not when you’re talking about people."
 
     wanderer "You\u2019re the draft."
 
@@ -68,7 +78,8 @@ label act1_1_1:
     # [A beat. They stare at each other the way two people stare into a mirror
     #  that talks back.]
 
-    nahida "The Folio has thirty pages. One burns each dawn. When the last one goes, the record keeps one name. I have looked, and it cannot keep both."
+    nahida "There are thirty pages. One burns at dawn, whether we touch the book or not." 
+nahida "When the last page is gone, the Folio will keep one name. I’ve tried to find another way. I haven’t."
 
     wanderer "Then burn it now."
 
@@ -76,7 +87,11 @@ label act1_1_1:
 
     # [The Wanderer's jaw tightens. He says nothing.]
 
-    nahida "One more thing. The Pen can rewrite what the book says. Every line it changes takes the next page with it. Use it sparingly. Or not at all."
+    nahida "The Pen can change the text. Each change costs a page." 
+mc "You could have mentioned that before I used it." 
+nahida "I didn’t know you would." 
+mc "Neither did I." 
+nahida "I know."
 
     nahida "And no one outside this room learns that there are two. Not yet. The Doctor reads Irminsul the way you read menus."
 
@@ -113,9 +128,12 @@ label act1_1_2:
     show echo amused at at_far_left_crowd with soft_dissolve
     show wanderer guarded at at_far_right_crowd with soft_dissolve
 
-    n "The Echo cannot go more than forty paces from the Folio. The Wanderer will not let the Echo out of his sight. So the Folio goes to lunch, and everyone goes with it."
+    n "The Echo can’t get more than forty paces from the Folio. The Wanderer insists on keeping him in sight. By noon, this means the book has been carried to the courtyard, along with everyone who has made the mistake of getting involved."
 
-    echo "I have walked into a hundred courts. This is the first one with a duck in it."
+    echo "Is that a duck?" 
+wanderer "Student." 
+echo "It has a beak." 
+wanderer "So do some students, if you ask the wrong professor."
 
     wanderer "The duck is a student."
 
@@ -132,19 +150,19 @@ label act1_1_2:
 
     cyno "Oh, I see. A double act. I\u2019d say that\u2019s a hat trick."
 
-    tighnari "Cyno."
+    tighnari "Please don’t encourage yourself."
 
-    cyno "I was building to it."
+    cyno "It needed a little more time."
 
     # [Tighnari's eyes pass over the Echo. Nothing. No flicker. He does not
     #  know him at all.]
     # [The Echo's smile slips for half a second.]
 
-    echo "The ranger. You look well."
+    echo "You look well."
 
-    tighnari "Have we met?"
+    tighnari "Should we have?"
 
-    echo "...No."
+    echo "...No. Sorry."
 
     # [SFX: A faint chime, like a page turning.]
     play sound audio.sfx_page
@@ -198,7 +216,7 @@ label act1_1_3:
 
     wanderer "I don\u2019t need to eat. That\u2019s different."
 
-    n "He has watched dinner tables for as long as he has had eyes. People lean toward each other across them. They pass the salt without asking."
+    n "The Wanderer has no use for dinner. He says this whenever someone offers him food, which is often enough that people have stopped asking. Still, he keeps looking at the empty place across from him."
 
     # [MC sets two places. Then, after a moment, a third.]
 
@@ -212,13 +230,16 @@ label act1_1_3:
 
     # [SFX: A teapot, a poured cup. Steam.]
 
-    wanderer "Try the tea."
+    wanderer "You’re holding the cup wrong." 
+echo "I’m holding it by the handle." 
+wanderer "You’re holding it like you expect it to insult you."
 
     echo "It\u2019s bitter."
 
     wanderer "That\u2019s the point."
 
-    echo "It tastes like swallowing something."
+    echo "It tastes like the water the tea was boiled in." 
+wanderer "That is, in fact, how tea is made."
 
     wanderer "It\u2019s the true flavor of life. It takes a while."
 
