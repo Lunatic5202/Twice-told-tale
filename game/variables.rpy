@@ -15,6 +15,7 @@ default m = 0                # Mend (hidden)
 
 ## The Editor's Pen. Each use of the Pen to rewrite the page increments this.
 default pen = 0
+default stat_toast_queue = []  # Queues simultaneous feedback from multi-stat choices.
 
 ## Story flags.
 default fixer = False        # Set when the player uses the Pen to "fix" a hurt.
