@@ -432,36 +432,36 @@ screen act_title(roman="I", title="", kicker="ACT"):
 transform achievement_unlocked_appear:
     subpixel True
     on show:
-        xoffset 520
+        yoffset 34
         alpha 0.0
         parallel:
-            easeout 0.42 xoffset 0
+            easeout 0.32 yoffset 0
         parallel:
-            easeout 0.32 alpha 1.0
+            easeout 0.28 alpha 1.0
     on hide:
         parallel:
-            easein 0.30 xoffset 420
+            easein 0.28 yoffset 24
         parallel:
-            easein 0.30 alpha 0.0
+            easein 0.28 alpha 0.0
 
 screen achievement_unlocked_notify(title="", description="", emblem="✧"):
     zorder 180
 
     frame:
         at achievement_unlocked_appear
-        xalign 0.99
-        yalign 0.095
-        xmaximum 620
-        background Solid("#111018ed")
-        padding (18, 14)
+        xalign 0.5
+        yalign 0.84
+        xmaximum 470
+        background Solid("#111018e8")
+        padding (12, 9)
 
         hbox:
-            spacing 16
+            spacing 11
 
             frame:
-                xysize (68, 68)
-                background Solid("#2b251b")
-                padding (2, 2)
+                xysize (44, 44)
+                background Solid("#292319")
+                padding (1, 1)
                 xalign 0.5
                 yalign 0.5
 
@@ -469,36 +469,30 @@ screen achievement_unlocked_notify(title="", description="", emblem="✧"):
                     xalign 0.5
                     yalign 0.5
                     font gui.display_font
-                    size 38
+                    size 26
                     color "#e8c978"
                     outlines [(1, "#5b4522", 0, 0)]
 
             vbox:
-                xmaximum 490
-                spacing 4
+                xmaximum 385
+                spacing 2
                 yalign 0.5
-
-                text "ACHIEVEMENT UNLOCKED":
-                    font gui.title_font
-                    size 17
-                    color "#e7c77e"
-                    kerning 2
-
-                add "gui/overlay/rule_gold.png":
-                    xysize (410, 2)
 
                 text "[title]":
                     font gui.title_font
-                    size 24
-                    color "#fff6df"
+                    size 20
+                    color "#fff0c9"
+
+                add "gui/overlay/rule_gold.png":
+                    xysize (300, 1)
 
                 text "[description]":
                     font gui.interface_text_font
-                    size 16
+                    size 14
                     color "#d7d0c2"
-                    xmaximum 480
+                    xmaximum 380
 
-    timer 4.2 action Function(advance_cg_achievement)
+    timer 3.8 action Function(advance_cg_achievement)
 
 
 ## ----------------------------------------------------------------------------
