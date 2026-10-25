@@ -237,11 +237,11 @@ screen choice(items):
                     if persistent.reduce_motion:
                         textbutton i.caption:
                             action i.action
-                            text_size (30 if len(i.caption) <= 35 else 26 if len(i.caption) <= 55 else 22 if len(i.caption) <= 75 else 19)
+                            text_size (30 if len(i.caption) <= 25 else 24 if len(i.caption) <= 35 else 20 if len(i.caption) <= 45 else 18 if len(i.caption) <= 60 else 16)
                     else:
                         textbutton i.caption:
                             action i.action
-                            text_size (30 if len(i.caption) <= 35 else 26 if len(i.caption) <= 55 else 22 if len(i.caption) <= 75 else 19)
+                            text_size (30 if len(i.caption) <= 25 else 24 if len(i.caption) <= 35 else 20 if len(i.caption) <= 45 else 18 if len(i.caption) <= 60 else 16)
                             at choice_in(idx * 0.06), focus_lift
 
 
