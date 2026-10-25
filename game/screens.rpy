@@ -239,9 +239,11 @@ screen choice(items):
                     if persistent.reduce_motion:
                         textbutton i.caption:
                             action i.action
+                            text_size (26 if len(i.caption) > 55 else 30)
                     else:
                         textbutton i.caption:
                             action i.action
+                            text_size (26 if len(i.caption) > 55 else 30)
                             at choice_in(idx * 0.06), focus_lift
 
 
@@ -270,8 +272,8 @@ style choice_button_text is default:
     color "#e8e5df"
     hover_color "#fff4d2"
     insensitive_color "#777777"
-    xoffset 14
-    yoffset 3
+    xoffset 20
+    yoffset 6
     xalign 0.5
     text_align 0.5
     outlines [(1, "#090a0ecc", 0, 1)]
