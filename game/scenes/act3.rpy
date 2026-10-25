@@ -17,6 +17,7 @@ label act3_3_1:
     mc "So he wants us to find him."
     echo "Or he wants us to think we found him. Either way, don’t walk in first."
     # A courier in a gray coat crosses the plaza and presses a small flat case into your hands before you can step away. He is gone into the crowd by the time you look up.
+    $ show_cg_achievement("black_case")
     scene cg black_case
     with iris_open
     wanderer "Don’t."
@@ -36,6 +37,7 @@ label act3_3_1:
 
     if _sel_8 == 'A':
         # You hold it between the three of you. The brass clicks.
+        $ show_cg_achievement("gnosis_violet")
         scene cg gnosis_violet
         with iris_open
         play sound audio.sfx_chime
@@ -45,6 +47,7 @@ label act3_3_1:
     elif _sel_8 == 'B':
         wanderer "(taking it, surprised) ...Thank you."
         # He opens it with two fingers, as one handles something dead.
+        $ show_cg_achievement("gnosis_violet")
         scene cg gnosis_violet
         with iris_open
         play sound audio.sfx_chime
@@ -59,6 +62,7 @@ label act3_3_1:
         echo "(very quietly) That’s mine."
         wanderer "That’s ours."
         echo "(a sound that is almost a laugh) Don’t. Don’t make it ours now."
+        $ show_cg_achievement("gnosis_violet")
         scene cg gnosis_violet
         with iris_open
         # A note lies folded beneath it.
@@ -252,6 +256,7 @@ label act3_3_4:
     with scene_fade
     with shake
     dottore "(over a speaker, cheerful) I said I wanted to talk. I never said you could leave whenever you liked."
+    $ show_cg_achievement("glass_cell")
     scene cg glass_cell
     with iris_open
     if _sel_9 == "A":
@@ -324,6 +329,7 @@ label act3_3_5:
     echo "Don’t just say it."
     wanderer "Take my hand. Or don’t. I’m not going to make you."
     n "The Echo stares at him through the glass. Then he puts his palm against it, fingers spread. The Wanderer matches him from the other side."
+    $ show_cg_achievement("two_palms")
     scene cg two_palms
     with iris_open
     play sound audio.sfx_glass  # Glass shattering. A thunderclap, not from the sky. A roar of violet light, followed by silence.
