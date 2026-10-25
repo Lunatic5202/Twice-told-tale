@@ -135,7 +135,7 @@ style window:
     yalign gui.textbox_yalign
     ysize gui.textbox_height
     padding (0, 0)
-    background Solid("#090b10f2")
+    background Solid("#090b10b8")
 
 style namebox:
     xpos gui.name_xpos
@@ -257,14 +257,14 @@ style choice_button is default:
     xminimum 420
     yminimum 48
     padding (24, 12)
-    background Solid("#17191ff2")
-    hover_background Solid("#34363cf5")
-    insensitive_background Solid("#17191fcf")
+    background Solid("#111827b8")
+    hover_background Transform("gui/choice_hover_genshin.png", xysize=(gui.choice_button_width, 72))
+    insensitive_background Solid("#11182780")
 
 style choice_button_text is default:
     properties gui.text_properties("choice_button")
-    color "#e6e3dc"
-    hover_color "#ffffff"
+    color "#e8e5df"
+    hover_color "#fff4d2"
     insensitive_color "#777777"
     xalign 0.5
     text_align 0.5
