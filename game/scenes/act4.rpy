@@ -169,13 +169,13 @@ label act4_4_4:
     # THE LAST CHOICE. Gate checks are hidden and applied automatically, unless noted.
 
     menu:
-        "“Let him walk on.” Write the Wanderer’s name on the last line." if (w >= 5 and w > b):
+        "“Let him walk on.” Write the Wanderer’s name on the last line." if gate_wanderer():
             $ _sel_15 = "A"
             jump ending_wanderer
-        "“Let him write himself.” Write the Echo’s name on the last line." if (b >= 5 and b > w):
+        "“Let him write himself.” Write the Echo’s name on the last line." if gate_scaramouche():
             $ _sel_15 = "B"
             jump ending_scaramouche
-        "Put the pen down and write nothing. “The book is theirs. Both of theirs.”" if (m >= 7 and w >= 4 and b >= 4 and pen <= 1 and promise_made):
+        "Put the pen down and write nothing. “The book is theirs. Both of theirs.”" if gate_true():
             $ _sel_15 = "C"
             jump ending_true
         "Let the page decide. Follow the ending you have earned.":
@@ -183,20 +183,20 @@ label act4_4_4:
         "Hand the pen to the Doctor. Always available.":
             $ _sel_15 = "D"
             jump ending_archivist
-        "Tear the Folio in half." if (pen >= 2):
+        "Tear the Folio in half." if gate_burn_it_down():
             $ _sel_15 = "E"
             jump ending_burn_it_down
-        "“Look into the case.”" if (box):
+        "“Look into the case.”" if gate_gnosis_box():
             $ _sel_15 = "F"
             jump ending_gnosis_box
-        "“Follow the burning margin.”" if (promise_made and pen >= 3):
+        "“Follow the burning margin.”" if gate_burned_pages():
             $ _sel_15 = "G"
             $ promise_broken = True
             jump ending_burned_pages
-        "“Leave the page blank.”" if (pen >= 3):
+        "“Leave the page blank.”" if gate_blank_page():
             $ _sel_15 = "H"
             jump ending_blank_page
-        "Leave before the last page is written." if (promise_made and pen < 3):
+        "Leave before the last page is written." if gate_quiet_page():
             $ _sel_15 = "I"
             $ promise_broken = True
             jump ending_quiet_page
