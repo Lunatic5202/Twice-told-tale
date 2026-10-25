@@ -140,6 +140,7 @@ label act2_2_4:
 
     # END OF PAGE-WALK ONE
     n "Act 2, Page-Walk Two: Tatarasuna Betrayal of family. The Wanderer steps two paces inside."
+    $ set_page(18, 12)
     n "DAY 12 · INTERLUDE · The Akademiya Corridor (18 pages left)"
     scene bg green_corridor
     with slide_left
