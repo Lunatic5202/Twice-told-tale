@@ -135,7 +135,7 @@ style window:
     yalign gui.textbox_yalign
     ysize gui.textbox_height
     padding (0, 0)
-    background Solid("#090b10d9")
+    background Solid("#090b10f2")
 
 style namebox:
     xpos gui.name_xpos
@@ -143,8 +143,8 @@ style namebox:
     xsize gui.namebox_width
     ypos gui.name_ypos
     ysize gui.namebox_height
-    background None
-    padding (0, 0)
+    background Frame("gui/namebox.png", gui.namebox_borders, tile=gui.namebox_tile)
+    padding (12, 4)
 
 style say_label:
     properties gui.text_properties("name", accent=True)
@@ -257,9 +257,9 @@ style choice_button is default:
     xminimum 420
     yminimum 48
     padding (24, 12)
-    background Solid("#17191fcf")
-    hover_background Solid("#34363dcc")
-    insensitive_background Solid("#17191f88")
+    background Solid("#17191ff2")
+    hover_background Solid("#34363cf5")
+    insensitive_background Solid("#17191fcf")
 
 style choice_button_text is default:
     properties gui.text_properties("choice_button")
