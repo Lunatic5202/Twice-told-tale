@@ -57,10 +57,35 @@ init python:
             raise Exception("Unknown stat: %r" % (stat,))
 
     def set_page(pages, day=None):
-        """Update the diegetic page counter at the top of a Day."""
+        """Update the diegetic page counter and announce each newly preserved page."""
+        previous_pages = store.pages_left
         store.pages_left = pages
         if day is not None:
             store.current_day = day
+
+        # A decrease means the story has preserved the next page. Keep this
+        # separate from Ren'Py's generic notify screen (saves/screenshots).
+        if pages is not None and previous_pages is not None and pages < previous_pages:
+            if day is None:
+                message = "The first page has been preserved in the Folio."
+            else:
+                message = "Day %s — another piece of the story is preserved." % day
+
+            if renpy.get_screen("page_recorded_notify"):
+                store.page_recorded_queue.append(message)
+            else:
+                renpy.show_screen("page_recorded_notify", message=message)
+                renpy.restart_interaction()
+
+    def advance_page_recorded():
+        """Display queued page-recorded notices one at a time."""
+        if store.page_recorded_queue:
+            message = store.page_recorded_queue.pop(0)
+            renpy.show_screen("page_recorded_notify", message=message)
+            renpy.restart_interaction()
+        else:
+            renpy.hide_screen("page_recorded_notify")
+            renpy.restart_interaction()
 
     def show_title(text, delay=2.0):
         """Show a centred scene-title card and wait for it to fade. The wait is
