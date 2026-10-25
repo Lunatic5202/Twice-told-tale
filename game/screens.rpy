@@ -217,7 +217,8 @@ screen choice(items):
         padding (0, 0)
         xpos int(config.screen_width * 0.96)
         xanchor 1.0
-        yalign 0.5
+        ypos int(config.screen_height * 0.5)
+        yanchor 0.5
         xmaximum gui.choice_button_width + 30
         ysize int(config.screen_height * 0.94)
 
