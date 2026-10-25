@@ -56,7 +56,7 @@ screen ending_card(code="", title="", tone="", line=""):
         null height 14
 
         add "gui/overlay/rule_gold.png":
-            xysize (gui.scale(380), gui.scale(2))
+            xysize (380, 2)
             xalign 0.5
 
         null height 14
