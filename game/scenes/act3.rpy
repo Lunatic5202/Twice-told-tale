@@ -10,11 +10,12 @@ label act3_3_1:
     $ show_title("DAY 22 · SCENE 3.1\nSumeru City, the Akademiya Steps · Morning")
     play music audio.clean_instruments fadein 2.0  # “Clean Instruments”: sterile piano, a metronome underneath.
     # The Wanderer is walking half a step ahead of you. The Echo is a shade at your shoulder, visible only as a tint in the air where he stands.
-    wanderer "Stay between us. Don’t speak to anyone in a white coat."
-    echo "(dry) He means him. He knows no one else here would dare."
-    mc "Is Dottore really in the city?"
-    wanderer "Nahida says he’s registered under a false name at the Hall of Science. Which is the same as shouting it from the rooftops."
-    echo "He wants to be found. He doesn’t do anything he doesn’t want observed."
+    wanderer "Stay between us. And don’t talk to anyone in a white coat."
+    mc "That narrows it down in the Akademiya."
+    echo "He means the Doctor. Try to keep up."
+    wanderer "Nahida says he’s registered under a false name at the Hall of Science."
+    mc "So he wants us to find him."
+    echo "Or he wants us to think we found him. Either way, don’t walk in first."
     # A courier in a gray coat crosses the plaza and presses a small flat case into your hands before you can step away. He is gone into the crowd by the time you look up.
     scene cg black_case
     with iris_open
@@ -175,24 +176,30 @@ label act3_3_3:
     show dottore pleasant at at_center
     with soft_dissolve
     play music audio.the_doctor_s_hour fadein 2.0  # “The Doctor’s Hour”: a clean harpsichord line, played perfectly and with no warmth.
-    dottore "(without turning) You came. Delightful. I had a wager with myself that you wouldn’t."
-    dottore "(turning) The Folio-mender. And the Wanderer, of course. And... ah. There. There. Look at that shimmer behind your shoulder."
-    echo "(from the air, tight) Don’t look at me."
-    dottore "I’m not. I’m observing the empty space where you are. Entirely different."
+    dottore "(without turning) You came. I wasn’t sure you would."
+    dottore "(turning) The Folio-mender. The Wanderer. And the rather interesting gap beside you."
+    echo "(from the air) Stop staring at it."
+    dottore "I’m looking at the room. You happen to be the most interesting thing missing from it."
     # He smiles. The smile goes nowhere near his eyes.
-    dottore "Let’s not waste each other’s evening. I have a Gnosis, which you want. You have a book, which I want. I propose the oldest trade in the world."
+    dottore "I have the Gnosis you came for. You have the book I want. We could save ourselves a great deal of time."
     wanderer "No."
-    dottore "I haven’t said the terms."
-    wanderer "They’ll be monstrous."
-    dottore "They’ll be generous, which is worse."
+    dottore "You haven’t heard the offer."
+    wanderer "I’ve met you."
+    dottore "That does tend to shorten negotiations."
     # He takes a slim vial from his pocket and sets it on the glass table. It glows a pale gold.
-    dottore "You two are a mistake. A beautiful one, perhaps, but a mistake. Two halves of one mind, both desperately overcrowding one little body. I can fix that."
-    dottore "One draught. The Echo is returned to the Wanderer, whole, sealed, quiet. No more arguing at dinner. No more tinting the air. No more ink."
-    dottore "The Wanderer gets his Gnosis back. And the book gets to be mine."
+    dottore "The Echo is unstable. You know that. He’s becoming visible, then solid, then neither. How long do you think he can keep doing that?"
+    echo "Long enough to tell you to go to hell."
+    dottore "Charming. I can stop the instability. One draught, and you’re back where you belong."
+    wanderer "Inside me."
+    dottore "Integrated. Quiet. No more pain for either of you."
+    echo "You mean I stop being a person."
+    dottore "I mean the problem stops being a problem."
     # Silence. The harpsichord ticks on.
-    wanderer "(very low) ...He means to erase him."
-    dottore "I mean to reintegrate him. The word matters."
-    echo "It means the same thing. The word is just a nicer coat."
+    wanderer "(very low) He means to erase you."
+    dottore "I mean to restore the original configuration."
+    echo "I heard you the first time."
+    dottore "Then you understand the offer."
+    echo "I understand you want me to stop answering back."
     # The Echo’s voice has gone thin. The Wanderer’s hand has tightened on his own sleeve.
     # They both look at you.
 
@@ -219,8 +226,8 @@ label act3_3_3:
         with soft_dissolve
         dottore "(delighted) Oh, I knew you’d say that. Pity. I’d already printed the second page of the proposal."
     elif _sel_10 == 'B':
-        dottore "The book belongs to a library, naturally. My library."
-        mc "(inwardly) That isn’t an answer. That’s a menu."
+        dottore "The book belongs in a collection. Mine."
+        mc "(inwardly) He says that like the book has already been packed."
     elif _sel_10 == 'C':
         wanderer "I don’t want to be whole if the price is him."
         echo "(a long beat) ...And I’d like to keep my seat at the table. Small as it is."
@@ -241,13 +248,15 @@ label act3_3_4:
     scene bg lab_glasscube
     with scene_fade
     with shake
-    dottore "(over a speaker, cheerful) I did say I only wanted to talk. I never promised you’d leave while we did."
+    dottore "(over a speaker, cheerful) I said I wanted to talk. I never said you could leave whenever you liked."
     scene cg glass_cell
     with iris_open
     wanderer "(muffled) Let her out!"
     dottore "The Folio, please. The remaining pages are the only thing I need. Slide it through the slot. After that, the Gnosis and the draught are yours."
-    echo "(barely audible, behind the glass) Don’t. Please don’t. He’ll tear the last three pages out and burn the rest."
-    echo "I know what he does. I was there when he did it to me."
+    echo "(barely audible, behind the glass) Don’t give him the book."
+    mc "He’ll hurt you if I don’t."
+    echo "He’ll hurt all of us if you do."
+    echo "I know what he does. I remember the part he leaves out when he tells the story."
     # The glass cube’s walls begin to hum.
     play music audio.clean_instruments fadein 2.0  # “Clean Instruments” returns, but warped. A string tears slowly across it.
 
@@ -290,10 +299,11 @@ label act3_3_5:
     $ show_title("SCENE 3.5\nThe Echo Breaks the Glass")
     scene bg lab_flicker
     with scene_fade
-    echo "I can’t do this alone. I haven’t the strength."
-    wanderer "(through the glass) Then use mine."
-    echo "You’ve never offered before."
-    wanderer "I’ve never needed to."
+    echo "I can’t do this alone."
+    wanderer "(through the glass) I know."
+    echo "Don’t just say it."
+    wanderer "Take my hand. Or don’t. I’m not going to make you."
+    n "The Echo stares at him through the glass. Then he puts his palm against it, fingers spread. The Wanderer matches him from the other side."
     scene cg two_palms
     with iris_open
     play sound audio.sfx_glass  # Glass shattering. A thunderclap, not from the sky. A roar of violet light, followed by silence.
@@ -331,12 +341,17 @@ label act3_3_6:
     # The Wanderer lowers himself to the floor and leans his back against the table. The Echo does the same, a foot away.
     # For a long moment neither speaks.
     wanderer "You held my hand."
-    echo "(sharp) Our hands were on the same wall."
-    wanderer "You held my hand."
-    echo "...Yes."
+    echo "We were trying to break the same wall."
+    wanderer "I know."
+    echo "You keep saying that."
+    wanderer "Because I don’t know what else to say."
+    echo "Then don’t say anything."
     # He pulls his knees up. He looks younger than he ever has.
-    echo "I’m so tired of hating you. It takes more than I have."
-    wanderer "I’m so tired of being afraid of you."
+    echo "I’m tired."
+    wanderer "I know."
+    echo "I said don’t."
+    wanderer "Sorry."
+    n "The Wanderer looks as surprised by the word as the Echo does. Neither of them knows what to do with it, so the Echo leans his head back against the table and closes his eyes."
     # The two of them laugh, once, at the same time, and neither of them knows what to do about it.
 
     # CHOICE: The quiet after.
@@ -387,13 +402,13 @@ label act3_3_6b:
     n "The Echo stands at the parapet, solid enough to cast a shadow. He keeps his hands tucked into his sleeves, as though he is afraid the evening might take them back."
 
     mc "Are you frightened of disappearing?"
-    echo "I'm frightened that I'll disappear and he'll call it peace."
-    wanderer "I wouldn't."
-    echo "You have before."
-    wanderer "I know."
-    echo "I don't need you to say you won't do it again. I need you to notice when you start wanting to."
-    wanderer "Then tell me."
-    echo "I just did."
+    echo "I'm frightened I’ll disappear and you’ll tell yourself it was for the best."
+    wanderer "I wouldn’t."
+    echo "You don’t know that. You thought it before."
+    wanderer "..." 
+    echo "I don’t need a promise. I need you to tell me when you start thinking I’d be easier to live without."
+    wanderer "I can do that."
+    echo "Then do it before I have to ask."
 
     menu:
         "Ask them to make a rule for the last four days.":
