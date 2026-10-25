@@ -16,6 +16,7 @@ default m = 0                # Mend (hidden)
 ## Tracks reliance on the Pen's shortcuts and the Doctor's offers; high values expose compromised endings.
 default pen = 0
 default stat_toast_queue = []  # Queues simultaneous feedback from multi-stat choices.
+default page_recorded_queue = []  # Queues page-recorded banners so they never overlap.
 
 ## Story flags.
 default fixer = False        # Set when the player uses the Pen to "fix" a hurt.
