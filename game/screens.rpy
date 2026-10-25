@@ -262,7 +262,8 @@ style choice_button is default:
     xsize gui.choice_button_width
     xminimum 0
     yminimum 64
-    padding (32, 14)
+    # Keep wrapped captions inside the fixed 72px button artwork.
+    padding (32, 6)
     background Transform("gui/choice_genshin.png", xysize=(gui.choice_button_width, 72))
     hover_background Transform("gui/choice_hover_genshin.png", xysize=(gui.choice_button_width, 72))
     insensitive_background Transform("gui/choice_genshin.png", xysize=(gui.choice_button_width, 72))
@@ -273,7 +274,8 @@ style choice_button_text is default:
     hover_color "#fff4d2"
     insensitive_color "#777777"
     xoffset 20
-    yoffset 6
+    yoffset 2
+    line_spacing -2
     xalign 0.5
     text_align 0.5
     outlines [(1, "#090a0ecc", 0, 1)]
