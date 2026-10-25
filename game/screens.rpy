@@ -218,6 +218,8 @@ screen choice(items):
         xpos int(config.screen_width * 0.96)
         xanchor 1.0
         yalign 0.5
+        # Nudge the whole list up slightly to keep the final button edge visible.
+        yoffset -6
         xmaximum gui.choice_button_width + 30
 
         viewport:
