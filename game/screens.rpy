@@ -212,7 +212,7 @@ screen choice(items):
         padding (0, 0)
         xalign 0.5
         yalign 0.5
-        xmaximum gui.choice_button_width + gui.scale(30)
+        xmaximum gui.choice_button_width + 30
         ymaximum int(config.screen_height * 0.76)
 
         viewport:
@@ -301,22 +301,22 @@ style quick_button_text is button_text
 transform quick_menu_appear:
     subpixel True
     alpha 0.0
-    yoffset gui.scale(18)
+    yoffset 18
     parallel:
         easeout 0.38 alpha 1.0
     parallel:
-        easeout 0.38 yoffset gui.scale(-6)
+        easeout 0.38 yoffset -6
 
 style quick_menu_frame:
     xalign 0.5
     yalign 1.0
-    yoffset gui.scale(-6)
+    yoffset -6
 
     background Solid("#0b0b12cc")
-    padding (gui.scale(26), gui.scale(5))
+    padding (26, 5)
 
 style quick_menu:
-    spacing gui.scale(2)
+    spacing 2
 
 style quick_button:
     properties gui.button_properties("quick_button")
@@ -415,12 +415,12 @@ style navigation_button_text:
 ## sharp at any size and can be glitched on the way in.
 style logo_text is gui_text:
     font gui.logo_font
-    size gui.scale(72)
+    size 72
     color "#ece5d3"
     outlines [(4, "#0a0a14cc", 0, 0)]
 
 style splash_logo_text is logo_text:
-    size gui.scale(176)
+    size 176
     outlines [(5, "#0a0a14cc", 0, 0)]
 
 
@@ -466,11 +466,11 @@ screen page_frame():
 
     ## The border art keeps 48px corners; the 6px-inset rule means the panel is
     ## offset by 42 so the visible rule lands 48px in from the frame edge.
-    $ _off = gui.scale(42)
-    $ _w = gui.scale(1196)
-    $ _h = gui.scale(636)
+    $ _off = 42
+    $ _w = 1196
+    $ _h = 636
 
-    add Frame("gui/overlay/page_border.png", gui.scale(48), gui.scale(48)) at page_edge(0.5) xpos _off ypos _off xysize (_w, _h)
+    add Frame("gui/overlay/page_border.png", 48, 48) at page_edge(0.5) xpos _off ypos _off xysize (_w, _h)
 
 
 screen main_menu():
@@ -511,7 +511,7 @@ screen main_menu():
                 at breathe(1.0, 0.99, 3.6)
 
             add "gui/overlay/rule_gold.png":
-                xysize (gui.scale(440), gui.scale(2))
+                xysize (440, 2)
                 xalign 1.0
                 at rise_in(0.4, 0, 0.8)
 
@@ -532,17 +532,17 @@ style main_menu_version is main_menu_text
 style main_menu_tagline is main_menu_text
 
 style main_menu_frame:
-    xsize gui.scale(280)
+    xsize 280
     yfill True
 
     background "gui/overlay/main_menu.png"
 
 style main_menu_vbox:
     xalign 1.0
-    xoffset gui.scale(-20)
-    xmaximum gui.scale(800)
+    xoffset -20
+    xmaximum 800
     yalign 1.0
-    yoffset gui.scale(-20)
+    yoffset -20
 
 style main_menu_text:
     properties gui.text_properties("main_menu", accent=True)
@@ -556,7 +556,7 @@ style main_menu_version:
 
 style main_menu_tagline:
     properties gui.text_properties("version")
-    size gui.scale(21)
+    size 21
     color "#c9b789"
     outlines [(1, "#0a0a14aa", 0, 0)]
     kerning gui.scale(1.5)
@@ -656,35 +656,35 @@ style return_button is navigation_button
 style return_button_text is navigation_button_text
 
 style game_menu_outer_frame:
-    bottom_padding gui.scale(30)
-    top_padding gui.scale(120)
+    bottom_padding 30
+    top_padding 120
 
     background "gui/overlay/game_menu.png"
 
 style game_menu_navigation_frame:
-    xsize gui.scale(280)
+    xsize 280
     yfill True
 
 style game_menu_content_frame:
-    left_margin gui.scale(40)
-    right_margin gui.scale(20)
-    top_margin gui.scale(10)
+    left_margin 40
+    right_margin 20
+    top_margin 10
 
 style game_menu_viewport:
-    xsize gui.scale(920)
+    xsize 920
 
 style game_menu_vscrollbar:
     unscrollable gui.unscrollable
 
 style game_menu_side:
-    spacing gui.scale(10)
+    spacing 10
 
 style game_menu_label:
-    xpos gui.scale(50)
-    ysize gui.scale(120)
+    xpos 50
+    ysize 120
 
 style game_menu_label_text:
-    size gui.scale(44)
+    size 44
     font gui.title_font
     color gui.accent_color
     yalign 0.5
@@ -692,7 +692,7 @@ style game_menu_label_text:
 style return_button:
     xpos gui.navigation_xpos
     yalign 1.0
-    yoffset gui.scale(-30)
+    yoffset -30
 
 
 ## About screen ################################################################
@@ -871,8 +871,8 @@ transform slot_anim:
         easeout 0.18 zoom 1.035 yoffset -6
 
 style page_label:
-    xpadding gui.scale(50)
-    ypadding gui.scale(3)
+    xpadding 50
+    ypadding 3
     xalign 0.5
 
 style page_label_text:
@@ -913,17 +913,17 @@ screen preferences():
     use game_menu(_("Preferences"), scroll="viewport"):
 
         vbox:
-            spacing gui.scale(10)
+            spacing 10
 
             text _("Tune how the story is read and heard."):
-                size gui.scale(19)
+                size 19
                 color "#9a9284"
 
-            null height gui.scale(4)
+            null height 4
 
             hbox:
                 box_wrap True
-                spacing gui.scale(60)
+                spacing 60
 
                 if renpy.variant("pc") or renpy.variant("web"):
 
@@ -948,11 +948,11 @@ screen preferences():
                     textbutton _("Particle Effects") action ToggleParticles()
                     textbutton _("Accessibility Options") action Preference("accessibility menu")
 
-            null height gui.scale(6)
+            null height 6
 
             hbox:
                 box_wrap True
-                spacing gui.scale(60)
+                spacing 60
 
                 vbox:
                     style_prefix "slider"
@@ -960,7 +960,7 @@ screen preferences():
                     label _("Text Speed")
 
                     hbox:
-                        spacing gui.scale(8)
+                        spacing 8
 
                         text _("Slow") style "pref_end_label" yalign 0.5
                         bar value Preference("text speed")
@@ -969,7 +969,7 @@ screen preferences():
                     label _("Auto-Forward Time")
 
                     hbox:
-                        spacing gui.scale(8)
+                        spacing 8
 
                         text _("Fast") style "pref_end_label" yalign 0.5
                         bar value Preference("auto-forward time")
@@ -1010,7 +1010,7 @@ screen preferences():
                             style "mute_all_button"
 
                 vbox:
-                    spacing gui.scale(6)
+                    spacing 6
 
                     label _("Preview")
 
@@ -1020,7 +1020,7 @@ screen preferences():
                         text _("{i}“The ink remembers what the hand forgets.”{/i}"):
                             style "pref_preview_text"
 
-            null height gui.scale(6)
+            null height 6
 
             textbutton _("Reset to Defaults") action Preference("reset")
 
@@ -1052,13 +1052,13 @@ style mute_all_button_text is check_button_text
 
 style pref_label:
     top_margin gui.pref_spacing
-    bottom_margin gui.scale(2)
+    bottom_margin 2
 
 style pref_label_text:
     yalign 1.0
 
 style pref_vbox:
-    xsize gui.scale(225)
+    xsize 225
 
 style radio_vbox:
     spacing gui.pref_button_spacing
@@ -1081,29 +1081,29 @@ style check_button_text:
     properties gui.text_properties("check_button")
 
 style slider_slider:
-    xsize gui.scale(350)
+    xsize 350
 
 style slider_button:
     properties gui.button_properties("slider_button")
     yalign 0.5
-    left_margin gui.scale(10)
+    left_margin 10
 
 style slider_button_text:
     properties gui.text_properties("slider_button")
 
 style slider_vbox:
-    xsize gui.scale(450)
+    xsize 450
 
 style pref_end_label is gui_text
 style pref_end_label:
-    size gui.scale(16)
+    size 16
     color "#7a7280"
 
 style pref_preview_frame is gui_frame
 style pref_preview_frame:
     background Solid("#0b0b12cc")
-    padding (gui.scale(18), gui.scale(12))
-    xsize gui.scale(300)
+    padding (18, 12)
+    xsize 300
 
 style pref_preview_text is gui_text
 style pref_preview_text:
@@ -1220,7 +1220,7 @@ screen help():
         style_prefix "help"
 
         vbox:
-            spacing gui.scale(15)
+            spacing 15
 
             hbox:
 
@@ -1349,14 +1349,14 @@ style help_text is gui_text
 
 style help_button:
     properties gui.button_properties("help_button")
-    xmargin gui.scale(8)
+    xmargin 8
 
 style help_button_text:
     properties gui.text_properties("help_button")
 
 style help_label:
-    xsize gui.scale(250)
-    right_padding gui.scale(20)
+    xsize 250
+    right_padding 20
 
 style help_label_text:
     size gui.text_size
@@ -1393,7 +1393,7 @@ screen confirm(message, yes_action, no_action):
         vbox:
             xalign .5
             yalign .5
-            spacing gui.scale(30)
+            spacing 30
 
             label _(message):
                 style "confirm_prompt"
@@ -1401,7 +1401,7 @@ screen confirm(message, yes_action, no_action):
 
             hbox:
                 xalign 0.5
-                spacing gui.scale(100)
+                spacing 100
 
                 textbutton _("Yes") action yes_action
                 textbutton _("No") action no_action
@@ -1461,10 +1461,10 @@ screen skip_indicator():
 
     frame:
         style "mode_indicator_frame"
-        ypos gui.scale(16)
+        ypos 16
 
         hbox:
-            spacing gui.scale(6)
+            spacing 6
 
             text _("Skipping") style "mode_indicator_text"
 
@@ -1494,13 +1494,13 @@ style skip_triangle is skip_text
 ## Shared look for the small mode badges (Auto / Skipping) in the corner.
 style mode_indicator_frame is empty
 style mode_indicator_frame:
-    xpos gui.scale(24)
+    xpos 24
     background Solid("#0b0b12cc")
-    padding (gui.scale(16), gui.scale(5))
+    padding (16, 5)
 
 style mode_indicator_text is gui_text
 style mode_indicator_text:
-    size gui.scale(18)
+    size 18
     color gui.accent_color
     font gui.display_font
 
@@ -1516,7 +1516,7 @@ style skip_triangle:
     ## We have to use a font that has the BLACK RIGHT-POINTING SMALL TRIANGLE
     ## glyph in it.
     font "DejaVuSans.ttf"
-    size gui.scale(18)
+    size 18
     color gui.accent_color
 
 
@@ -1779,7 +1779,7 @@ define bubble.expand_area = {
 
 style pref_vbox:
     variant "medium"
-    xsize gui.scale(450)
+    xsize 450
 
 ## Since a mouse may not be present, we replace the quick menu with a version
 ## that uses fewer and bigger buttons that are easier to touch.
@@ -1829,7 +1829,7 @@ style game_menu_outer_frame:
 
 style game_menu_navigation_frame:
     variant "small"
-    xsize gui.scale(340)
+    xsize 340
 
 style game_menu_content_frame:
     variant "small"
@@ -1837,11 +1837,11 @@ style game_menu_content_frame:
 
 style game_menu_viewport:
     variant "small"
-    xsize gui.scale(870)
+    xsize 870
 
 style pref_vbox:
     variant "small"
-    xsize gui.scale(400)
+    xsize 400
 
 style bar:
     variant "small"
@@ -1885,4 +1885,4 @@ style slider_vbox:
 
 style slider_slider:
     variant "small"
-    xsize gui.scale(600)
+    xsize 600
