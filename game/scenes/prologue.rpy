@@ -23,7 +23,7 @@ label prologue_0_1:
     #  and the whole tree held its breath, and" and then a torn edge.]
     scene cg folio_page with iris_open
 
-    mc "A sentence shouldn\u2019t end like that. Nobody should."
+    mc "That’s not a sentence. That’s a torn page with delusions of grandeur."
 
     # [The Pen lies beside the Folio. Gold nib, worn grip. Every apprentice is
     #  issued one.]
@@ -63,7 +63,9 @@ label prologue_0_1:
     # [He turns a full circle. His hand goes to his chest, to the gold feather
     #  there, and stays.]
 
-    echo "Sumeru. The scholars\u2019 coop. Her little garden of books. Is this her trap? It is a poor one."
+    echo "Sumeru. The Akademiya."
+    echo "..."
+    echo "If this is her doing, tell her I’m not impressed."
 
     mc "It\u2019s the Akademiya archive. There\u2019s no trap. There\u2019s a typo. I mean, there was a typo."
 
@@ -133,7 +135,11 @@ label prologue_0_2:
     echo "That isn’t an answer." 
     mc "It’s the one I have."
 
-    mc "Because the page I mended says what happens next. And I wanted to know if you\u2019d like it."
+    mc "Because the page changed again."
+    mc "And because you were still here."
+    echo "I was physically unable to leave."
+    mc "I know. I meant—"
+    echo "Don’t."
 
     echo "And?"
 
