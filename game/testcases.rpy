@@ -340,6 +340,14 @@ testcase gates:
     run Function(_assert_ending_target, "ending_neutral")
     run Function(_set_stats, 4, 4, 6, 0, True)
     run Function(_assert_gate, "none")
+    # Tied high bond scores must not unlock either individual ending.
+    run Function(_set_stats, 5, 5, 6, 0, False)
+    run Function(_assert_gate, "none")
+    run Function(_assert_ending_target, "ending_neutral")
+    # True ending takes priority when tied bond scores both meet its thresholds.
+    run Function(_set_stats, 5, 5, 7, 1, True)
+    run Function(_assert_gate, "true")
+    run Function(_assert_ending_target, "ending_true")
     exit
 
 
