@@ -449,7 +449,7 @@ label act1_montage:
     n "The Echo takes the window seat because the light is better. The Wanderer says he was there first. Neither of them was."
     n "The argument ends when the Echo sits on the Wanderer’s hat by accident. He gets up at once and spends the next five minutes insisting it was deliberate."
 
-    n "The Echo \u201creviews\u201d the Akademiya\u2019s architecture aloud to a lecture hall. A professor takes notes."
+    n "The Echo spends ten minutes explaining why the Akademiya’s architecture is a crime against taste. A professor takes notes. The Wanderer pretends not to listen."
 
     n "The Wanderer shows you how hot the water should be. The Echo takes the first cup before anyone can stop him, burns his tongue, and blames the kettle."
 
@@ -469,11 +469,13 @@ label act1_1_6:
     wanderer "I thought if I disappeared, I could make it someone else’s problem. Or no one’s. I didn’t think past that."
     wanderer "It was a stupid idea. I know that now."
 
-    wanderer "It didn\u2019t work. The history rewrote itself the same way without me. Everyone I\u2019d hurt was still hurt. Everyone who died was still dead. Only I disappeared. And then I came back."
+    wanderer "It didn’t work. History changed around the hole I left. The people I’d hurt were still hurt. The dead were still dead."
+    wanderer "I was the only thing missing."
 
     # [He turns his cup in his hands.]
 
-    wanderer "So now there\u2019s him. The one who still thinks that\u2019s a plan. And I keep asking myself which of us is the real one."
+    wanderer "And now he’s here, still thinking disappearing might fix things."
+    wanderer "I don’t know how to tell him it won’t. I didn’t listen when anyone tried to tell me."
 
     menu choice_1_6:
         "He is not looking at you."
