@@ -219,12 +219,13 @@ screen choice(items):
         xanchor 1.0
         yalign 0.5
         xmaximum gui.choice_button_width + 30
-        ymaximum int(config.screen_height * 0.90)
+        ysize int(config.screen_height * 0.94)
 
         viewport:
             id "choice_viewport"
             yinitial 0.0
-            ymaximum int(config.screen_height * 0.90)
+            ymaximum int(config.screen_height * 0.94)
+            ysize int(config.screen_height * 0.94)
             yfill False
             mousewheel True
             arrowkeys True
@@ -269,7 +270,8 @@ style choice_button_text is default:
     color "#e8e5df"
     hover_color "#fff4d2"
     insensitive_color "#777777"
-    xoffset 8
+    xoffset 14
+    yoffset 3
     xalign 0.5
     text_align 0.5
     outlines [(1, "#090a0ecc", 0, 1)]
