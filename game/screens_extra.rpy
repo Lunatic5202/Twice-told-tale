@@ -260,7 +260,7 @@ screen stat_toast(text="", color="#ffffff"):
 
                 null width 18
 
-        timer 2.4 action Hide("stat_toast")
+        timer 2.4 action Function(advance_stat_toast)
 
 
 ## ----------------------------------------------------------------------------

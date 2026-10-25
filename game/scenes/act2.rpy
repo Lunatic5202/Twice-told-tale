@@ -9,17 +9,25 @@ label act2_2_1:
     $ show_act("II", "The Warm Table")
     $ show_title("DAY 9 · SCENE 2.1\nThe Margin Door")
     play music audio.page_walk fadein 2.0  # “Page-Walk”: a harp, glass chimes, very far away.
-    nahida "(voice only, from the other side) You can see, but not touch. Nothing you do will change what happened. But what you feel leaves a mark on the page."
-    nahida "When the ink cracks, someone has been hurt. Be careful what you stand in."
+    nahida "(voice only, from the other side) You can look. You cannot change what happened."
+    mc "And if we try?"
+    nahida "The memory will not change. You might."
+    nahida "If the ink cracks, stop. It means someone is being hurt. I cannot always tell who."
     # Ahead, a wooden veranda emerges from the mist. A hidden mansion, half swallowed by moss and ferns. A single lantern burns inside.
     scene bg shakkei_pavilion
     with slide_left
     echo "I know this place."
     mc "You do?"
-    echo "I know the ceiling. I counted the cracks in it. There are three hundred and eleven."
+    echo "I know the ceiling. I counted the cracks."
+    mc "How many?"
+    echo "Three hundred and eleven."
+    echo "I had time."
     # The Wanderer stops at the last step of the veranda. He does not cross the threshold. His hand rests on the doorframe, white-knuckled.
     wanderer "I’ll wait here."
-    echo "Of course you will."
+    echo "You always do."
+    wanderer "I came in this far."
+    echo "You’re standing on the step."
+    n "The Wanderer looks down, as if the step has personally betrayed him."
     # He walks in. MC follows.
 
 label act2_2_2:
@@ -44,15 +52,17 @@ label act2_2_2:
     ei "He is weeping."
     miko "Puppets don’t weep."
     ei "This one does. In his sleep."
-    miko "Then it’s a flaw. A flaw is retired. I said so at the start. You won’t like it, but the cleanest thing is to return the wood to the tree."
+    miko "Then someone built him wrong."
+    ei "That is not his fault."
+    miko "No. But it will be his problem if you leave him here."
     # Ei kneels. Her hand hovers over the puppet’s face and does not touch it.
-    ei "He is too gentle to hold a Gnosis. I can see that."
+    ei "He is not ready for a Gnosis."
     show ei serious at at_left
-    ei "But I will not end him."
-    miko "Then what?"
-    ei "Free him."
-    miko "(a careful pause) Free him. In a pavilion no one visits."
-    ei "I will seal his power so it cannot harm him. He may wake when he wishes, and live as he likes."
+    ei "I will not destroy him."
+    miko "That was the easy part of the decision. What comes after?"
+    ei "I will seal his power. He can wake when he wishes and live as he likes."
+    miko "In a pavilion no one visits."
+    ei "I know."
     miko "And if he never wakes?"
     show ei soft at at_left
     ei "(a long breath) Then he will have rest."
@@ -60,15 +70,17 @@ label act2_2_2:
     ei "So that he may know whose he was, if he ever needs to."
     show yae smug at at_right
     miko "Or so that he knows who left him."
-    ei "...Yes. That, too."
+    ei "..." 
+    ei "I hope he never has to wonder."
     hide ei
     hide yae
     with soft_dissolve
     play sound audio.sfx_page
     # The ink on the floor splits: a hairline crack running toward the Echo’s feet.
     echo "Pity."
-    echo "She stood over me and decided I was too soft, and she called it kindness."
-    echo "Pity is the cruelest knife a god owns. It leaves no wound anyone can point to."
+    echo "She looked at me and decided I was too soft to be useful."
+    echo "Then she called leaving me here kindness."
+    n "He rubs his thumb along the seam of his sleeve. Once. Twice. He stops when he notices you looking."
 
     # CHOICE: The crack is spreading. He is looking at you.
     menu:
@@ -84,12 +96,17 @@ label act2_2_2:
             $ bump('b', 1)
 
     if _sel_1 == 'A':
-        echo "(sharply) Clumsy. A clumsy love left me in a closet."
-        mc "(softly) I know. I said clumsy. I didn’t say good."
+        echo "(sharply) She left me in a closet."
+        mc "I know."
+        echo "Then don’t call it love."
+        mc "I didn’t say it was enough."
     elif _sel_1 == 'B':
-        echo "(a short breath, almost a laugh) Hold. Yes. She never learned how."
+        echo "Hold. Yes. She never learned how."
+        echo "Neither did I, I suppose."
     elif _sel_1 == 'C':
-        echo "(a silence that goes on too long) ...I think it was both. I think that is what I cannot forgive."
+        echo "(after a long silence) I don’t know."
+        mc "That’s all right."
+        echo "No, it isn’t. But it’s what I’ve got."
 
 label act2_2_3:
     # DAY 10 · SCENE 2.3 · The Threshold
@@ -100,9 +117,12 @@ label act2_2_3:
     play music audio.what_he_kept fadein 2.0  # “What He Kept”: low strings.
     wanderer "You didn’t need to see that."
     mc "Neither did you."
-    wanderer "I’ve seen it before. Once. In a capsule behind a door Nahida kept. I made myself watch."
-    wanderer "I thought for a very long time she had thrown me away. And then I saw her hand hover, and not touch."
-    wanderer "It doesn’t fix anything. It just means it was never simple."
+    wanderer "I saw it once before. In a capsule Nahida kept."
+    wanderer "I watched the whole thing. Then I watched it again, because apparently once wasn’t enough."
+    mc "Did it help?"
+    wanderer "No."
+    n "He rubs at a spot on the doorframe where the varnish has worn away."
+    wanderer "It made me angrier. Then it made me feel stupid for being angry. Neither was fair to him."
     # He finally steps inside, one pace, and then stops.
     wanderer "That’s all I can manage today. Tell him that."
 
@@ -114,8 +134,11 @@ label act2_2_4:
     with scene_fade
     play music audio.three_hundred_and_eleven fadein 2.0  # “Three Hundred and Eleven”: a music box, played badly on purpose.
     echo "I woke up."
-    echo "Nobody did it for me. I woke up by myself, in the dark, and there was no one. So I counted the ceiling. I counted it again. Three hundred and eleven."
-    echo "I don’t need you to say anything."
+    echo "No one came in. No one said my name. So I counted the cracks in the ceiling."
+    mc "All of them?"
+    echo "Three hundred and eleven."
+    echo "I counted them again when I forgot the number. Then I started over."
+    echo "Don’t make that face. I’m not asking you to feel sorry for me."
 
     # CHOICE: You are sitting nearby. He has not looked at you.
     menu:
@@ -131,10 +154,13 @@ label act2_2_4:
 
     if _sel_2 == 'A':
         echo "Don’t pity me."
-        mc "I don’t. I’m sitting."
+        mc "I’m not."
+        echo "You’re very quiet for someone who isn’t."
+        mc "I’m trying not to make this about me."
     elif _sel_2 == 'B':
-        echo "(takes it) Bitter."
-        mc "I thought you might want it honest tonight."
+        echo "(takes it, sniffs) You made it too strong."
+        mc "I followed the instructions."
+        echo "Then the instructions are wrong."
     elif _sel_2 == 'C':
         echo "(a very small laugh) It counts. It does. I’d like it to count more."
 
@@ -151,29 +177,34 @@ label act2_2_4:
     mc "You remembered the ceiling before you remembered anything else."
     echo "It was there. It didn't ask questions."
     wanderer "I could have come back."
-    echo "You could have done a great many things."
-    wanderer "I know."
-    echo "Stop saying that as if knowing is the same as having carried it."
+    echo "Yes."
+    wanderer "I kept thinking I’d do it when I knew what to say."
+    echo "And did you ever find out?"
+    wanderer "No."
+    echo "Then you could have come back and said nothing."
 
-    n "The Wanderer looks toward the window. He does not leave. It is not an apology, but it is the first time he stays in a room after being told exactly how he failed."
+    n "The Wanderer looks toward the window. His shoulders shift as if he is about to stand. He stays where he is. The Echo notices; he pretends not to."
 
     menu:
         "Ask what the memory got wrong.":
             $ bump("m", 1)
-            mc "A memory can be true and still leave things out. What did it leave out?"
-            echo "The part where I waited for footsteps. Every night, I thought I heard them."
-            wanderer "I did come back once."
-            echo "..."
-            wanderer "I stood outside the door. I heard you counting. I thought if I opened it, I'd have to become someone who knew what to say."
-            echo "So you left."
+            mc "What did the memory leave out?"
+            echo "The waiting. I used to hear footsteps in the corridor and sit up so fast I made myself dizzy."
+            wanderer "I came back once."
+            echo "What?"
+            wanderer "I stood outside the door. I heard you counting."
+            echo "And you left."
             wanderer "Yes."
-            n "The confession does not repair anything. It gives the hurt an actual shape."
+            echo "You could have knocked."
+            wanderer "I know."
+            n "The Wanderer starts to answer again. The Echo lifts one hand, and this time he stops."
         "Ask the Wanderer to stay until the tea is cold.":
             $ bump("w", 1)
             mc "No more explanations tonight. Stay until the tea is cold."
-            wanderer "It already is."
-            echo "Then you have a head start."
-            n "The Wanderer sits. The Echo does not thank him. He does, however, stop watching the door."
+            wanderer "It’s already cold."
+            mc "Then you’ve got no excuse to leave early."
+            echo "She’s learning."
+            n "The Wanderer sits. The Echo keeps his eyes on his cup, but his shoulders ease a fraction."
         "Ask the Echo whether he wants the next memory now.":
             $ bump("b", 1)
             mc "We can stop before the next door."
@@ -186,7 +217,7 @@ label act2_2_4:
 
     n "The Folio lies open between you. Its next page smells faintly of iron and salt. Nobody reaches for it until the rain changes direction."
 
-    n "Act 2, Page-Walk Two: Tatarasuna — betrayal, and the people who tried to make a home anyway."
+    n "The next page smells of iron, salt, and old smoke. Tatarasuna is waiting on the other side."
     $ set_page(18, 12)
     n "DAY 12 · INTERLUDE · The Akademiya Corridor (18 pages left)"
     scene bg green_corridor
@@ -194,8 +225,11 @@ label act2_2_4:
     play music audio.rumors fadein 2.0  # “Rumors”: a clarinet, thin and wary.
     # Two students whisper at a window.
     student "...a Fatui doctor. Asking about old Irminsul records. Nobody’s seen his face."
-    # The Wanderer, walking a few steps ahead, goes completely still. His cup does not spill. He puts it down very, very carefully on the windowsill.
-    wanderer "(to no one) Of course he is."
+    # The Wanderer stops. His cup taps the sill once; he sets it down before it can slip.
+    wanderer "Did they say what he wanted?"
+    student "No. Just asked for records."
+    wanderer "Then stop repeating it in the corridor."
+    # He walks on before the student can answer. He has not looked at either of you.
 
 label act2_2_5:
     # DAY 13 · SCENE 2.5 · The Margin Door, Second Page
@@ -207,7 +241,9 @@ label act2_2_5:
     nahida "(voice only) This is the second room."
     # The Wanderer, behind them, takes one step across the doorway. Then a second. Then stops.
     wanderer "I’ll go as far as I can."
-    echo "(without turning) That’s one more than last time."
+    echo "(without turning) You can stop when you need to."
+    wanderer "I know."
+    echo "I’m saying it so you don’t have to pretend you’re fine."
     scene bg mikage_furnace
     with scene_fade
 
@@ -216,8 +252,12 @@ label act2_2_6:
     $ show_title("SCENE 2.6\nThe Forge")
     # A man with a tied-back topknot and a worn yoriki’s coat leads a barefoot puppet into the yard. A red feather is stitched into his collar.
     katsuragi "Found him wandering by the shore. No name, no people. Poor thing doesn’t even know where he’s from."
-    # He is lying. He leans in and speaks under his breath.
-    katsuragi "(low) Keep that gold feather out of sight. Don’t tell anyone where you really came from. Understand?"
+    # His smile stays in place until the workers turn away.
+    katsuragi "(low) Keep that gold feather hidden. And don’t tell anyone where you came from."
+    puppet "(quietly) Why?"
+    katsuragi "Because I’m asking you to."
+    puppet "That isn’t a reason."
+    katsuragi "No. It isn’t."
     # The puppet nods. He does not understand. He holds the feather close to his chest.
     # [CG: The gold feather turning in the Echo's fingers.]
     show cg gold_feather with soft_dissolve
@@ -227,10 +267,13 @@ label act2_2_6:
     worker "A wandering eccentric, is he? A kabukimono."
     worker2 "Look at the hat. Look at the feet."
     # A broad-shouldered smith with a scarred forearm shoves a hammer into the puppet’s hands.
-    niwa "Hold it like a bird, kid. Not too tight, not too loose. Birds don’t like being strangled."
+    niwa "Hold it like a bird, kid. Not too tight, not too loose. You’re holding it like you want to kill the handle."
     echo "(watching, very quiet) Niwa."
     mc "You knew him."
-    echo "He was the loudest man in the yard. He was never quiet. He taught me how to hold a hammer. He yelled at me when I held it wrong. He yelled when I held it right, because he was proud of me."
+    echo "He was the loudest man in the yard. He taught me to hold a hammer, then complained about how I held it. When I got it right, he complained louder."
+    mc "That sounds like praise."
+    echo "It was. I think."
+    echo "He always made sure I had lunch before he started shouting again."
     play sound audio.sfx_hammer
     with shake
 
@@ -292,7 +335,7 @@ label act2_2_9:
     play music audio.smoke fadein 2.0  # “Smoke”: a single bowed string, distorted.
     n "The crystal marrow is the remains of a serpent. It was never going to burn clean."
     # The puppet runs along the cots, bare feet gone black with soot. He is carrying a bundle of wet cloth.
-    echo "I went to the shrine. They told me to."
+    echo "I went to the shrine. They told me someone there would help."
     scene bg shrine_night
     with scene_fade
     show yae neutral at at_center
@@ -306,7 +349,9 @@ label act2_2_9:
     hide yae
     with soft_dissolve
     # The Echo, watching, makes a tiny sound that is nearly a laugh.
-    echo "She said “immediately.” I believed her for one whole night."
+    echo "She said ‘immediately.’ I waited all night."
+    mc "Did help come?"
+    echo "Not that night."
 
 label act2_2_10:
     # DAY 15 · SCENE 2.10 · The Page as He Remembers It
@@ -315,7 +360,11 @@ label act2_2_10:
     scene bg furnace_yard_warped
     with soft_wipe
     play music audio.what_i_remember fadein 2.0  # “What I Remember”: the Escher motif, played slowly and wrongly.
-    escher "(smooth, sad) I’m very sorry. Niwa has fled. He took his family in the night and left you all to this."
+    escher "Niwa left last night. Took his family and went."
+    puppet "No."
+    escher "I know you trusted him."
+    puppet "He said he would come back."
+    escher "People say a great many things when they want to comfort someone."
     # A wooden box is pressed into the puppet’s hands.
     escher "The furnace needs purging. Take this to the heart of it. You’re the only one who can survive it."
     scene cg puppet_furnace
@@ -422,7 +471,7 @@ label act2_2_12:
         echo "(startled) ...You’d follow me."
         mc "Into a furnace, apparently."
         # END OF PAGE-WALK TWO
-        n "Act 2, Page-Walk Three: The Boy and the Promise Betrayal by mortality. All three walk in together."
+    n "Act 2, Page-Walk Three: The Boy. A promise made by a child, and the life that cannot keep it. All three of you enter together."
 
 label act2_2_13:
     # DAY 18 · SCENE 2.13 · The Margin Door, Third Page
@@ -486,8 +535,9 @@ label act2_2_15:
     with scene_fade
     # The ink around the puppet cracks. Then the ink around the Echo cracks. They are the same crack.
     echo "He promised."
-    echo "He was eight. He wasn’t allowed to promise a thing like that. No one is. No one should be allowed to promise a thing like that to someone who won’t die."
-    echo "There was nobody to hate. I looked. I looked everywhere."
+    echo "He was eight. He thought if he said it firmly enough, it would happen. I let him think that."
+    echo "I was older. I should have known better. I just wanted him to be right."
+    echo "There was nobody to blame. I looked anyway. I kept looking long after I knew there was no one."
 
     # CHOICE: The crack is under all three of you.
     menu:
@@ -518,16 +568,18 @@ label act2_2_16:
     scene bg house_dawn
     with scene_fade
     play music audio.a_smaller_promise fadein 2.0  # “A Smaller Promise”: solo flute, one clear line.
-    echo "Promises are what people say to feel better about leaving."
-    echo "Every one I’ve heard has been a lie, or a mistake, or a funeral."
+    echo "Promises are what people say when they’re leaving."
+    echo "Or when they think they can make someone stop crying."
+    echo "Either way, the person left behind has to live with it."
     mc "Then I’ll make a smaller one."
     echo "Quill."
-    mc "Not forever. Not “always.” Not something a person can’t keep."
-    mc "On the last page, whatever’s happening, wherever I am, I’ll be at the archive door."
-    echo "(a bitter little breath) That’s the cheapest oath I’ve ever heard."
-    mc "It’s the one I can keep."
-    echo "Everyone says that."
-    mc "Then watch."
+    mc "Not forever. Not ‘always.’ I’m not promising something I can’t control."
+    mc "When we reach the last page, I’ll be at the archive door. That’s all I can promise."
+    echo "(a short, humorless laugh) That’s a very small promise."
+    mc "Yes."
+    echo "You think that makes it safer?"
+    mc "I think it makes it possible."
+    echo "..."
 
     # CHOICE: The Promise. All options set PROMISE_MADE (the promise has been made;
     menu:

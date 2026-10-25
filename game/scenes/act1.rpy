@@ -15,11 +15,12 @@ label act1_1_1:
 
     wanderer "...No. No. I haven\u2019t had enough tea for this."
 
-    echo "Quill. Who is the child in my hat?"
+    echo "Quill. Why is there a smaller, badly colored version of me standing over there?"
 
-    wanderer "It is not your hat."
+    wanderer "It’s not your hat."
 
-    echo "It is plainly based on my hat. And the colors are an insult. Teal. Did you lose a bet?"
+    echo "It is plainly based on my hat. The colors, though. Teal?" 
+    echo "Did someone lose a bet, or is this meant to be funny?"
 
     wanderer "Hmph. I\u2019m leaving."
 
@@ -39,27 +40,36 @@ label act1_1_1:
 
     nahida "Good morning, both of you. Please don\u2019t kill each other before I\u2019ve finished explaining. It\u2019s rude to the carpets."
 
-    nahida "Wanderer, that Folio holds the story of what I kept of you. Not the memories themselves, but the tale of them, written in a form nobody else could read. It was never meant to hold two."
+    nahida "Wanderer, the Folio contains the record I kept of you. Not your memories exactly. More like the shape they left behind." 
+    nahida "It was sealed because it wasn’t safe to read. And it was never meant to contain two versions of the same person."
 
     wanderer "Two."
 
-    nahida "A tale can be told twice. Someone has told it twice."
+    nahida "I don’t know how it happened. I know the book has been changed, and I know you’re both here."
 
     # [She looks at MC. Both men look at MC.]
 
-    mc "I wrote one word."
+    mc "I changed one word. I didn’t know it could—" 
+    wanderer "You keep saying that." 
+    mc "Because it’s true." 
+    wanderer "I know. That doesn’t make it better."
 
     nahida "Which one?"
 
     mc "\u201cStayed.\u201d"
 
-    nahida "Well. That explains the draft."
+    nahida "That explains why the ink hasn’t settled." 
+    nahida "It doesn’t explain why it made a person."
 
-    echo "Spare me the metaphors, little god. What am I?"
+    echo "Can we skip the part where you talk around it? What am I?"
 
-    nahida "You are him, in the instant before he put his hand into Irminsul. Everything he knew then, you know. Everything he learned afterward, you do not."
+    nahida "You’re him as he was before Irminsul. You have his memories up to that point." 
+    nahida "The Wanderer remembers what happened after. You don’t."
 
-    echo "Then I am the original. He is the revision."
+    echo "So I’m the original." 
+    wanderer "You’re earlier." 
+    echo "That’s what original means." 
+    wanderer "Not when you’re talking about people."
 
     wanderer "You\u2019re the draft."
 
@@ -68,7 +78,8 @@ label act1_1_1:
     # [A beat. They stare at each other the way two people stare into a mirror
     #  that talks back.]
 
-    nahida "The Folio has thirty pages. One burns each dawn. When the last one goes, the record keeps one name. I have looked, and it cannot keep both."
+    nahida "There are thirty pages. One burns at dawn, whether we touch the book or not." 
+    nahida "When the last page is gone, the Folio will keep one name. I’ve tried to find another way. I haven’t."
 
     wanderer "Then burn it now."
 
@@ -76,7 +87,11 @@ label act1_1_1:
 
     # [The Wanderer's jaw tightens. He says nothing.]
 
-    nahida "One more thing. The Pen can rewrite what the book says. Every line it changes takes the next page with it. Use it sparingly. Or not at all."
+    nahida "The Pen can change the text. Each change costs a page." 
+    mc "You could have mentioned that before I used it." 
+    nahida "I didn’t know you would." 
+    mc "Neither did I." 
+    nahida "I know."
 
     nahida "And no one outside this room learns that there are two. Not yet. The Doctor reads Irminsul the way you read menus."
 
@@ -113,11 +128,12 @@ label act1_1_2:
     show echo amused at at_far_left_crowd with soft_dissolve
     show wanderer guarded at at_far_right_crowd with soft_dissolve
 
-    n "The Echo cannot go more than forty paces from the Folio. The Wanderer will not let the Echo out of his sight. So the Folio goes to lunch, and everyone goes with it."
+    n "The Echo can’t get more than forty paces from the Folio. The Wanderer insists on keeping him in sight. By noon, this means the book has been carried to the courtyard, along with everyone who has made the mistake of getting involved."
 
-    echo "I have walked into a hundred courts. This is the first one with a duck in it."
-
-    wanderer "The duck is a student."
+    echo "Is that a duck?"
+    wanderer "Student."
+    echo "It has a beak."
+    wanderer "So do some students, if you ask the wrong professor."
 
     # [Two familiar silhouettes cross the courtyard. Tighnari first, ears up.
     #  Cyno behind him with a card deck.]
@@ -132,19 +148,19 @@ label act1_1_2:
 
     cyno "Oh, I see. A double act. I\u2019d say that\u2019s a hat trick."
 
-    tighnari "Cyno."
+    tighnari "Please don’t encourage yourself."
 
-    cyno "I was building to it."
+    cyno "It needed a little more time."
 
     # [Tighnari's eyes pass over the Echo. Nothing. No flicker. He does not
     #  know him at all.]
     # [The Echo's smile slips for half a second.]
 
-    echo "The ranger. You look well."
+    echo "You look well."
 
-    tighnari "Have we met?"
+    tighnari "Should we have?"
 
-    echo "...No."
+    echo "...No. Sorry."
 
     # [SFX: A faint chime, like a page turning.]
     play sound audio.sfx_page
@@ -198,7 +214,7 @@ label act1_1_3:
 
     wanderer "I don\u2019t need to eat. That\u2019s different."
 
-    n "He has watched dinner tables for as long as he has had eyes. People lean toward each other across them. They pass the salt without asking."
+    n "The Wanderer has no use for dinner. He says this whenever someone offers him food, which is often enough that people have stopped asking. Still, he keeps looking at the empty place across from him."
 
     # [MC sets two places. Then, after a moment, a third.]
 
@@ -212,13 +228,16 @@ label act1_1_3:
 
     # [SFX: A teapot, a poured cup. Steam.]
 
-    wanderer "Try the tea."
+    wanderer "You’re holding the cup wrong." 
+    echo "I’m holding it by the handle." 
+    wanderer "You’re holding it like you expect it to insult you."
 
     echo "It\u2019s bitter."
 
     wanderer "That\u2019s the point."
 
-    echo "It tastes like swallowing something."
+    echo "It tastes like the water the tea was boiled in." 
+    wanderer "That is, in fact, how tea is made."
 
     wanderer "It\u2019s the true flavor of life. It takes a while."
 
@@ -268,6 +287,7 @@ label act1_1_4:
     wanderer "Your ears need maintenance. Mine did, a few weeks ago. You\u2019re a draft. Nobody ever serviced you."
 
     echo "I do not need a seamstress."
+    wanderer "Good. I’m terrible at sewing."
 
     wanderer "You need a very small screwdriver and someone patient. I\u2019m neither. So."
 
@@ -320,6 +340,9 @@ label act1_1_5:
     wanderer "Not yet."
 
     echo "You have the keys and you hide the doors."
+    wanderer "Because you keep trying every handle."
+    echo "One of them might open."
+    wanderer "That’s what I’m worried about."
 
     wanderer "I hide them because I know what\u2019s behind them."
 
@@ -331,7 +354,7 @@ label act1_1_5:
         "They are both looking at you."
 
         "\u201cHe\u2019s right. You\u2019re not ready.\u201d":
-            $ bump("w", 1)
+            $ bump("m", -1)
             echo "Ah. So you\u2019re his."
             wanderer "(not meeting her eyes) ...That isn\u2019t what she said."
 
@@ -360,22 +383,22 @@ label act1_1_5b:
 
     n "You find the Wanderer in the narrow aisle between the shelves. He has taken the Folio from the table but has not opened it. The Echo stands at the far end of the aisle, pretending to inspect a book whose title is upside down."
 
-    mc "You both said something honest. Neither of you said what happens next."
+    mc "You both managed one honest sentence. What am I supposed to do with that?"
 
     wanderer "There isn't a next. There is a list of things we don't touch."
-    echo "His list. He made it years ago. It is very comprehensive. It includes doors, names, and any question with more than one answer."
+    echo "His list. Very thorough. Names, doors, anything he can’t answer in one word."
 
     wanderer "You want the list? Fine. I don't open the pages about Tatarasuna unless I have to. I don't speak about the puppet before the Shogun gave him a name. I don't—"
     echo "You don't say my name."
 
-    n "The Wanderer stops. His fingers press into the cover until the leather bends."
+    n "The Wanderer’s thumb catches on the edge of the cover. He keeps worrying at the same spot until the leather starts to crease."
 
     wanderer "I don't know which name is mine to give you."
-    echo "You could start with the one you used when you wanted me to come back."
-    wanderer "I never asked you to come back."
-    echo "Exactly."
+    echo "You knew what to call me before."
+    wanderer "I didn’t ask you to come back."
+    echo "No. You didn’t."
 
-    n "The word lands harder than a shout. For a moment, even the lamp seems to quiet."
+    n "The Echo looks away first. The Wanderer opens his mouth, then shuts it again. Somewhere outside, a cart rattles over the stones."
 
     menu:
         "Ask the Wanderer to open one page—not the worst one, just one.":
@@ -383,9 +406,9 @@ label act1_1_5b:
             $ bump("m", 1)
             mc "Not the whole story. One page. You can stop whenever you need to."
             wanderer "And if he reads it?"
-            echo "I am standing right here."
-            wanderer "That is what I am afraid of."
-            echo "(after a pause) I know."
+            echo "I’m standing right here."
+            wanderer "I know. That’s the problem."
+            echo "(quietly) I know."
             n "The Wanderer opens the Folio to a page of ordinary handwriting: a list of repairs, a note about rain, a sentence crossed out so thoroughly it has cut the paper."
             wanderer "I remember writing this. I don't remember why I crossed it out."
             mc "Then we don't have to decide tonight."
@@ -395,7 +418,7 @@ label act1_1_5b:
             mc "If you could read every page, what would you be looking for?"
             echo "Proof."
             mc "Of what?"
-            echo "That I was not only the part he regretted."
+            echo "That I wasn’t just the part he wanted gone."
             n "He looks at the Wanderer as if daring him to contradict it."
             wanderer "You were never only that."
             echo "You don't get to make that true by saying it now."
@@ -423,11 +446,12 @@ label act1_montage:
     show echo amused at at_left with soft_dissolve
     show wanderer flustered at at_right with soft_dissolve
 
-    n "The Echo and the Wanderer fight over the window seat. The Echo wins by sitting on the Wanderer\u2019s hat."
+    n "The Echo takes the window seat because the light is better. The Wanderer says he was there first. Neither of them was."
+    n "The argument ends when the Echo sits on the Wanderer’s hat by accident. He gets up at once and spends the next five minutes insisting it was deliberate."
 
-    n "The Echo \u201creviews\u201d the Akademiya\u2019s architecture aloud to a lecture hall. A professor takes notes."
+    n "The Echo spends ten minutes explaining why the Akademiya’s architecture is a crime against taste. A professor takes notes. The Wanderer pretends not to listen."
 
-    n "The Wanderer teaches MC to brew tea at the correct temperature. The Echo steals the first cup."
+    n "The Wanderer shows you how hot the water should be. The Echo takes the first cup before anyone can stop him, burns his tongue, and blames the kettle."
 
     jump act1_1_6
 
@@ -441,13 +465,17 @@ label act1_1_6:
     play music audio.which_of_us fadein 2.0
     show wanderer soft at at_center with soft_dissolve
 
-    wanderer "I tried to erase myself, once. From Irminsul. From history. To undo what had happened."
+    wanderer "I tried to erase myself from Irminsul. I thought if I was gone, the things I’d done might be gone too."
+    wanderer "I thought if I disappeared, I could make it someone else’s problem. Or no one’s. I didn’t think past that."
+    wanderer "It was a stupid idea. I know that now."
 
-    wanderer "It didn\u2019t work. The history rewrote itself the same way without me. Everyone I\u2019d hurt was still hurt. Everyone who died was still dead. Only I disappeared. And then I came back."
+    wanderer "It didn’t work. History changed around the hole I left. The people I’d hurt were still hurt. The dead were still dead."
+    wanderer "I was the only thing missing."
 
     # [He turns his cup in his hands.]
 
-    wanderer "So now there\u2019s him. The one who still thinks that\u2019s a plan. And I keep asking myself which of us is the real one."
+    wanderer "And now he’s here, still thinking disappearing might fix things."
+    wanderer "I don’t know how to tell him it won’t. I didn’t listen when anyone tried to tell me."
 
     menu choice_1_6:
         "He is not looking at you."

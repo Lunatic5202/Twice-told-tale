@@ -12,9 +12,10 @@ label prologue_0_1:
     if not renpy.music.get_playing("music"):
         play music audio.marginalia fadein 2.0
 
-    n "Everyone in the archive knows about the Folio. Nobody has read it. It sits in a cabinet that hums, and for three months it has waited for someone with steady hands and no sense of self-preservation."
+    n "The senior archivists have a name for the book in the locked cabinet: Folio Zero. They also have a rule about it. Don’t open it. Don’t move it. If it starts humming, fetch someone senior." 
+    n "It has been humming for three months. The senior archivists are all very busy."
 
-    n "That is you."
+    n "You were the only apprentice still in the building."
 
     mc "Folio Zero. \u201cFairy tale, encrypted. Subject: one wanderer.\u201d Page eleven. The sentence just stops."
 
@@ -22,15 +23,15 @@ label prologue_0_1:
     #  and the whole tree held its breath, and" and then a torn edge.]
     scene cg folio_page with iris_open
 
-    mc "A sentence shouldn\u2019t end like that. Nobody should."
+    mc "That’s not a sentence. That’s a torn page with delusions of grandeur."
 
     # [The Pen lies beside the Folio. Gold nib, worn grip. Every apprentice is
     #  issued one.]
     scene bg annex_night with soft_dissolve
 
-    n "Rule one of the archive: mend what is torn, and never change what is written. The Pen can do both. Only one of them is allowed."
+    n "The rule is written above the workbench in letters large enough to read from the door: MEND WHAT IS TORN. DO NOT ALTER THE TEXT. The Pen in your hand was issued with the rule. Nobody explained what happens if you break it."
 
-    mc "Just the last word. Just so it can breathe."
+    mc "One word. It needs an ending."
 
     # [SFX: Nib on paper. One word, written in her own hand: "stayed."]
     play sound audio.sfx_pen
@@ -50,16 +51,21 @@ label prologue_0_1:
 
     echo "...Hm."
 
-    echo "The Gnosis is gone. The floor is not a floor I recognize. And you are holding a feather pen like a woman about to be hanged for it."
+    echo "The Gnosis is gone." 
+    echo "This floor is wrong." 
+    echo "And you—" 
+    echo "You look like you’re about to faint. Don’t. I have questions, and I’m not carrying you to the infirmary."
 
     mc "You\u2014you came out of the book."
 
-    echo "I came out of something. Be precise, scribbler, it is the only thing your kind is good for."
+    echo "I came out of a book, apparently. Don’t look so pleased with yourself, scribbler."
 
     # [He turns a full circle. His hand goes to his chest, to the gold feather
     #  there, and stays.]
 
-    echo "Sumeru. The scholars\u2019 coop. Her little garden of books. Is this her trap? It is a poor one."
+    echo "Sumeru. The Akademiya."
+    echo "..."
+    echo "If this is her doing, tell her I’m not impressed."
 
     mc "It\u2019s the Akademiya archive. There\u2019s no trap. There\u2019s a typo. I mean, there was a typo."
 
@@ -69,7 +75,9 @@ label prologue_0_1:
 
     # [He laughs. It is the laugh of someone who has run out of other options.]
 
-    echo "Fine. What do I call the hand that did this? You have a name."
+    echo "Fine. What do I call you?" 
+    mc "I—" 
+    echo "You have a name. Start there."
 
     # MC (name entry): the player types a name here. The Echo ignores it for
     # the rest of the prologue.
@@ -77,7 +85,9 @@ label prologue_0_1:
         _entered = renpy.input("{i}What is your name?{/i}", default="", length=24, exclude="{}[]").strip()
         if _entered:
             mc_name = _entered
-    echo "Quill. You will be Quill. Names are cheap. I have had four."
+    echo "Quill, then." 
+    mc "That’s not my—" 
+    echo "I didn’t ask what your mother called you. It’s what I’m calling you until this gets less ridiculous."
 
     # [He strides toward the archive door. At the threshold he stops as if he
     #  has walked into glass.]
@@ -97,9 +107,13 @@ label prologue_0_1:
 
     n "He stays within forty paces of the book. Wherever it goes, he goes."
 
-    echo "A leash."
-
-    echo "I am leashed to a library book."
+    echo "Move the book."
+    n "You move it a handspan to the left. He follows, stops, and stares at the space between himself and the door."
+    echo "Move it back."
+    mc "You just told me to—"
+    echo "I know what I told you. Move it back."
+    n "You do. He exhales through his nose."
+    echo "A leash. Wonderful. I’ve always wanted to be house-trained."
 
     jump prologue_0_2
 
@@ -112,13 +126,20 @@ label prologue_0_2:
     play music audio.marginalia_dawn fadein 2.0
     show echo cold at at_left with soft_dissolve
 
-    echo "You did not run for help."
+    echo "You didn’t fetch anyone."
 
-    mc "I thought about it."
+    mc "I got as far as the stairs."
 
-    echo "You thought about it, and then you sat down and read the book. Tell me why."
+    echo "And then you came back." 
+    mc "I heard you trying the door." 
+    echo "That isn’t an answer." 
+    mc "It’s the one I have."
 
-    mc "Because the page I mended says what happens next. And I wanted to know if you\u2019d like it."
+    mc "Because the page changed again."
+    mc "And because you were still here."
+    echo "I was physically unable to leave."
+    mc "I know. I meant—"
+    echo "Don’t."
 
     echo "And?"
 

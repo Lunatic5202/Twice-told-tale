@@ -13,8 +13,9 @@ default w = 0                # Wanderer Bond
 default b = 0                # Balladeer (Scaramouche / the Echo) Bond
 default m = 0                # Mend (hidden)
 
-## The Editor's Pen. Each use of the Pen to rewrite the page increments this.
+## Tracks reliance on the Pen's shortcuts and the Doctor's offers; high values expose compromised endings.
 default pen = 0
+default stat_toast_queue = []  # Queues simultaneous feedback from multi-stat choices.
 
 ## Story flags.
 default fixer = False        # Set when the player uses the Pen to "fix" a hurt.
