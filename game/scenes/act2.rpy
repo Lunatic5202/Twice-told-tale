@@ -35,11 +35,13 @@ label act2_2_2:
     $ show_title("SCENE 2.2\nThe Sleeping Room")
     scene bg tatami_room
     with slide_left
+    $ show_cg_achievement("sleeping_puppet")
     scene cg sleeping_puppet
     with iris_open
     play music audio.slumber fadein 2.0  # “Slumber”: solo shamisen, then silence.
     echo "(very quiet) Hm. They made me smaller than I remember."
     # Footsteps. The screens slide open. Two women enter. One in purple and silver, her expression a grief held very still. The other in white and red, ears forward, a small curve to her mouth.
+    $ show_cg_achievement("raiden_yae")
     scene cg raiden_yae
     with scene_fade
     pause
@@ -260,6 +262,7 @@ label act2_2_6:
     katsuragi "No. It isn’t."
     # The puppet nods. He does not understand. He holds the feather close to his chest.
     # [CG: The gold feather turning in the Echo's fingers.]
+    $ show_cg_achievement("gold_feather")
     show cg gold_feather with soft_dissolve
     pause
     hide cg with soft_dissolve
@@ -283,6 +286,7 @@ label act2_2_7:
     scene bg furnace_yard_night
     with scene_fade
     play music audio.sword_dance fadein 2.0  # “Sword Dance”: shamisen and drum, joyous and a little reckless.
+    $ show_cg_achievement("sword_dance")
     scene cg sword_dance
     with scene_fade
     niwa "(shouting over the music) Kabukimono! Show them how a wanderer dances!"
@@ -367,6 +371,7 @@ label act2_2_10:
     escher "People say a great many things when they want to comfort someone."
     # A wooden box is pressed into the puppet’s hands.
     escher "The furnace needs purging. Take this to the heart of it. You’re the only one who can survive it."
+    $ show_cg_achievement("puppet_furnace")
     scene cg puppet_furnace
     with iris_open
     play sound audio.sfx_roar
@@ -392,6 +397,7 @@ label act2_2_11:
     play sound audio.sfx_roar
     with quake
     # Later. Niwa’s workbench, the hammer still on it. A scrap of paper under the hammer.
+    $ show_cg_achievement("niwa_note")
     scene cg niwa_note
     with iris_open
     echo "..."
@@ -505,6 +511,7 @@ label act2_2_14:
     echo "I never corrected him."
     # Inside, the boy has stopped coughing. He pulls a crumpled paper from under his pillow and holds it up.
     boy "I drew it. For when the sickness is gone."
+    $ show_cg_achievement("child_drawing")
     scene cg child_drawing
     with iris_open
     boy "You’ll live there. With me. As family."
@@ -515,6 +522,7 @@ label act2_2_14:
     # He holds out a small hand, little finger crooked.
     boy "Promise. We’ll live together. Always."
     # The puppet stares at the finger. After a long moment, he hooks his own around it.
+    $ show_cg_achievement("hooked_pinkies")
     scene cg hooked_pinkies
     with scene_fade
     puppet "...Promise."
@@ -531,6 +539,7 @@ label act2_2_15:
     scene bg small_house_dark
     with scene_fade
     # The puppet stands in the doorway, holding the satchel. He doesn’t come in.
+    $ show_cg_achievement("empty_bed")
     scene cg empty_bed
     with scene_fade
     # The ink around the puppet cracks. Then the ink around the Echo cracks. They are the same crack.
