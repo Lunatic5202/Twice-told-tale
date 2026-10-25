@@ -360,7 +360,11 @@ label act2_2_10:
     scene bg furnace_yard_warped
     with soft_wipe
     play music audio.what_i_remember fadein 2.0  # “What I Remember”: the Escher motif, played slowly and wrongly.
-    escher "(smooth, sad) I’m very sorry. Niwa has fled. He took his family in the night and left you all to this."
+    escher "Niwa left last night. Took his family and went."
+    puppet "No."
+    escher "I know you trusted him."
+    puppet "He said he would come back."
+    escher "People say a great many things when they want to comfort someone."
     # A wooden box is pressed into the puppet’s hands.
     escher "The furnace needs purging. Take this to the heart of it. You’re the only one who can survive it."
     scene cg puppet_furnace
@@ -531,7 +535,8 @@ label act2_2_15:
     with scene_fade
     # The ink around the puppet cracks. Then the ink around the Echo cracks. They are the same crack.
     echo "He promised."
-    echo "He was eight. He wasn’t allowed to promise a thing like that. No one is. No one should be allowed to promise a thing like that to someone who won’t die."
+    echo "He was eight. He thought if he said it firmly enough, it would happen. I let him think that."
+    echo "I was older. I should have known better. I just wanted him to be right."
     echo "There was nobody to blame. I looked anyway. I kept looking long after I knew there was no one."
 
     # CHOICE: The crack is under all three of you.
