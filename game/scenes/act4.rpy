@@ -36,6 +36,7 @@ label act4_4_1:
     wanderer "That’s what I have. I’m not going to dress it up."
     echo "Say it again."
     wanderer "I’m sorry I left you there."
+    $ show_cg_achievement("echo_bowed")
     scene cg echo_bowed
     with iris_open
 
@@ -138,6 +139,7 @@ label act4_4_3:
     play music audio.the_old_dawn fadein 2.0  # “The Old Dawn”: strings rising from nothing, a drumbeat, soft, in the distance.
     # You stand at the door. The Folio is under your arm. Behind you, the Wanderer and the Echo stand shoulder to shoulder, in the same weak light.
     # The street is empty. Then it isn’t.
+    $ show_cg_achievement("doctor_lane")
     scene cg doctor_lane
     with door_blinds
     dottore "Good morning. You came after all."
