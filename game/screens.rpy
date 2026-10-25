@@ -258,7 +258,7 @@ style choice_button is default:
     yminimum 48
     padding (24, 12)
     background Solid("#111827b8")
-    hover_background Solid("#26364ddd")
+    hover_background Transform("gui/choice_hover_genshin.png", xysize=(gui.choice_button_width, 72))
     insensitive_background Solid("#11182780")
 
 style choice_button_text is default:
