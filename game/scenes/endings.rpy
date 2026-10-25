@@ -261,8 +261,8 @@ label ending_blank_page:
     # The two figures stand on either side of you. Their outlines tremble, not like ink running, but like a drawing waiting for its artist to decide whether it should remain.
     mc "I wanted to help."
     wanderer "I know."
-    mc "I thought if I found the right words—"
-    wanderer "Wanting to help isn’t the same as knowing what someone needs."
+    mc "I thought words might help."
+    wanderer "Sometimes they do. Sometimes you have to ask what someone needs first."
     # The Echo looks at the last line. There is room for his name. Room for the Wanderer’s. Room for both. The page waits, patient and terrible.
     echo "I won’t ask you to save me by deciding what I’m allowed to become."
     mc "Then what do you want me to write?"
