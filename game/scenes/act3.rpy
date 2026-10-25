@@ -168,7 +168,7 @@ label act3_3_2b:
 
 label act3_3_3:
     # DAY 24 · SCENE 3.3 · The Hall of Science · Night
-    $ set_page(7, 24)
+    $ set_page(6, 24)
     $ show_title("DAY 24 · SCENE 3.3\nThe Hall of Science · Night")
     scene bg lab_white
     with squares_wipe
@@ -319,7 +319,7 @@ label act3_3_5:
 
 label act3_3_6:
     # DAY 25 · SCENE 3.6 · The Annex · Dawn
-    $ set_page(6, 25)
+    $ set_page(5, 25)
     $ show_title("DAY 25 · SCENE 3.6\nThe Annex · Dawn")
     scene bg annex_dawn
     with scene_fade
@@ -365,7 +365,7 @@ label act3_3_6:
 
 label act3_3_6b:
     # DAY 26 · SCENE 3.6B · The Akademiya Rooftop · Dusk
-    $ set_page(5, 26)
+    $ set_page(4, 26)
     $ show_title("DAY 26 · SCENE 3.6B\nThe Akademiya Rooftop · Dusk")
     scene bg rooftop_night
     with scene_fade
@@ -426,7 +426,7 @@ label act3_3_6b:
 
 label act3_3_7:
     # DAY 27 · SCENE 3.7 · The Rooftop of the Annex · Evening
-    $ set_page(4, 27)
+    $ set_page(3, 27)
     $ show_title("DAY 27 · SCENE 3.7\nThe Rooftop of the Annex · Evening")
     scene bg rooftop_night
     with scene_fade
