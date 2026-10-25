@@ -28,7 +28,7 @@ label ending_shared_beat:
 
 label ending_wanderer:
     $ record_ending("wanderer")
-    call ending_shared_beat
+    call ending_shared_beat from _call_ending_shared_beat
     # ENDING A · THE WANDERER ENDING · “Her Name”
     scene bg annex_day
     with scene_fade
@@ -50,16 +50,16 @@ label ending_wanderer:
 
     # The closing ritual: the name of the ending fades up, then the
     # ending plate, then the credits.
-    call ending_title_card("wanderer")
+    call ending_title_card("wanderer") from _call_ending_title_card
     scene cg ending_wanderer with Dissolve(2.2)
     pause 4.5
-    call ending_epilogue()
+    call ending_epilogue() from _call_ending_epilogue
 
     return
 
 label ending_scaramouche:
     $ record_ending("scaramouche")
-    call ending_shared_beat
+    call ending_shared_beat from _call_ending_shared_beat_1
     # ENDING B · THE SCARAMOUCHE ENDING · “The Lamp-Keeper”
     scene bg annex_day
     with scene_fade
@@ -83,16 +83,16 @@ label ending_scaramouche:
 
     # The closing ritual: the name of the ending fades up, then the
     # ending plate, then the credits.
-    call ending_title_card("scaramouche")
+    call ending_title_card("scaramouche") from _call_ending_title_card_1
     scene cg ending_scaramouche with Dissolve(2.2)
     pause 4.5
-    call ending_epilogue()
+    call ending_epilogue() from _call_ending_epilogue_1
 
     return
 
 label ending_true:
     $ record_ending("true")
-    call ending_shared_beat
+    call ending_shared_beat from _call_ending_shared_beat_2
     # ENDING C · THE TRUE ENDING · “The Passenger”
     scene bg white_page
     with scene_fade
@@ -136,10 +136,10 @@ label ending_true:
 
     # The closing ritual: the name of the ending fades up, then the
     # ending plate, then the credits.
-    call ending_title_card("true")
+    call ending_title_card("true") from _call_ending_title_card_2
     scene cg ending_true with Dissolve(2.2)
     pause 4.5
-    call ending_epilogue()
+    call ending_epilogue() from _call_ending_epilogue_2
 
     return
 
@@ -176,10 +176,10 @@ label ending_gnosis_box:
 
     # The closing ritual: the name of the ending fades up, then the
     # ending plate, then the credits.
-    call ending_title_card("gnosis_box")
+    call ending_title_card("gnosis_box") from _call_ending_title_card_3
     scene cg gnosis_violet with Dissolve(2.2)
     pause 4.5
-    call ending_credits()
+    call ending_credits() from _call_ending_credits
 
     return
 
@@ -218,10 +218,10 @@ label ending_burned_pages:
 
     # The closing ritual: the name of the ending fades up, then the
     # ending plate, then the credits.
-    call ending_title_card("burned_pages")
+    call ending_title_card("burned_pages") from _call_ending_title_card_4
     scene cg first_page_burn with Dissolve(2.2)
     pause 4.5
-    call ending_credits()
+    call ending_credits() from _call_ending_credits_1
 
     return
 
@@ -260,16 +260,16 @@ label ending_blank_page:
 
     # The closing ritual: the name of the ending fades up, then the
     # ending plate, then the credits.
-    call ending_title_card("blank_page")
+    call ending_title_card("blank_page") from _call_ending_title_card_5
     scene cg blank_dot with Dissolve(2.2)
     pause 4.5
-    call ending_credits()
+    call ending_credits() from _call_ending_credits_2
 
     return
 
 label ending_neutral:
     $ record_ending("neutral")
-    call ending_shared_beat
+    call ending_shared_beat from _call_ending_shared_beat_3
     # NEUTRAL ENDING · “Margins”
     scene bg white_page_street
     with scene_fade
@@ -294,10 +294,10 @@ label ending_neutral:
 
     # The closing ritual: the name of the ending fades up, then the
     # ending plate, then the credits.
-    call ending_title_card("neutral")
+    call ending_title_card("neutral") from _call_ending_title_card_6
     scene cg folio_page with Dissolve(2.2)
     pause 4.5
-    call ending_epilogue()
+    call ending_epilogue() from _call_ending_epilogue_3
 
     return
 
@@ -321,10 +321,10 @@ label ending_archivist:
 
     # The closing ritual: the name of the ending fades up, then the
     # ending plate, then the credits.
-    call ending_title_card("archivist")
+    call ending_title_card("archivist") from _call_ending_title_card_7
     scene cg folio_black with Dissolve(2.2)
     pause 4.5
-    call ending_credits()
+    call ending_credits() from _call_ending_credits_3
 
     return
 
@@ -345,10 +345,10 @@ label ending_burn_it_down:
 
     # The closing ritual: the name of the ending fades up, then the
     # ending plate, then the credits.
-    call ending_title_card("burn_it_down")
+    call ending_title_card("burn_it_down") from _call_ending_title_card_8
     scene cg margin_door_shut with Dissolve(2.2)
     pause 4.5
-    call ending_credits()
+    call ending_credits() from _call_ending_credits_4
 
     return
 
@@ -374,10 +374,10 @@ label ending_quiet_page:
 
     # The closing ritual: the name of the ending fades up, then the
     # ending plate, then the credits.
-    call ending_title_card("quiet_page")
+    call ending_title_card("quiet_page") from _call_ending_title_card_9
     scene cg empty_bed with Dissolve(2.2)
     pause 4.5
-    call ending_credits()
+    call ending_credits() from _call_ending_credits_5
 
     return
 
@@ -391,6 +391,6 @@ label ending_epilogue:
     # The hand closes the cover. The title fades in:
     n "TWICE-TOLD TALE"
     # CREDITS ROLL.
-    call ending_credits()
+    call ending_credits() from _call_ending_credits_6
 
     return
