@@ -164,6 +164,9 @@ screen credits_roll():
 
     modal True
 
+    ## The page counter belongs to the story, not the credits.
+    on "show" action Hide("page_counter")
+
     ## A veil rather than a wall, so the ending plate still breathes behind
     ## the roll.
     add Solid("#08080fe6")
