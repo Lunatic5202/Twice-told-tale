@@ -21,6 +21,7 @@ label prologue_0_1:
 
     # [CG: Close on the page. The line reads "...and he reached out his hand,
     #  and the whole tree held its breath, and" and then a torn edge.]
+    $ show_cg_achievement("folio_page")
     scene cg folio_page with iris_open
 
     mc "That’s not a sentence. That’s a torn page with delusions of grandeur."
@@ -46,6 +47,7 @@ label prologue_0_1:
     # [CG: A figure steps out of the ink. A red and purple jacket, a veil
     #  printed with a single character, a mask on the hat. His eyes are shut.
     #  They open.]
+    $ show_cg_achievement("prologue_echo")
     scene cg prologue_echo with soft_dissolve
     show echo sneer at at_center with soft_dissolve
 
@@ -154,6 +156,7 @@ label prologue_0_2:
 
     # [CG: The first page burns. A small ring of ash, a counter on the cover
     #  turning from 30 to 29.]
+    $ show_cg_achievement("first_page_burn")
     scene cg first_page_burn with soft_dissolve
     $ set_page(29)
 
@@ -171,6 +174,7 @@ label prologue_0_2:
     show wanderer neutral at at_right with soft_dissolve
 
     # [CG: The Wanderer in the doorway, cup halfway to his mouth.]
+    $ show_cg_achievement("prologue_tea")
     show cg prologue_tea with soft_dissolve
     pause
     hide cg with soft_dissolve
