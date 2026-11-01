@@ -92,7 +92,7 @@ python3 tools/make_art.py --montage  # write tools/out/montage.png contact sheet
 python3 tools/import_sheets.py --install   # slice the expression sheets into sprites
 ```
 
-Audio is fetched from OpenGameArt (all CC0) and normalized to Ogg Vorbis:
+Audio sources are listed as CC0 in the project credits and normalized to Ogg Vorbis. The individual source-page URLs and license evidence still need verification before redistribution:
 
 ```sh
 bash tools/fetch_music.sh
