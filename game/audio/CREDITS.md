@@ -1,9 +1,15 @@
 # Audio Credits — Twice-Told Tale
 
-All audio shipped with the game is **CC0 (public domain)** unless noted. CC0
-requires no attribution, but sources are listed here for provenance and to make
-replacement easy. Files were fetched and normalized to Ogg Vorbis by
-`tools/fetch_music.sh` and `tools/fetch_sfx.sh`.
+The source tracks below are **identified by the project as CC0**, and the
+download scripts fetch and normalize them to Ogg Vorbis. This file currently
+records source track names and OpenGameArt.org as the origin, but it does not
+preserve each asset's individual source-page URL, uploader, or a copy of the
+license statement. Verify each source page and license before redistribution;
+do not rely on the CC0 label here as independently verified legal evidence.
+
+Where possible, add the individual asset-page URL, creator/uploader, exact
+license identifier, and the date the license was checked. Keep a copy of the
+license evidence with the project records.
 
 ## Music (OpenGameArt.org, CC0)
 
