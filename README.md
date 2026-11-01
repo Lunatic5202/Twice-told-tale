@@ -142,3 +142,7 @@ Each `test` invocation runs a single named testcase.
 The repository contains a substantial scripted story, galleries, asset-generation/import tools and Ren'Py test cases. The narrative's planned act/ending structure should not be confused with a fully playtested release on every platform. Before publishing a build, run Ren'Py lint and the relevant smoke, route, gallery and ending test cases listed above, then launch the game in the target Ren'Py version and verify UI, audio and save behavior.
 
 The asset inventory and replacement instructions live in [ASSETS.md](ASSETS.md). Keep credits and license notes aligned with replaced art, fonts, music or sound effects. This is a non-commercial fan work and is not affiliated with HoYoverse.
+
+## License and intellectual property
+
+No project-wide license is granted for this fan work. Original code and story material remain with their respective authors; characters, settings, names, and other franchise elements remain the property of their respective rights holders. Fonts, music, sound effects, and other third-party assets retain their own licenses and credits as documented in [ASSETS.md](ASSETS.md) and the audio credits. This repository does not grant permission to redistribute third-party materials or imply affiliation with HoYoverse.
