@@ -135,3 +135,10 @@ Each `test` invocation runs a single named testcase.
   (freeware, non-commercial — fine here, since the game is non-commercial).
 - **Engine & GUI** — [Ren'Py](https://www.renpy.org/) (MIT) and its default GUI
   template.
+
+
+## Story content vs. playable build
+
+The repository contains a substantial scripted story, galleries, asset-generation/import tools and Ren'Py test cases. The narrative's planned act/ending structure should not be confused with a fully playtested release on every platform. Before publishing a build, run Ren'Py lint and the relevant smoke, route, gallery and ending test cases listed above, then launch the game in the target Ren'Py version and verify UI, audio and save behavior.
+
+The asset inventory and replacement instructions live in [ASSETS.md](ASSETS.md). Keep credits and license notes aligned with replaced art, fonts, music or sound effects. This is a non-commercial fan work and is not affiliated with HoYoverse.
